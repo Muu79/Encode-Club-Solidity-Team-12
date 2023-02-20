@@ -17,6 +17,7 @@ contract HelloWorld {
         _;
     }
 
+	/// Reset state sell after ownership transfer
     modifier afterTransfer {
         _;
         sell = false;
@@ -29,16 +30,19 @@ contract HelloWorld {
 		amount = 0 ether;
     }
     
+	/// The contract can recieve payment without function calls
+	/// @dev incase pooling is needed to purchase ownership
 	receive() external payable {
 		emit Received(msg.sender, msg.value);
 	}
 
-	// This function is for fallback cases
+	/// Fallback for wrong signature
     fallback(bytes calldata input) external returns (bytes memory output) {
     	output = abi.encodePacked("Failed to get function: ",input);
     }
 
     /// Purchase ownership
+	/// Buy ownership for `amount`
     /// @dev Checks balance in contract is greater than specified amount
 	function buyOwnership() public payable afterTransfer {
 		require(address(this).balance >= amount);
@@ -55,6 +59,7 @@ contract HelloWorld {
     /// Transfer ownership to another address
     /// @param _owner Address of new owner
     function transferOwnership(address _owner) public onlyOwner afterTransfer {
+		require(_owner != owner, "Cannot transfer ownership to self");
         owner = _owner;
     }
 
