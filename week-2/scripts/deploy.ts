@@ -1,4 +1,5 @@
 import { ethers } from "hardhat";
+import { Ballot__factory } from "../typechain-types/factories/Ballot__factory";
 
 function convertStringArrayToBytes32(array: string[]) {
   const bytes32Array = [];
@@ -13,17 +14,13 @@ async function main() {
   const proposals = args.slice(2);
   if (proposals.length <= 0) throw new Error("Missing parameters: proposals");
 
-  const provider = new ethers.providers.InfuraProvider(
-    "goerli",
-    process.env.INFURA_API_KEY
-  );
+  const provider = new ethers.providers.InfuraProvider("goerli", process.env.INFURA_API_KEY);
 
   const privateKey = process.env.PRIVATE_KEY;
-  if (!privateKey || privateKey.length <= 0)
-    throw new Error("Missing environment: Mnemonic seed");
+  if (!privateKey || privateKey.length <= 0) throw new Error("Missing environment: Mnemonic seed");
   const wallet = new ethers.Wallet(privateKey);
   console.log(`Connected to the wallet address ${wallet.address}`);
-const signer = wallet.connect(provider);
+  const signer = wallet.connect(provider);
   const balance = await signer.getBalance();
   console.log(`Wallet balance: ${balance} Wei`);
 
@@ -35,16 +32,11 @@ const signer = wallet.connect(provider);
 
   const ballotContractFactory = new Ballot__factory(signer);
   console.log("Deploying contract ...");
-  const ballotContract = await ballotContractFactory.deploy(
-    convertStringArrayToBytes32(proposals)
-  );
+  const ballotContract = await ballotContractFactory.deploy(convertStringArrayToBytes32(proposals));
   const deployTxReceipt = await ballotContract.deployTransaction.wait();
-  console.log(
-    `The Ballot contract was deployed at the address ${ballotContract.address}`
-  );
+  console.log(`The Ballot contract was deployed at the address ${ballotContract.address}`);
   console.log({ deployTxReceipt });
 }
-
 
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
@@ -52,4 +44,3 @@ main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
-
