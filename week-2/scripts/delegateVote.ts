@@ -21,8 +21,8 @@ async function delegateVote() {
     //dev wallet setup
     /*
     const signer = (await ethers.getSigners())[0]
-    const ballContractFactory = await ethers.getContractFactory("Ballot");
-    const ballContract = await ballContractFactory.deploy(convertStringArrayToBytes32(["test1", "test2"]));
+    const ballotContractFactory = await ethers.getContractFactory("Ballot");
+    const ballotContract = await ballContractFactory.deploy(convertStringArrayToBytes32(["test1", "test2"]));
     */
 
     //test-net wallet setup
@@ -32,12 +32,12 @@ async function delegateVote() {
     const wallet = new ethers.Wallet(privateKey);
     console.log(`Connected to the wallet address ${wallet.address}`);
     const signer = wallet.connect(provider);
-    const ballContract = new ethers.Contract(contractAddress, ballotABI, signer);
+    const ballotContract = new ethers.Contract(contractAddress, ballotABI, signer);
     
     
-    const canDelegateVote = (await ballContract.voters(delegateAddress))[1];
+    const canDelegateVote = (await ballotContract.voters(delegateAddress))[1];
     if(!canDelegateVote) throw new Error("Contract error: Delegate address doesn't have the right to vote")
-    const tx = await ballContract.connect(signer).delegate(delegateAddress);
+    const tx = await ballotContract.connect(signer).delegate(delegateAddress);
     console.log(tx);
 }
 
