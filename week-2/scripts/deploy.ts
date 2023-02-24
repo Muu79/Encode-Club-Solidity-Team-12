@@ -19,7 +19,6 @@ async function main() {
     "goerli",
     process.env.INFURA_API_KEY
   );
-  console.log(process.env)
   const privateKey = process.env.PRIVATE_KEY;
   if (!privateKey || privateKey.length <= 0) throw new Error("Missing environment: Mnemonic seed");
   const wallet = new ethers.Wallet(privateKey);
