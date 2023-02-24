@@ -1,26 +1,23 @@
 import { ethers } from "hardhat";
-import { boolean } from "hardhat/internal/core/params/argumentTypes";
-import { Ballot__factory } from "../typechain-types";
+import { convertStringArrayToBytes32 } from "./utils";
 
 const ballotABI = require("../contracts/Ballot.json")
 
 require("dotenv").config();
 
-function convertStringArrayToBytes32(array: string[]) {
-  const bytes32Array = [];
-  for (let index = 0; index < array.length; index++) {
-    bytes32Array.push(ethers.utils.formatBytes32String(array[index]));
-  }
-  return bytes32Array;
-}
+
 
 async function main() {
   // We recive the delegate address and isDev which indicates if we 
   // should use a localhost providor
   const [delegateAddress, isDev] = process.argv.slice(2, 4);
   const contractAddress: any = process.env.CONTRACT_ADDRESS;
-  if (!contractAddress) throw new Error("Missing environment: Contract Address")
-  if (!delegateAddress) throw new Error("Missing parameters: Address to delegate vote to")
+
+  // Checking that the required addresses exist and are valid
+  if (!contractAddress) throw new Error("Missing Environment: Contract Address")
+  else if (!ethers.utils.isAddress(contractAddress)) throw new Error(`Enviroment Variable Error: ${contractAddress} is not a valid address.`)
+  if (!delegateAddress) throw new Error("Missing Parameters: Address to delegate vote to")
+  else if (!ethers.utils.isAddress(delegateAddress)) throw new Error(`Enviroment Variable Error: ${delegateAddress} is not a valid address.`)
 
   let ballotContract, signer;
   //dev wallet setup
@@ -42,14 +39,18 @@ async function main() {
     signer = wallet.connect(provider);
     ballotContract = new ethers.Contract(contractAddress, ballotABI, signer);
   }
-  
+
   //Ballot.sol reverts without reason if delegate cannot vote
   //so we catch this before reversion and return a meanigful error
   const canDelegateVote = (await ballotContract.voters(delegateAddress))[3];
-  if (!canDelegateVote) throw new Error("Contract error: Delegate address doesn't have the right to vote")
-  //
-  const tx = await ballotContract.connect(signer).delegate(delegateAddress);
+  if (!canDelegateVote) throw new Error(`Contract Error: Delegate address: ${delegateAddress} doesn't have the right to vote`)
+
+  //Wait for tx to be included 
+  const deligation = await ballotContract.connect(signer).delegate(delegateAddress);
+  const tx = deligation.wait();
+  
   console.log(tx);
+  console.log(`delegated vote from: ${signer.address}\nto: ${delegateAddress}`);
 }
 
 main().catch(error => {
