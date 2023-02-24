@@ -1,13 +1,17 @@
-# Sample Hardhat Project
+# Team 12 Week 2 Ballot Project
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+## Setup
 
-Try running some of the following tasks:
+This project uses npm to install dependencies. `npm install`
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.ts
+It also requires you to have a local .env file placed into the source directory with the following format (this can also be found in the .env.example file)
+```.env
+MNEMONIC="here is where your twelve words mnemonic should be put my friend"
+PRIVATE_KEY="<your private key here if you don't have a mnemonic seed>"
+INFURA_API_KEY="********************************"
+INFURA_API_SECRET="********************************"
+ALCHEMY_API_KEY="********************************"
+ETHERSCAN_API_KEY="********************************"
+CONTRACT_ADDRESS="The address of the contract you create using the deploy script"
 ```
+
