@@ -1,4 +1,5 @@
 import { ethers } from "hardhat";
+import { Ballot__factory } from "../typechain-types";
 
 function convertStringArrayToBytes32(array: string[]) {
   const bytes32Array = [];
@@ -23,7 +24,7 @@ async function main() {
     throw new Error("Missing environment: Mnemonic seed");
   const wallet = new ethers.Wallet(privateKey);
   console.log(`Connected to the wallet address ${wallet.address}`);
-const signer = wallet.connect(provider);
+  const signer = wallet.connect(provider);
   const balance = await signer.getBalance();
   console.log(`Wallet balance: ${balance} Wei`);
 
