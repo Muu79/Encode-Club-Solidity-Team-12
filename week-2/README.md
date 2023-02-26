@@ -19,42 +19,44 @@ ETHERSCAN_API_KEY="********************************"
 
 ## Running scripts
 
-Hardhat test
+### Hardhat test
 
-```
-npm run test
+```bash
+npx hardhat test
 ```
 
 ## Running scripts with arguments
 
-Deploying a contract with arguments
+### Deploying a contract with arguments
 
+```bash
+npx ts-node --files .\scripts\deploy.ts [proposals]
 ```
-npm run deploy "arg1" "arg2" "arg3"
-```
+replace `[propsals]` with a list of proposals with a space between them
 
-Giving right to vote
+### Giving right to vote
 
+```bash
+npx ts-node --files .\scripts\giveRightToVote.ts <contract-address> [addresses]
 ```
-npm run giveRight <contract-address> <address>
-```
+replace `[addresses]` with one or more addresses you would like to give the right to vote.
 
-Delegating vote
+### Delegating vote
 
-```
-npm run delegate <contract-address> <address> <true/false>
-```
-
-Casting vote
-
-```
-npm run castVote <contract-address> <Proposal>
+```bash
+npx ts-node --files .\scripts\delegateVote.ts <contract-address> <address> 
 ```
 
-Querying results
+### Casting vote
 
+```bash
+npx ts-node --files .\scripts\castVote.ts <contract-address> <Proposal>
 ```
-npm run queryResults <contract-address>
+
+### Querying results
+
+```bash
+npx ts-node --files .\scripts\giveRightToVote.ts <contract-address>
 ```
 
 ## Report
