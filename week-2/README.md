@@ -12,7 +12,6 @@ INFURA_API_KEY="********************************"
 INFURA_API_SECRET="********************************"
 ALCHEMY_API_KEY="********************************"
 ETHERSCAN_API_KEY="********************************"
-CONTRACT_ADDRESS="The address of the contract you create using the deploy script"
 ```
 
 ## Report
