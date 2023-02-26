@@ -1,16 +1,9 @@
 import { ethers } from 'hardhat'
 import { Ballot__factory } from '../typechain-types'
+import { bytesToString, isAddressValid } from './utils'
 require('dotenv').config()
 
 const { INFURA_API_KEY, PRIVATE_KEY } = process.env
-
-function isAddressValid(address: string) {
-  return ethers.utils.isAddress(address)
-}
-
-function bytesToString(bytes: string) {
-  return ethers.utils.parseBytes32String(bytes)
-}
 
 async function main() {
   const args = process.argv.slice(2)
