@@ -16,6 +16,7 @@ INFURA_API_SECRET="********************************"
 ALCHEMY_API_KEY="********************************"
 ETHERSCAN_API_KEY="********************************"
 ```
+You must at minium add your private key and either your infura or alchemy API tokens
 
 ## Running scripts
 
