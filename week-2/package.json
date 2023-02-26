@@ -1,18 +1,23 @@
 {
-  "name": "ETH_bootcamp",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^2.0.1",
-    "hardhat": "^2.12.7",
-    "dotenv": "^16.0.3",
-    "mocha": "^10.2.0"
-  }
+	"name": "ETH_bootcamp",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "npx hardhat test",
+		"deploy": "npx ts-node --files ./scripts/deploy.ts",
+		"giveRight": "npx ts-node --files ./scripts/giveRightToVote.ts",
+		"delegate": "npx ts-node --files ./scripts/delegateVote.ts",
+		"queryResults": "npx ts-node --files ./scripts/queryResults.ts",
+		"castVote": "npx ts-node --files ./scripts/castVote.ts"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@nomicfoundation/hardhat-toolbox": "^2.0.1",
+		"hardhat": "^2.12.7",
+		"dotenv": "^16.0.3",
+		"mocha": "^10.2.0"
+	}
 }
