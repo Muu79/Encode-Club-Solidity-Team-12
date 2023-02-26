@@ -22,14 +22,11 @@ async function main() {
   console.log(`Connected to the wallet address ${wallet.address}`);
 
   // initialising the contract
-  const ballotContractFactory = new Ballot__factory(signer);
-  // const contract = await ethers.getContractAt("Ballot", contractAddress, signer);
+  const ballotContractFactory = new Ballot__factory(signer);  
   const contract = ballotContractFactory.attach(contractAddress);
 
   // giving vote right
   console.log(`Connected to contract ${contractAddress} and giving vote right to ${voter}`);
-
-  console.log(voter);
 
   // calling giveRightToVote on contract
   const voteRight = await contract.giveRightToVote(voter);
