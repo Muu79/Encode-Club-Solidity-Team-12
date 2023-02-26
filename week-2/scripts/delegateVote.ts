@@ -1,6 +1,6 @@
 import { ethers } from "hardhat";
 import { Ballot__factory } from "../typechain-types";
-import { convertStringArrayToBytes32 } from "./utils";
+import { convertStringArrayToBytes32, fallbackProvider } from "./utils";
 
 const ballotABI = require("../contracts/Ballot.json")
 
@@ -31,7 +31,7 @@ async function main() {
 
   //test-net wallet and signer setup
   else {
-    const provider = new ethers.providers.InfuraProvider("goerli", process.env.INFURA_API_KEY);
+    const provider = fallbackProvider();
     const privateKey = process.env.PRIVATE_KEY;
     if (!privateKey || privateKey.length <= 0) throw new Error("Missing environment: Private Key");
     const wallet = new ethers.Wallet(privateKey);
