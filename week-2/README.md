@@ -4,6 +4,8 @@
 
 This project uses npm to install dependencies. `npm install`
 
+Wait for it to install, then use `npx hardhat compile`
+
 It also requires you to have a local .env file placed into the source directory with the following format (this can also be found in the .env.example file)
 
 ```.env
