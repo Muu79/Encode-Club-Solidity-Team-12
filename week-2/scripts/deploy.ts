@@ -1,24 +1,15 @@
 import { ethers } from "hardhat";
 import { Ballot__factory } from "../typechain-types";
+import { convertStringArrayToBytes32, fallbackProvider } from "./utils";
 require("dotenv").config();
 
-function convertStringArrayToBytes32(array: string[]) {
-  const bytes32Array = [];
-  for (let index = 0; index < array.length; index++) {
-    bytes32Array.push(ethers.utils.formatBytes32String(array[index]));
-  }
-  return bytes32Array;
-}
 
 async function main() {
   const args = process.argv;
   const proposals = args.slice(2);
   if (proposals.length <= 0) throw new Error("Missing parameters: proposals");
 
-  const provider = new ethers.providers.InfuraProvider(
-    "goerli",
-    process.env.INFURA_API_KEY
-  );
+  const provider = fallbackProvider();
   const privateKey = process.env.PRIVATE_KEY;
   if (!privateKey || privateKey.length <= 0) throw new Error("Missing environment: Mnemonic seed");
   const wallet = new ethers.Wallet(privateKey);
