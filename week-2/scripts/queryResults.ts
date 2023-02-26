@@ -17,9 +17,8 @@ async function main() {
   const provider = fallbackProvider();
 
   const wallet = new ethers.Wallet(PRIVATE_KEY)
-  console.log(`Connected to the wallet address ${wallet.address}`)
   const signer = wallet.connect(provider)
-  console.log(`Wallet address connected: ${wallet.address}`)
+  console.log(`Connected to the wallet address ${wallet.address}`)
 
   const ballotContractFactory = new Ballot__factory(signer)
   const contract = ballotContractFactory.attach(deployedContractAddress)
