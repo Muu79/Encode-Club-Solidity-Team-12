@@ -2,8 +2,6 @@ import { ethers } from "hardhat";
 import { Ballot__factory } from "../typechain-types";
 import { convertStringArrayToBytes32, fallbackProvider } from "./utils";
 
-const ballotABI = require("../contracts/Ballot.json")
-
 require("dotenv").config();
 
 
