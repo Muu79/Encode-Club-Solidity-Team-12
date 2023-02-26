@@ -28,7 +28,6 @@ async function main() {
 
   // initialising the contract
   const ballotContractFactory = new Ballot__factory(signer);
-  // const contract = await ethers.getContractAt("Ballot", contractAddress, signer);
   const contract = ballotContractFactory.attach(contractAddress);
 
   // giving vote right
