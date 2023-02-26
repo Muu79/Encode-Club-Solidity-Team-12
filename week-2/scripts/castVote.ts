@@ -1,6 +1,7 @@
 import { ethers } from "ethers";
 import * as dotenv from "dotenv";
 import { Ballot__factory } from "../typechain-types";
+import { fallbackProvider } from "./utils";
 dotenv.config();
 
 async function main() {
@@ -16,7 +17,7 @@ async function main() {
     const wallet = new ethers.Wallet(privateKey);
     
     // connecting to provider and getting wallet
-    const provider = new ethers.providers.InfuraProvider("goerli", process.env.INFURA_API_KEY);
+    const provider = fallbackProvider();
     const signer = wallet.connect(provider);
     console.log(`Connected to wallet address ${wallet.address}`);
 

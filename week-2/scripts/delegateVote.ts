@@ -1,5 +1,6 @@
 import { ethers } from "hardhat";
-import { convertStringArrayToBytes32 } from "./utils";
+import { Ballot__factory } from "../typechain-types";
+import { convertStringArrayToBytes32, fallbackProvider } from "./utils";
 
 const ballotABI = require("../contracts/Ballot.json")
 
@@ -8,10 +9,9 @@ require("dotenv").config();
 
 
 async function main() {
-  // We recive the delegate address and isDev which indicates if we 
-  // should use a localhost providor
-  const [delegateAddress, isDev] = process.argv.slice(2, 4);
-  const contractAddress: any = process.env.CONTRACT_ADDRESS;
+  // We recive the delegate address, contract address  
+  // and isDev which indicates if we should use a localhost providor
+  const [delegateAddress, contractAddress, isDev] = process.argv.slice(2, 5);
 
   // Checking that the required addresses exist and are valid
   if (!contractAddress) throw new Error("Missing Environment: Contract Address")
@@ -31,13 +31,14 @@ async function main() {
 
   //test-net wallet and signer setup
   else {
-    const provider = new ethers.providers.InfuraProvider("goerli", process.env.INFURA_API_KEY);
+    const provider = fallbackProvider();
     const privateKey = process.env.PRIVATE_KEY;
     if (!privateKey || privateKey.length <= 0) throw new Error("Missing environment: Private Key");
     const wallet = new ethers.Wallet(privateKey);
     console.log(`Connected to the wallet address ${wallet.address}`);
     signer = wallet.connect(provider);
-    ballotContract = new ethers.Contract(contractAddress, ballotABI, signer);
+    const ballotContractFactory = new  Ballot__factory(signer);
+    ballotContract = ballotContractFactory.attach(contractAddress);
   }
 
   //Ballot.sol reverts without reason if delegate cannot vote
@@ -46,7 +47,7 @@ async function main() {
   if (!canDelegateVote) throw new Error(`Contract Error: Delegate address: ${delegateAddress} doesn't have the right to vote`)
 
   //Wait for tx to be included 
-  const deligation = await ballotContract.connect(signer).delegate(delegateAddress);
+  const deligation = await ballotContract.delegate(delegateAddress);
   const tx = deligation.wait();
   
   console.log(tx);

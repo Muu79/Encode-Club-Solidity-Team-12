@@ -1,16 +1,9 @@
 import { ethers } from 'hardhat'
 import { Ballot__factory } from '../typechain-types'
+import { bytesToString, fallbackProvider, isAddressValid } from './utils'
 require('dotenv').config()
 
-const { INFURA_API_KEY, PRIVATE_KEY } = process.env
-
-function isAddressValid(address: string) {
-  return ethers.utils.isAddress(address)
-}
-
-function bytesToString(bytes: string) {
-  return ethers.utils.parseBytes32String(bytes)
-}
+const { PRIVATE_KEY } = process.env
 
 async function main() {
   const args = process.argv.slice(2)
@@ -21,7 +14,7 @@ async function main() {
 
   if (!PRIVATE_KEY) throw new Error('Missing Private Key')
 
-  const provider = new ethers.providers.InfuraProvider('goerli', INFURA_API_KEY)
+  const provider = fallbackProvider();
 
   const wallet = new ethers.Wallet(PRIVATE_KEY)
   console.log(`Connected to the wallet address ${wallet.address}`)

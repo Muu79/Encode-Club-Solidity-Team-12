@@ -1,6 +1,7 @@
 import { ethers } from "hardhat";
 import * as dotenv from "dotenv";
 import { Ballot__factory } from "../typechain-types/factories/Ballot__factory";
+import { fallbackProvider } from "./utils";
 dotenv.config();
 
 async function main() {
@@ -13,7 +14,7 @@ async function main() {
   if (!ethers.utils.isAddress(contractAddress) && !ethers.utils.isAddress(voter)) throw new Error("Not a valid address!");
 
   // connecting to provider and wallet
-  const provider = new ethers.providers.InfuraProvider("goerli", process.env.INFURA_API_KEY);
+  const provider = fallbackProvider();
 
   const privateKey = process.env.PRIVATE_KEY;
   if (!privateKey || privateKey.length <= 0) throw new Error("Missing environment: Private key");
@@ -22,7 +23,7 @@ async function main() {
   console.log(`Connected to the wallet address ${wallet.address}`);
 
   // initialising the contract
-  const ballotContractFactory = new Ballot__factory(signer);  
+  const ballotContractFactory = new Ballot__factory(signer);
   const contract = ballotContractFactory.attach(contractAddress);
 
   // giving vote right
