@@ -17,7 +17,7 @@ async function main() {
   const deployedContractAddress = args[0]
 
   if (!deployedContractAddress || !isAddressValid(deployedContractAddress))
-    throw new Error('Invalid Or Missing Required Arguments')
+    throw new Error('Invalid Or Missing Required Argument: Contract address')
 
   if (!PRIVATE_KEY) throw new Error('Missing Private Key')
 
@@ -26,8 +26,7 @@ async function main() {
   const wallet = new ethers.Wallet(PRIVATE_KEY)
   console.log(`Connected to the wallet address ${wallet.address}`)
   const signer = wallet.connect(provider)
-  const balance = await signer.getBalance()
-  console.log(`Wallet balance: ${balance} Wei`)
+  console.log(`Wallet address connected: ${wallet.address}`)
 
   const ballotContractFactory = new Ballot__factory(signer)
   const contract = ballotContractFactory.attach(deployedContractAddress)
