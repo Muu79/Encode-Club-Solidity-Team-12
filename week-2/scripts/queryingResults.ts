@@ -30,7 +30,7 @@ async function main() {
   const index = await contract.winningProposal();
   const proposal = await contract.proposals(index);
   const win = proposal.voteCount;
-  if (win ==0 ) throw new Error("Missing Votes: No votes have been casted")
+  if (win.toNumber() == 0 ) throw new Error("Missing Votes: No votes have been casted")
   const winnerName = ethers.utils.parseBytes32String(proposal.name);
   console.log(`${winnerName} has won by ${win} votes.`);
 }
