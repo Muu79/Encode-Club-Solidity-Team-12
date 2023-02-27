@@ -7,7 +7,6 @@ declare global {
 			INFURA_API_SECRET: string;
 			ALCHEMY_API_KEY: string;
 			ETHERSCAN_API_KEY: string;
-			CONTRACT_ADDRESS: string;
 		}
 	}
 }

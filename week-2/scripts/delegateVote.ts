@@ -5,7 +5,7 @@ import { fallbackProvider } from './utils';
 dotenv.config();
 
 async function main() {
-	// getting arguments: ballot contract address and proposal index (from 0 to 2)
+	// getting arguments: ballot contract address and delegate address index (from 0 to 2)
 	const args = process.argv.slice(2);
 	const contractAddress = args[0];
 	const delegate = args[1];
@@ -35,9 +35,11 @@ async function main() {
 
 	// Delegate
 	console.log('Delegating ...');
+	//Ballot.sol reverts without reason if delegate cannot vote
+	//so we catch this before reversion and return a meanigful error
 	const canDelegateVote = await contract.voters(delegate);
 	// Voters cannot delegate to accounts that cannot vote.
-	if (canDelegateVote[0].toNumber() < 1)
+	if (canDelegateVote.weight.toNumber() < 1)
 		throw new Error(
 			`Contract Error: Delegate address: ${delegate} doesn't have the right to vote`
 		);
