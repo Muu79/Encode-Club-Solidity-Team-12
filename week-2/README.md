@@ -63,6 +63,12 @@ npm run queryResults <contract-address>
 
 ## Report
 
+### Testing
+
+17 test conditions tested in `HRE`, before deploying contract to `goerli` net.
+
+![CLI Hardhat Runtime Environment test result screenshot](./docs/test.png "HRE test result")
+
 ### Our Names and Addresses
 
 Muaaz Bhyat - 0xA7951A334F5BfAd8A614a6948454149C9Ce9B162
@@ -101,15 +107,15 @@ Stefan has implicit voting rights as contract deployer
 
 ### Voting
 
-[Nauman voted for proposal[0]: Proposal 1](https://goerli.etherscan.io/tx/0xdab9d18f3e4b4ddf5e3ba58af7dd77a5ca981972392d03b819ba8679e3442f5a)
+[Nauman voted for proposal [^0]](https://goerli.etherscan.io/tx/0xdab9d18f3e4b4ddf5e3ba58af7dd77a5ca981972392d03b819ba8679e3442f5a)
 
-[Katya voted for proposal[1]: Proposal 2](https://goerli.etherscan.io/tx/0x65d9734cf1ee5094e0a23e2e8c651f50b97b3688394ceca4aa2682dc6d8f8050)
+[Katya voted for proposal [^1]](https://goerli.etherscan.io/tx/0x65d9734cf1ee5094e0a23e2e8c651f50b97b3688394ceca4aa2682dc6d8f8050)
 
-[Stefan voted for proposal[1]: Proposal 2](https://goerli.etherscan.io/tx/0xa139c835217a1fd9b4e220b49fc8705db4e2d42293b3c2e366ae821a9dd1eae1)
+[Stefan voted for proposal [^1]](https://goerli.etherscan.io/tx/0xa139c835217a1fd9b4e220b49fc8705db4e2d42293b3c2e366ae821a9dd1eae1)
 
-[Kaleb voted for proposal[1]: Proposal 2](https://goerli.etherscan.io/tx/0x2a887a2e4eeba6d80c77c2fa808bb110454b60303c25c84c2f83435f5377ca4e)
+[Kaleb voted for proposal [^1]](https://goerli.etherscan.io/tx/0x2a887a2e4eeba6d80c77c2fa808bb110454b60303c25c84c2f83435f5377ca4e)
 
-[Eyassu voted for proposal[0]: Proposal 1](https://goerli.etherscan.io/tx/0x085db4973d5e1e3f2a1cd1fa6a7578f290b99791259dae6601e452f7072cbccb)
+[Eyassu voted for proposal [^0]](https://goerli.etherscan.io/tx/0x085db4973d5e1e3f2a1cd1fa6a7578f290b99791259dae6601e452f7072cbccb)
 
 ### Delegated Votes
 
@@ -119,13 +125,20 @@ Stefan has implicit voting rights as contract deployer
 
 ### Results
 
-![proposal[1]: Proposal 2 is winner with 5 votes](./docs/queryResults.png)
+1. Before a vote is casted the result returns: `No vote has been casted yet`
+2. When votes are tie the result is: `it's tie between # members. proposal x, proposal y with vote count of # `
+3. When one proposal wins the result returns: `proposal x is winner with # votes`
+
+![Proposal 2 is winner with 5 votes](./docs/queryResults.png "CLI winner proposal")
 
 ### Gallery
 
 Screenshot for giving right to vote.
-![CLI give right to vote call screenshot](./docs/giveRightToVote.png)
+![CLI give right to vote call screenshot](./docs/giveRightToVote.png "CLI for give voting right")
 
 Screenshot for casting vote.
-![CLI casting vote call screenshot](./docs/castVote.png)
+![CLI casting vote call screenshot](./docs/castVote.png "CLI for voting")
 
+### Indexing Proposals
+[^0]: proposal[0] = Proposal 1
+[^1]: proposal[1] = Proposal 2
