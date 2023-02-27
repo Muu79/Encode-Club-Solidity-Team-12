@@ -53,6 +53,7 @@ npm run delegate <contract-address> <address>
 ```bash
 npm run castVote <contract-address> <Proposal>
 ```
+replace `<Proposal>` with index of proposal to vote for.
 
 ### Querying results
 
@@ -78,7 +79,8 @@ Eyassu Birru - 0x60BC23A55918bc761127bC2A7733455d273bac7C
 
 Katya Ryazantseva - 0x4C2A233B9fA760ffDC12703242Fb3D0855334DFE
 
-### Deployemnt  
+### Deployment  
+
 [Ballot Contract](https://goerli.etherscan.io/address/0x5f42362382f6c4211376a129d65b3e2c349cc286) was deployed at address 0x5f42362382f6C4211376A129d65B3e2C349cC286 in this [transaction](https://goerli.etherscan.io/tx/0x9d4f94a0eefe42decda28e38d514497cb077edf7ca4eded7be0cf873c5e9c702) with three proposals, by Stefan
 
 ### Voting rights
@@ -121,7 +123,9 @@ Stefan has implicit voting rights as contract deployer
 
 ### Gallery
 
+Screenshot for giving right to vote.
 ![CLI give right to vote call screenshot](./docs/giveRightToVote.png)
 
+Screenshot for casting vote.
 ![CLI casting vote call screenshot](./docs/castVote.png)
 
