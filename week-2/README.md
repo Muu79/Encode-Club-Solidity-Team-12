@@ -77,7 +77,7 @@ Stefan Budai - 0xd7a1E69dBAfeba459d15D9a040Af8938c47A3662
 
 Nauman Jabbar - 0xdc32853108f74eA7bFbCF7140605A3353b6532eA
 
-Ahtisham Mehmood - 0x17d9bb657c98F9e6444735E05926F47B5B8332cE
+Ahtisham Mehmood - 0xb3E1803709Ec66257a871070161a95850f10DEC7
 
 Kaleb Dori - 0x109Bf5E11140772a1427162bb51e23c244d13b88
 
@@ -97,7 +97,7 @@ Katya Ryazantseva - 0x4C2A233B9fA760ffDC12703242Fb3D0855334DFE
 
 [Gave Nauman voting right](https://goerli.etherscan.io/tx/0xc29467ac51ddb10de55795ea8ff6348ff3197cd861d16eb5c07929a0b157f2d4)
 
-[Gave Ahtisham voting right](https://goerli.etherscan.io/tx/0x0cb337502d8a3d4ec67e5d34a41e426be3bc7a1859eb15c40f34a2cfdd2ecd37)
+[Gave Ahtisham voting right](https://goerli.etherscan.io/tx/0xd4adeae7cbe28135ed5009c1d8e5e0e58d263fd45f7f8c8f420b456aefdd238f)
 
 [Gave Kaleb voting right](https://goerli.etherscan.io/tx/0x05cd61ff9d6fc6fa84a6186cfb30cc672f9e1544f00dd4a7a3c28f82887df406)
 
@@ -121,7 +121,11 @@ Stefan has implicit voting rights as contract deployer
 
 [Muaaz delegated to Stefan](https://goerli.etherscan.io/tx/0xe057b228edc4e4c72048074d196216bc98bb87996c97fa91cdc5a5777ee15afa)
 
-[Ahtisham delegated to Muaaz which delegated to Stefan](https://goerli.etherscan.io/tx/0xe057b228edc4e4c72048074d196216bc98bb87996c97fa91cdc5a5777ee15afa)
+[Ahtisham delegated to Muaaz which delegated to Stefan](https://goerli.etherscan.io/tx/0x22f8d7f23bb8f47b86a0c724feb503ffd0fac723ebe1cd0be591d04fad9dcda6)
+
+Ahtisham delegated to Muaaz in the transaction but we can see that the loop worked and Stefan is the delegated variable in Ahtisham's Voter.
+
+![Delegate transaction result screenshot](./docs/delegateVote.png "Delegation chain: A -> M -> S")
 
 ### Results
 
