@@ -1,6 +1,7 @@
 import { ethers } from "hardhat";
 import * as dotenv from "dotenv";
 import { Ballot__factory } from "../typechain-types/factories/Ballot__factory";
+import { fallbackProvider } from "./utils";
 dotenv.config();
 
 async function main() {
@@ -18,7 +19,7 @@ async function main() {
   });
 
   // connecting to provider and wallet
-  const provider = new ethers.providers.InfuraProvider("goerli", process.env.INFURA_API_KEY);
+  const provider = fallbackProvider();
 
   const privateKey = process.env.PRIVATE_KEY;
   if (!privateKey || privateKey.length <= 0) throw new Error("Missing environment: Private key");
