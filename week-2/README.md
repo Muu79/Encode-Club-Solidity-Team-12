@@ -57,7 +57,7 @@ npx ts-node --files .\scripts\castVote.ts <contract-address> <Proposal>
 ### Querying results
 
 ```bash
-npx ts-node --files .\scripts\giveRightToVote.ts <contract-address>
+npx ts-node --files .\scripts\queryResults.ts <contract-address>
 ```
 
 ## Report
