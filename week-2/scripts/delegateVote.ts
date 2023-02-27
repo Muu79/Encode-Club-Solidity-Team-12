@@ -42,7 +42,7 @@ async function main() {
 			`Contract Error: Delegate address: ${delegate} doesn't have the right to vote`
 		);
 
-	const delegateVoter = await contract.connect(signer).delegate(delegate);
+	const delegateVoter = await contract.delegate(delegate);
 	const delegateTx = await delegateVoter.wait();
 	console.log(delegateTx);
 	console.log(`${wallet.address} has delegated to ${delegate}`);
