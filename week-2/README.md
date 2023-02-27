@@ -38,26 +38,26 @@ replace `[propsals]` with a list of proposals with a space between them
 ### Giving right to vote
 
 ```bash
-npm giveRight <contract-address> [addresses]
+npm run giveRight <contract-address> [addresses]
 ```
 replace `[addresses]` with one or more addresses you would like to give the right to vote.
 
 ### Delegating vote
 
 ```bash
-npm delegate <contract-address> <address> 
+npm run delegate <contract-address> <address> 
 ```
 
 ### Casting vote
 
 ```bash
-npm castVote <contract-address> <Proposal>
+npm run castVote <contract-address> <Proposal>
 ```
 
 ### Querying results
 
 ```bash
-npm queryResults <contract-address>
+npm run queryResults <contract-address>
 ```
 
 ## Report
