@@ -23,7 +23,7 @@ You must at minium add your private key and either your infura or alchemy API to
 ### Hardhat test
 
 ```bash
-npx hardhat test
+npm run test
 ```
 
 ## Running scripts with arguments
@@ -31,33 +31,33 @@ npx hardhat test
 ### Deploying a contract with arguments
 
 ```bash
-npx ts-node --files .\scripts\deploy.ts [proposals]
+npm run deploy [proposals]
 ```
 replace `[propsals]` with a list of proposals with a space between them
 
 ### Giving right to vote
 
 ```bash
-npx ts-node --files .\scripts\giveRightToVote.ts <contract-address> [addresses]
+npm giveRight <contract-address> [addresses]
 ```
 replace `[addresses]` with one or more addresses you would like to give the right to vote.
 
 ### Delegating vote
 
 ```bash
-npx ts-node --files .\scripts\delegateVote.ts <contract-address> <address> 
+npm delegate <contract-address> <address> 
 ```
 
 ### Casting vote
 
 ```bash
-npx ts-node --files .\scripts\castVote.ts <contract-address> <Proposal>
+npm castVote <contract-address> <Proposal>
 ```
 
 ### Querying results
 
 ```bash
-npx ts-node --files .\scripts\queryResults.ts <contract-address>
+npm queryResults <contract-address>
 ```
 
 ## Report
