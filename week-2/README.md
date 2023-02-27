@@ -123,6 +123,10 @@ Stefan has implicit voting rights as contract deployer
 
 [Ahtisham delegated to Muaaz which delegated to Stefan](https://goerli.etherscan.io/tx/0x22f8d7f23bb8f47b86a0c724feb503ffd0fac723ebe1cd0be591d04fad9dcda6)
 
+Ahtisham delegated to Muaaz in the transaction but we can see that the loop worked and Stefan is the delegated variable in Ahtisham's Voter.
+
+![Delegate transaction result screenshot](./docs/delegateVote.png "Delegation chain: A -> M -> S")
+
 ### Results
 
 1. Before a vote is casted the result returns: `No vote has been casted yet`
