@@ -1,58 +1,56 @@
-import { ethers } from "hardhat";
-import { Ballot__factory } from "../typechain-types";
-import { convertStringArrayToBytes32, fallbackProvider } from "./utils";
-
-require("dotenv").config();
-
-
+import { ethers } from 'hardhat';
+import * as dotenv from 'dotenv';
+import { Ballot__factory } from '../typechain-types';
+import { fallbackProvider } from './utils';
+dotenv.config();
 
 async function main() {
-  // We recive the delegate address, contract address  
-  // and isDev which indicates if we should use a localhost providor
-  const [delegateAddress, contractAddress, isDev] = process.argv.slice(2, 5);
+	// getting arguments: ballot contract address and delegate address index (from 0 to 2)
+	const args = process.argv.slice(2);
+	const contractAddress = args[0];
+	const delegate = args[1];
+	// check if the arguments are valid addresses
+	if (
+		!ethers.utils.isAddress(contractAddress) &&
+		!ethers.utils.isAddress(delegate)
+	)
+		throw new Error('Not a valid address!');
 
-  // Checking that the required addresses exist and are valid
-  if (!contractAddress) throw new Error("Missing Environment: Contract Address")
-  else if (!ethers.utils.isAddress(contractAddress)) throw new Error(`Enviroment Variable Error: ${contractAddress} is not a valid address.`)
-  if (!delegateAddress) throw new Error("Missing Parameters: Address to delegate vote to")
-  else if (!ethers.utils.isAddress(delegateAddress)) throw new Error(`Enviroment Variable Error: ${delegateAddress} is not a valid address.`)
+	const privateKey = process.env.PRIVATE_KEY;
+	if (!privateKey || privateKey.length <= 0)
+		throw new Error('Missing environment: Private key');
+	const wallet = new ethers.Wallet(privateKey);
 
-  let ballotContract, signer;
-  //dev wallet setup
-  if (isDev.toLowerCase() == "true") {
-    signer = (await ethers.getSigners())[0]
-    const ballotContractFactory = await ethers.getContractFactory("Ballot");
-    // We deploy a test contract then give the delegate the right to vote
-    ballotContract = await ballotContractFactory.deploy(convertStringArrayToBytes32(["test1", "test2"]));
-    await ballotContract.giveRightToVote(delegateAddress);
-  }
+	// connecting to provider and getting wallet
+	const provider = fallbackProvider();
+	const signer = wallet.connect(provider);
+	console.log(`Connected to wallet address ${wallet.address}`);
 
-  //test-net wallet and signer setup
-  else {
-    const provider = fallbackProvider();
-    const privateKey = process.env.PRIVATE_KEY;
-    if (!privateKey || privateKey.length <= 0) throw new Error("Missing environment: Private Key");
-    const wallet = new ethers.Wallet(privateKey);
-    console.log(`Connected to the wallet address ${wallet.address}`);
-    signer = wallet.connect(provider);
-    const ballotContractFactory = new  Ballot__factory(signer);
-    ballotContract = ballotContractFactory.attach(contractAddress);
-  }
+	// connecting to ballot contract
+	const ballotContractFactory = new Ballot__factory(signer);
+	const contract = ballotContractFactory.attach(contractAddress);
+	console.log(
+		`Connected to contract ${contractAddress} and delegating to ${delegate}`
+	);
 
-  //Ballot.sol reverts without reason if delegate cannot vote
-  //so we catch this before reversion and return a meanigful error
-  const canDelegateVote = (await ballotContract.voters(delegateAddress))[3];
-  if (!canDelegateVote) throw new Error(`Contract Error: Delegate address: ${delegateAddress} doesn't have the right to vote`)
+	// Delegate
+	console.log('Delegating ...');
+	//Ballot.sol reverts without reason if delegate cannot vote
+	//so we catch this before reversion and return a meanigful error
+	const canDelegateVote = await contract.voters(delegate);
+	// Voters cannot delegate to accounts that cannot vote.
+	if (canDelegateVote.weight.toNumber() < 1)
+		throw new Error(
+			`Contract Error: Delegate address: ${delegate} doesn't have the right to vote`
+		);
 
-  //Wait for tx to be included 
-  const deligation = await ballotContract.delegate(delegateAddress);
-  const tx = deligation.wait();
-  
-  console.log(tx);
-  console.log(`delegated vote from: ${signer.address}\nto: ${delegateAddress}`);
+	const delegateVoter = await contract.delegate(delegate);
+	const delegateTx = await delegateVoter.wait();
+	console.log(delegateTx);
+	console.log(`${wallet.address} has delegated to ${delegate}`);
 }
 
-main().catch(error => {
-  console.log(error);
-  process.exitCode = 1;
+main().catch((error) => {
+	console.error(error);
+	process.exitCode = 1;
 });
