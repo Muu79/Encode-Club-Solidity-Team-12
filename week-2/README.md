@@ -16,44 +16,47 @@ INFURA_API_SECRET="********************************"
 ALCHEMY_API_KEY="********************************"
 ETHERSCAN_API_KEY="********************************"
 ```
+You must at minium add your private key and either your infura or alchemy API tokens
 
 ## Running scripts
 
-Hardhat test
+### Hardhat test
 
-```
+```bash
 npm run test
 ```
 
 ## Running scripts with arguments
 
-Deploying a contract with arguments
+### Deploying a contract with arguments
 
+```bash
+npm run deploy [proposals]
 ```
-npm run deploy "arg1" "arg2" "arg3"
+replace `[propsals]` with a list of proposals with a space between them
+
+### Giving right to vote
+
+```bash
+npm run giveRight <contract-address> [addresses]
+```
+replace `[addresses]` with one or more addresses you would like to give the right to vote.
+
+### Delegating vote
+
+```bash
+npm run delegate <contract-address> <address> 
 ```
 
-Giving right to vote
+### Casting vote
 
-```
-npm run giveRight <contract-address> <address>
-```
-
-Delegating vote
-
-```
-npm run delegate <contract-address> <address> <true/false>
-```
-
-Casting vote
-
-```
+```bash
 npm run castVote <contract-address> <Proposal>
 ```
 
-Querying results
+### Querying results
 
-```
+```bash
 npm run queryResults <contract-address>
 ```
 
