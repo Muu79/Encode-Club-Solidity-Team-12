@@ -1,7 +1,7 @@
 {
 	"name": "ETH_bootcamp",
 	"version": "1.0.0",
-	"description": "",
+	"description": "Ballot contract testing and script deployer hardhat.",
 	"main": "index.js",
 	"scripts": {
 		"test": "npx hardhat test",
@@ -12,7 +12,7 @@
 		"castVote": "npx ts-node --files ./scripts/castVote.ts"
 	},
 	"keywords": [],
-	"author": "",
+	"author": "Team 12",
 	"license": "ISC",
 	"devDependencies": {
 		"@nomicfoundation/hardhat-toolbox": "^2.0.1",
