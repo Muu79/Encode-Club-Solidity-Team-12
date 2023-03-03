@@ -32,9 +32,10 @@ contract Ballot {
     }
 
     
-    function vote(uint proposal, uint256 amount, uint256 _targetBlockNumber) external {
-        require(votingPower(msg.sender) >= amount);
+    function vote(uint proposal, uint256 amount) external {
+        require((votingPower(msg.sender) - votingPowerSpent[msg.sender])>= amount);
         proposals[proposal].voteCount += amount;
+        votingPowerSpent[msg.sender] += amount;
     }
 
     function votingPower(address account) public view returns(uint256){
