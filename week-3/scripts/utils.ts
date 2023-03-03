@@ -13,10 +13,21 @@ export function bytesToString(bytes: string) {
   return ethers.utils.parseBytes32String(bytes)
 }
 
-export function fallbackProvider() {
-  return new ethers.providers.FallbackProvider([
-    new ethers.providers.InfuraProvider('goerli', process.env.INFURA_API_KEY),
-    new ethers.providers.AlchemyProvider('goerli', process.env.ALCHEMY_API_KEY),
-    new ethers.providers.EtherscanProvider('goerli', process.env.ETHERSCAN_API_KEY),
-  ]);
+export async function fallbackProvider() {
+  try {
+    const provider = new ethers.providers.FallbackProvider([
+      new ethers.providers.InfuraProvider('goerli', process.env.INFURA_API_KEY),
+      new ethers.providers.AlchemyProvider('goerli', process.env.ALCHEMY_API_KEY),
+      new ethers.providers.EtherscanProvider('goerli', process.env.ETHERSCAN_API_KEY),
+    ]);
+    await provider.getNetwork();
+    return provider;
+  }catch (error) {
+    console.error(`Failed to connect to fallback provider: ${error}`);
+    throw new Error(`ETH Error: Please make sure your Infura or Alchemy API Keys are valid`);
+  }
+}
+
+export function isPrivateKey(privateKey: string) {
+  return ethers.utils.isHexString(privateKey, 32);
 }
