@@ -29,5 +29,8 @@ export async function fallbackProvider() {
 }
 
 export function isPrivateKey(privateKey: string) {
+  if(!privateKey.match(/^0x/)){
+    privateKey = "0x" + privateKey;
+  }
   return ethers.utils.isHexString(privateKey, 32);
 }
