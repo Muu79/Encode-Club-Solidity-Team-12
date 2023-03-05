@@ -1,4 +1,4 @@
-import { parseEther } from "@ethersproject/units";
+import { formatEther, parseEther } from "@ethersproject/units";
 import { ethers } from "hardhat";
 import { MyToken__factory } from "../typechain-types"
 import { fallbackProvider } from "./utils"
@@ -18,8 +18,10 @@ async function main (){
     const tokenFactory = new MyToken__factory();
     const token =  tokenFactory.attach(tokenAddress);
 
-    token.connect(user).mint(addressTo, mintAmount);
+    const mintTxReciept = await (await token.connect(user).mint(addressTo, mintAmount)).wait();
+    console.log(`${formatEther(mintAmount)} of ${await token.connect(user).symbol()} Minted to address ${addressTo}`);
     
+
 }
 
 main().catch(err => {
