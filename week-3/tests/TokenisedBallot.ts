@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { ethers } from 'hardhat';
 import { Ballot, MyToken } from '../typechain-types';
+import { BigNumber } from 'ethers';
 
 const PROPOSALS = ['chocolate', 'mint', 'lemon', 'coconut'];
 const MINT_VALUE = ethers.utils.parseEther('10');
@@ -17,9 +18,9 @@ describe('Tokenised Ballot', async () => {
   let ballotContract: Ballot;
   let myTokenContract: MyToken;
   let tokenAddress: string;
-  let targetBlockNumber: number;
+  const signers = await ethers.getSigners();
+
   beforeEach(async () => {
-    const signers = await ethers.getSigners();
     // deploy ERC20Votes token
     const myTokenFactory = await ethers.getContractFactory('MyToken');
     myTokenContract = await myTokenFactory.deploy();
@@ -33,7 +34,7 @@ describe('Tokenised Ballot', async () => {
 
     // deploy TokenisedBallot
     tokenAddress = myTokenContract.address;
-    targetBlockNumber = await ethers.provider.getBlockNumber();
+    const targetBlockNumber = await ethers.provider.getBlockNumber();
     const ballotContractFactory = await ethers.getContractFactory('Ballot');
     ballotContract = await ballotContractFactory.deploy(
       convertStringArrayToBytes32(PROPOSALS),
@@ -60,6 +61,7 @@ describe('Tokenised Ballot', async () => {
     });
 
     it('has correct blockNumber', async () => {
+      const targetBlockNumber = await ballotContract.targetBlockNumber();
       const currentBlockNumber = await ethers.provider.getBlockNumber();
       expect(currentBlockNumber).to.greaterThanOrEqual(targetBlockNumber);
     });
@@ -71,6 +73,24 @@ describe('Tokenised Ballot', async () => {
   });
 
   describe('When a user votes', async () => {
-    beforeEach(async () => {});
+    let proposal: number;
+    let amount: BigNumber;
+    beforeEach(async () => {
+      proposal = 1;
+      amount = await ballotContract.votingPower(signers[1].address);
+    });
+
+    it('should register the Vote', async () => {
+      await ballotContract.connect(signers[1].address).vote(proposal, amount);
+      const proposals = await ballotContract.proposals(proposal);
+      expect(proposals.voteCount).to.equal(amount);
+    });
+
+    it('votingPowerSpent is amount specified', async () => {
+      const votingPowerSpent = await ballotContract.votingPowerSpent(
+        signers[1].address
+      );
+      expect(votingPowerSpent).to.equal(amount);
+    });
   });
 });
