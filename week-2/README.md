@@ -16,6 +16,7 @@ INFURA_API_SECRET="********************************"
 ALCHEMY_API_KEY="********************************"
 ETHERSCAN_API_KEY="********************************"
 ```
+
 You must at minium add your private key and either your infura or alchemy API tokens
 
 ## Running scripts
@@ -33,6 +34,7 @@ npm run test
 ```bash
 npm run deploy [proposals]
 ```
+
 replace `[propsals]` with a list of proposals with a space between them
 
 ### Giving right to vote
@@ -40,12 +42,13 @@ replace `[propsals]` with a list of proposals with a space between them
 ```bash
 npm run giveRight <contract-address> [addresses]
 ```
+
 replace `[addresses]` with one or more addresses you would like to give the right to vote.
 
 ### Delegating vote
 
 ```bash
-npm run delegate <contract-address> <address> 
+npm run delegate <contract-address> <address>
 ```
 
 ### Casting vote
@@ -53,6 +56,7 @@ npm run delegate <contract-address> <address>
 ```bash
 npm run castVote <contract-address> <Proposal>
 ```
+
 replace `<Proposal>` with index of proposal to vote for.
 
 ### Querying results
@@ -67,7 +71,7 @@ npm run queryResults <contract-address>
 
 17 test conditions tested in `HRE`, before deploying contract to `goerli` net.
 
-![CLI Hardhat Runtime Environment test result screenshot](./docs/test.png "HRE test result")
+![CLI Hardhat Runtime Environment test result screenshot](./docs/test.png 'HRE test result')
 
 ### Our Names and Addresses
 
@@ -85,7 +89,7 @@ Eyassu Birru - 0x60BC23A55918bc761127bC2A7733455d273bac7C
 
 Katya Ryazantseva - 0x4C2A233B9fA760ffDC12703242Fb3D0855334DFE
 
-### Deployment  
+### Deployment
 
 [Ballot Contract](https://goerli.etherscan.io/address/0x5f42362382f6c4211376a129d65b3e2c349cc286) was deployed at address 0x5f42362382f6C4211376A129d65B3e2C349cC286 in this [transaction](https://goerli.etherscan.io/tx/0x9d4f94a0eefe42decda28e38d514497cb077edf7ca4eded7be0cf873c5e9c702) with three proposals, by Stefan
 
@@ -103,7 +107,7 @@ Katya Ryazantseva - 0x4C2A233B9fA760ffDC12703242Fb3D0855334DFE
 
 [Gave Eyassu voting right](https://goerli.etherscan.io/tx/0x02d5e5b10960b935355fa691ce666d533ea2f7b62231faf1d3e8d450721ff8ff)
 
-Stefan has implicit voting rights as contract deployer  
+Stefan has implicit voting rights as contract deployer
 
 ### Voting
 
@@ -123,9 +127,10 @@ Stefan has implicit voting rights as contract deployer
 
 [Ahtisham delegated to Muaaz which delegated to Stefan](https://goerli.etherscan.io/tx/0x22f8d7f23bb8f47b86a0c724feb503ffd0fac723ebe1cd0be591d04fad9dcda6)
 
-Ahtisham delegated to Muaaz in the transaction but we can see that the loop worked and Stefan is the delegated variable in Ahtisham's Voter.
+In the transaction, Ahtisham delegated to Muaaz, but we can see that the [loop](https://github.com/Muu79/Encode-Club-Solidity-Team-12/blob/main/week-2/contracts/Ballot.sol#L91) worked and Stefan is the delegated voter in Ahtisham's delegation.
 
-![Delegate transaction result screenshot](./docs/delegateVote.png "Delegation chain: A -> M -> S")
+![Details from etherscan](./docs/DetailsGoerliEtherscan.png 'Explain the loop delegation')
+![Delegate transaction result screenshot](./docs/delegateVote.png 'Delegation chain: A -> M -> S')
 
 ### Results
 
@@ -133,16 +138,17 @@ Ahtisham delegated to Muaaz in the transaction but we can see that the loop work
 2. When votes are tie the result is: `it's tie between # members. proposal x, proposal y with vote count of # `
 3. When one proposal wins the result returns: `proposal x is winner with # votes`
 
-![Proposal 2 is winner with 5 votes](./docs/queryResults.png "CLI winner proposal")
+![Proposal 2 is winner with 5 votes](./docs/queryResults.png 'CLI winner proposal')
 
 ### Gallery
 
 Screenshot for giving right to vote.
-![CLI give right to vote call screenshot](./docs/giveRightToVote.png "CLI for give voting right")
+![CLI give right to vote call screenshot](./docs/giveRightToVote.png 'CLI for give voting right')
 
 Screenshot for casting vote.
-![CLI casting vote call screenshot](./docs/castVote.png "CLI for voting")
+![CLI casting vote call screenshot](./docs/castVote.png 'CLI for voting')
 
 ### Indexing Proposals
+
 [^0]: proposal[0] = Proposal 1
 [^1]: proposal[1] = Proposal 2
