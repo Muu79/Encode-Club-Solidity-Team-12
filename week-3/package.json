@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "npx hardhat test",
-    "deploy": "npx ts-node --files ./scripts/deploy.ts",
+    "deployBallot": "npx ts-node --files ./scripts/deployBallot.ts",
+    "deployToken": "npx ts-node --files ./scripts/deployToken.ts",
+	"delegate" : "npx ts-node --files ./scripts/delegateVotes.ts",
     "castVote": "npx ts-node --files ./scripts/castVote.ts",
     "queryResults": "npx ts-node --files ./scripts/queryResults.ts"
   },
