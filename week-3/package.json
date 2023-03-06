@@ -1,15 +1,18 @@
 {
-	"name": "ETH_bootcamp",
+	"name": "week-3",
 	"version": "1.0.0",
-	"description": "Ballot contract testing and script deployer hardhat.",
+	"description": "Tokenised Ballot contract scripts in hardhat.",
 	"main": "index.js",
 	"scripts": {
 		"test": "npx hardhat test",
-		"deploy": "npx ts-node --files ./scripts/deploy.ts",
-		"giveRight": "npx ts-node --files ./scripts/giveRightToVote.ts",
-		"delegate": "npx ts-node --files ./scripts/delegateVote.ts",
+		"deployToken": "npx ts-node --files ./scripts/deployToken.ts",
+		"deployBallot": "npx ts-node --files ./scripts/deployBallot.ts",
+		"giveVotingTokens": "npx ts-node --files ./scripts/giveVotingTokens.ts",
+		"delegateVote": "npx ts-node --files ./scripts/delegateVote.ts",
+		"castVote": "npx ts-node --files ./scripts/castVote.ts",
+		"votingPower": "npx ts-node --files ./scripts/votingPower.ts",
 		"queryResults": "npx ts-node --files ./scripts/queryResults.ts",
-		"castVote": "npx ts-node --files ./scripts/castVote.ts"
+		"delegateBySig": "npx ts-node --files ./scripts/delegateBySig.ts"
 	},
 	"keywords": [],
 	"author": "Team 12",
