@@ -128,7 +128,7 @@ Screenshot for quering voting power.
 ![CLI voting power call screenshot](./docs/votingPower.png 'CLI for voting power call')
 
 Screenshot for giving voting token.
-![CLI give voting token call screenshot](./docs/giveRightToVote.png 'CLI for give voting right')
+![CLI give voting token call screenshot](./docs/giveVotingToken.png 'CLI for minting voting tokens')
 
 Screenshot for casting vote.
 ![CLI casting vote call screenshot](./docs/castVote.png 'CLI for voting')
