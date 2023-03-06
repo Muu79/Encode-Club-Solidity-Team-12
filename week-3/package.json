@@ -11,7 +11,8 @@
 		"delegateVote": "npx ts-node --files ./scripts/delegateVote.ts",
 		"castVote": "npx ts-node --files ./scripts/castVote.ts",
 		"votingPower": "npx ts-node --files ./scripts/votingPower.ts",
-		"queryResults": "npx ts-node --files ./scripts/queryResults.ts"
+		"queryResults": "npx ts-node --files ./scripts/queryResults.ts",
+		"delegateBySig": "npx ts-node --files ./scripts/delegateBySig.ts"
 	},
 	"keywords": [],
 	"author": "Team 12",
