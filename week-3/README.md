@@ -135,21 +135,21 @@ Katya Ryazantseva - [0x4C2A233B9fA760ffDC12703242Fb3D0855334DFE](https://goerli.
 
 ### Voting
 
-Muaaz Voted Twice.  
+#### Muaaz Voted Twice.  
 [First Transaction](https://goerli.etherscan.io/tx/0xb7bc139efb3b90d94782f3599d213dff6b99d3c3175b82921ce0abcb77891077) with a value of 1.1 for proposal 1  
-[Second Transaction](https://goerli.etherscan.io/tx/0x44e69ddb836c3dad26e07517545108950dfef51ddbeba78d5f5da5c0ea7907e2) with a value of 2.42 for proposal 2
+[Second Transaction](https://goerli.etherscan.io/tx/0x44e69ddb836c3dad26e07517545108950dfef51ddbeba78d5f5da5c0ea7907e2) with a value of 2.42 for proposal 2  
 
-Kaleb Voted Once.  
-[Transaction](https://goerli.etherscan.io/tx/0x4ff160839bd84fe4478c7ed7e55b48969e7332481a7724b8b6890d3cf5923f77) with a valueof 5 for proposal 2
+#### Kaleb Voted Once.  
+[Transaction](https://goerli.etherscan.io/tx/0x4ff160839bd84fe4478c7ed7e55b48969e7332481a7724b8b6890d3cf5923f77) with a valueof 5 for proposal 2  
 
-Eyassu Voted Once.  
-[Transaction](https://goerli.etherscan.io/tx/0x578fd4d9711641c534aa57e51124bc58faa30be28f3460b0b04d4797786d4ca9) with a value of 1 for proposal 1
+#### Eyassu Voted Once.  
+[Transaction](https://goerli.etherscan.io/tx/0x578fd4d9711641c534aa57e51124bc58faa30be28f3460b0b04d4797786d4ca9) with a value of 1 for proposal 1  
 
-Katya Voted Once.
-[Transaction](https://goerli.etherscan.io/tx/0x6af4356870b19332581dfa5ffdb98c85cbfcb0d1a382a01f4c017ce3fb8c8dff) with a value of 4 for proposal 2
+#### Katya Voted Once.  
+[Transaction](https://goerli.etherscan.io/tx/0x6af4356870b19332581dfa5ffdb98c85cbfcb0d1a382a01f4c017ce3fb8c8dff) with a value of 4 for proposal 2  
 
-Stefan Voted Once.
-[Transaction](https://goerli.etherscan.io/tx/0x0e2230e5cedd85886034b6711bbba60675af7187c2a7a2113657219b0a0dcc62) with a value of 5 for proposal 0
+#### Stefan Voted Once.  
+[Transaction](https://goerli.etherscan.io/tx/0x0e2230e5cedd85886034b6711bbba60675af7187c2a7a2113657219b0a0dcc62) with a value of 5 for proposal 0  
 
 
 
