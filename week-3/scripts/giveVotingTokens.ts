@@ -3,6 +3,7 @@ import * as dotenv from "dotenv";
 import { MyToken__factory } from "../typechain-types";
 import { fallbackProvider } from "./utils";
 import { BigNumber } from "ethers";
+import { formatEther } from "@ethersproject/units";
 
 dotenv.config();
 
@@ -37,7 +38,7 @@ async function main() {
   const mintTx = await tokenContract.mint(voter, amount);
   await mintTx.wait();
   const tokenBalance = await tokenContract.balanceOf(voter);
-  console.log(`${voter} received ${ethers.utils.formatEther(tokenBalance)} Voting Tokens`);
+  console.log(`${voter} received ${formatEther(amount)} of ${await tokenContract.symbol()}`);
 }
 
 main().catch((error) => {
