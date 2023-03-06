@@ -9,7 +9,7 @@ async function main() {
   const args = process.argv.slice(2);
   const contractAddress = args[0];
   const proposal = args[1];
-  // const amount = args[2];
+  const amount = args[2];
 
   if (!ethers.utils.isAddress(contractAddress))
     throw new Error('Not a valid address!');
@@ -31,8 +31,9 @@ async function main() {
 
   // voting
   console.log('Voting in progress ...');
-  const amount = await contract.votingPower(signer.address);
-  const vote = await contract.connect(signer).vote(proposal, amount);
+  const vote = await contract
+    .connect(signer)
+    .vote(proposal, ethers.utils.parseEther(amount));
   const voteTx = await vote.wait();
   console.log(voteTx);
   console.log(`${wallet.address} has voted`);
