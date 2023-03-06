@@ -21,7 +21,7 @@ npm run test
 
 ## Running scripts with arguments
 
-### Deploying a contract with arguments
+### Deploying contracts with arguments
 
 #### Deploying Token Contract
 
@@ -29,7 +29,7 @@ npm run test
 npm run deployToken <name> <symbol>
 ```
 
-#### Depoloying Ballot contract
+#### Deploying Ballot contract
 
 ```bash
 npm run deployBallot <token-contract-address> [proposals]
@@ -40,7 +40,7 @@ replace `[propsals]` with a list of proposals with a space between them
 ### Giving Voting tokens for right to vote
 
 ```bash
-npm run giveVotingToken <token-contract-address> [delegatee-addresses]
+npm run giveVotingToken <token-contract-address> [delegatee-addresses] <amount>
 ```
 
 replace `[addresses]` with one or more addresses you would like to give the right to vote.
@@ -58,6 +58,14 @@ npm run castVote <ballot-contract-address> <Proposal>
 ```
 
 replace `<Proposal>` with index of proposal to vote for.
+
+### Voting Power query
+
+```bash
+npm run votingPower <ballot-contract-address> <wallet-address>
+```
+
+if `<wallet-address>` is not provided, script will query voting power of `.env` signer address.
 
 ### Querying results
 
@@ -129,3 +137,6 @@ Screenshot for giving voting token.
 
 Screenshot for casting vote.
 ![CLI casting vote call screenshot](./docs/castVote.png 'CLI for voting')
+
+Screenshot for querying votingPower.
+![CLI votePower call screenshot](./docs/votingPower.png 'CLI for voting power query')
