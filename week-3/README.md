@@ -89,19 +89,19 @@ X test conditions tested in `HRE`, before deploying contract to `goerli` net.
 
 ### Our Names and Addresses
 
-Muaaz Bhyat - 0xA7951A334F5BfAd8A614a6948454149C9Ce9B162
+Muaaz Bhyat - [0xA7951A334F5BfAd8A614a6948454149C9Ce9B162](https://goerli.etherscan.io/address/0xa7951a334f5bfad8a614a6948454149c9ce9b162)
 
-Stefan Budai - 0xd7a1E69dBAfeba459d15D9a040Af8938c47A3662
+Stefan Budai - [0xd7a1E69dBAfeba459d15D9a040Af8938c47A3662](https://goerli.etherscan.io/address/0xd7a1E69dBAfeba459d15D9a040Af8938c47A3662)
 
-Nauman Jabbar - 0xdc32853108f74eA7bFbCF7140605A3353b6532eA
+Nauman Jabbar - [0xdc32853108f74eA7bFbCF7140605A3353b6532eA](https://goerli.etherscan.io/address/0xdc32853108f74eA7bFbCF7140605A3353b6532eA)
 
-Ahtisham Mehmood - 0xb3E1803709Ec66257a871070161a95850f10DEC7
+Ahtisham Mehmood - [0xb3E1803709Ec66257a871070161a95850f10DEC7](https://goerli.etherscan.io/address/0xb3E1803709Ec66257a871070161a95850f10DEC7)
 
-Kaleb Dori - 0x109Bf5E11140772a1427162bb51e23c244d13b88
+Kaleb Dori - [0x109Bf5E11140772a1427162bb51e23c244d13b88](https://goerli.etherscan.io/address/0x109Bf5E11140772a1427162bb51e23c244d13b88)
 
-Eyassu Birru - 0x60BC23A55918bc761127bC2A7733455d273bac7C
+Eyassu Birru - [0x60BC23A55918bc761127bC2A7733455d273bac7C](https://goerli.etherscan.io/address/0x60BC23A55918bc761127bC2A7733455d273bac7C)
 
-Katya Ryazantseva - 0x4C2A233B9fA760ffDC12703242Fb3D0855334DFE
+Katya Ryazantseva - [0x4C2A233B9fA760ffDC12703242Fb3D0855334DFE](https://goerli.etherscan.io/address/0x4C2A233B9fA760ffDC12703242Fb3D0855334DFE)
 
 ### Deployment
 
@@ -119,10 +119,7 @@ Katya Ryazantseva - 0x4C2A233B9fA760ffDC12703242Fb3D0855334DFE
 [Ahtisham](https://goerli.etherscan.io/tx/0xdfd366865db6f3bb34800ab24f3cfdf5921505b0535aecda6c4012cd4da29cfa)  
 [Nauman](https://goerli.etherscan.io/tx/0x160bfcb6d34f525ff54680620208668f7bcaceac2cfd493968b62f5eaa94a2e0)  
 [Stefan](https://goerli.etherscan.io/tx/0x7f73ca0667fee11f14d94def60560296b5983ae15a7d8f30e57e90603d7d4d5a)  
-[Muaaz](https://goerli.etherscan.io/tx/0x0ee990f03c184709325b18f2d280ad899f80b7d3f50093468cb32d047fd6aa91)
-
-
-
+[Muaaz](https://goerli.etherscan.io/tx/0x0ee990f03c184709325b18f2d280ad899f80b7d3f50093468cb32d047fd6aa91)  
 
 ### Delegated Votes
 
