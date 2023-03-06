@@ -9,7 +9,8 @@
 		"castVote": "npx ts-node --files ./scripts/castVote.ts",
 		"queryResults": "npx ts-node --files ./scripts/queryResults.ts",
 		"delegateVote": "npx ts-node --files ./scripts/delegateVote.ts",
-		"mintToken": "npx ts-node --files ./scripts/mintToken.ts"
+		"mintToken": "npx ts-node --files ./scripts/mintToken.ts",
+		"votingPower": "npx ts-node --files ./scripts/votingPower.ts"
 	},
 	"keywords": [],
 	"author": "Team 12",
