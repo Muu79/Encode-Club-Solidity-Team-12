@@ -22,6 +22,9 @@ npm run test
 ## Running scripts with arguments
 
 ### Deploying contracts with arguments
+**Note**: `<param>` refers to a single value while `[params]` refers to a list of values.  
+parameters must be seperated by a space, if your parameter contains a space  
+surround it with double-quotes `npm run script param1 "param 2"`
 
 #### Deploying Token Contract
 
@@ -43,7 +46,7 @@ replace `[propsals]` with a list of proposals with a space between them
 npm run giveVotingToken <token-contract-address> <amount> [delegatee-addresses] 
 ```
 
-replace `[addresses]` with one or more addresses you would like to give the right to vote.
+replace `[delegatee-addresses]` with one or more addresses you would like to give the right to vote.
 
 ### Delegating vote
 
@@ -60,10 +63,11 @@ npm run delegateBySig <token-address> <delegatee-address> <expiry-date-as-second
 ### Casting vote
 
 ```bash
-npm run castVote <ballot-contract-address> <Proposal>
+npm run castVote <ballot-contract-address> <proposal> <amount>
 ```
 
-replace `<Proposal>` with index of proposal to vote for.
+replace `<proposal>` with index of proposal to vote for.  
+replace `<amount>` with how much power you want to use for your vote.
 
 ### Voting Power query
 
