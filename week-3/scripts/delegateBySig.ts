@@ -38,9 +38,9 @@ async function main() {
   const hash = ethers.utils.keccak256(contractInterface._abiCoder.encode(["address", "uint256", "uint256"], [delegatee, nonce, expiry]));
   const signed = await signer.signMessage(hash);
 
-  const a = ethers.utils.splitSignature(signed);
+  const splitSig = ethers.utils.splitSignature(signed);
 
-  const tx = await tokenContract.delegateBySig(delegatee, nonce, expiry, a.v, a.r, a.s);
+  const tx = await tokenContract.delegateBySig(delegatee, nonce, expiry, splitSig.v, splitSig.r, splitSig.s);
   await tx.wait();
   console.log(`${delegatee} has received voting power`);
 }
