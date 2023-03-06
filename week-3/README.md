@@ -1,11 +1,12 @@
 # Team 12 Week 3 Tokenized Ballot Project
 
 ## Setup
+
 1. Clone the parent directory `week-3` onto your computer.
-1. Open a terminal and navigate to where you cloned week-3. run `npm install`  
+1. Open a terminal and navigate to where you cloned week-3. run `npm install`
 1. Run `npx hardhat compile` from within your terminal
 1. Rename `.env.example` to `.env` and edit it with your own relevant details  
-**Note**: we require at minium your private key as well as either your Infura or Alchemy API keys (but both would be prefrable)
+   **Note**: we require at minimum your private key as well as either your Infura or Alchemy API keys (but both would be prefrable)
 
 If you're getting a `failed to meet quorum` error. Try using both Alchemy and Infura.
 
@@ -23,6 +24,10 @@ npm run test
 
 ### Deploying contracts with arguments
 
+**Note**: `<param>` refers to a single value while `[params]` refers to a list of values.  
+parameters must be seperated by a space, if your parameter contains a space  
+surround it with double-quotes `npm run script param1 "param 2"`
+
 #### Deploying Token Contract
 
 ```bash
@@ -35,18 +40,21 @@ npm run deployToken <name> <symbol>
 npm run deployBallot <token-contract-address> [proposals]
 ```
 
+**Note**: you must self-delegate before creating the ballot for voting power to register
+
 replace `[propsals]` with a list of proposals with a space between them
 
 ### Giving Voting tokens for right to vote
 
 ```bash
-npm run giveVotingToken <token-contract-address> <delegatee-address> <amount>
+npm run giveVotingToken <token-contract-address> <amount> [delegatee-addresses]
 ```
+replace `[delegatee-addresses]` with a list of addresses to mint for.
 
 ### Delegating vote
 
 ```bash
-npm run delegate <token-contract-address> <delegatee-address>
+npm run delegateVote <token-contract-address> <delegatee-address>
 ```
 
 ### Delegating vote by Signature
@@ -58,10 +66,12 @@ npm run delegateBySig <token-contract-address> <delegatee-address> <expiry-date-
 ### Casting vote
 
 ```bash
-npm run castVote <ballot-contract-address> <Proposal>
+npm run castVote <ballot-contract-address> <Proposal> <amount>
 ```
 
 replace `<Proposal>` with index of proposal to vote for.
+
+replace `<amount>` with how much power you want to use for your vote.
 
 ### Voting Power query
 
@@ -87,19 +97,19 @@ X test conditions tested in `HRE`, before deploying contract to `goerli` net.
 
 ### Our Names and Addresses
 
-Muaaz Bhyat - 0xA7951A334F5BfAd8A614a6948454149C9Ce9B162
+Muaaz Bhyat - [0xA7951A334F5BfAd8A614a6948454149C9Ce9B162](https://goerli.etherscan.io/address/0xa7951a334f5bfad8a614a6948454149c9ce9b162)
 
-Stefan Budai - 0xd7a1E69dBAfeba459d15D9a040Af8938c47A3662
+Stefan Budai - [0xd7a1E69dBAfeba459d15D9a040Af8938c47A3662](https://goerli.etherscan.io/address/0xd7a1E69dBAfeba459d15D9a040Af8938c47A3662)
 
-Nauman Jabbar - 0xdc32853108f74eA7bFbCF7140605A3353b6532eA
+Nauman Jabbar - [0xdc32853108f74eA7bFbCF7140605A3353b6532eA](https://goerli.etherscan.io/address/0xdc32853108f74eA7bFbCF7140605A3353b6532eA)
 
-Ahtisham Mehmood - 0xb3E1803709Ec66257a871070161a95850f10DEC7
+Ahtisham Mehmood - [0xb3E1803709Ec66257a871070161a95850f10DEC7](https://goerli.etherscan.io/address/0xb3E1803709Ec66257a871070161a95850f10DEC7)
 
-Kaleb Dori - 0x109Bf5E11140772a1427162bb51e23c244d13b88
+Kaleb Dori - [0x109Bf5E11140772a1427162bb51e23c244d13b88](https://goerli.etherscan.io/address/0x109Bf5E11140772a1427162bb51e23c244d13b88)
 
-Eyassu Birru - 0x60BC23A55918bc761127bC2A7733455d273bac7C
+Eyassu Birru - [0x60BC23A55918bc761127bC2A7733455d273bac7C](https://goerli.etherscan.io/address/0x60BC23A55918bc761127bC2A7733455d273bac7C)
 
-Katya Ryazantseva - 0x4C2A233B9fA760ffDC12703242Fb3D0855334DFE
+Katya Ryazantseva - [0x4C2A233B9fA760ffDC12703242Fb3D0855334DFE](https://goerli.etherscan.io/address/0x4C2A233B9fA760ffDC12703242Fb3D0855334DFE)
 
 ### Deployment
 
@@ -125,7 +135,9 @@ Katya Ryazantseva - 0x4C2A233B9fA760ffDC12703242Fb3D0855334DFE
 
 ### Delegated Votes
 
-[TODO]
+#### All users have to perform self-deligation.  
+
+An example can be found [here](https://goerli.etherscan.io/tx/0x8c6d14b65646c15eca552819a1a9c950158047a1060c8160311e23f7452ec9d5) where Muaaz delegates to himself.
 
 ### Voting Power
 
@@ -133,7 +145,23 @@ Katya Ryazantseva - 0x4C2A233B9fA760ffDC12703242Fb3D0855334DFE
 
 ### Voting
 
-[TODO]
+#### Muaaz Voted Twice.  
+[First Transaction](https://goerli.etherscan.io/tx/0xb7bc139efb3b90d94782f3599d213dff6b99d3c3175b82921ce0abcb77891077) with a value of 1.1 for proposal 1  
+[Second Transaction](https://goerli.etherscan.io/tx/0x44e69ddb836c3dad26e07517545108950dfef51ddbeba78d5f5da5c0ea7907e2) with a value of 2.42 for proposal 2  
+
+#### Kaleb Voted Twice.  
+[First Transaction](https://goerli.etherscan.io/tx/0x4ff160839bd84fe4478c7ed7e55b48969e7332481a7724b8b6890d3cf5923f77) with a valueof 0.5 for proposal 2
+
+[Second Transaction](https://goerli.etherscan.io/tx/0xe264a2875bf228af04567b717ce623b053e0be84af2beca1d8c4a12e6b748d77) with a valueof 2.9 for proposal 1
+
+#### Eyassu Voted Once.  
+[Transaction](https://goerli.etherscan.io/tx/0x578fd4d9711641c534aa57e51124bc58faa30be28f3460b0b04d4797786d4ca9) with a value of 1 for proposal 1  
+
+#### Katya Voted Once.  
+[Transaction](https://goerli.etherscan.io/tx/0x6af4356870b19332581dfa5ffdb98c85cbfcb0d1a382a01f4c017ce3fb8c8dff) with a value of 4 for proposal 2  
+
+#### Stefan Voted Once.  
+[Transaction](https://goerli.etherscan.io/tx/0x0e2230e5cedd85886034b6711bbba60675af7187c2a7a2113657219b0a0dcc62) with a value of 5 for proposal 0  
 
 ### Results
 
@@ -145,14 +173,18 @@ Katya Ryazantseva - 0x4C2A233B9fA760ffDC12703242Fb3D0855334DFE
 
 ### Gallery
 
-Screenshot for delegating vote.
-![CLI delegate call screenshot](./docs/delegation.png 'CLI for delegate vote')
+#### Screenshot for giving voting token.  
 
-Screenshot for giving voting token.
 ![CLI give voting token call screenshot](./docs/giveVotingTokens.png 'CLI for minting voting tokens')
 
-Screenshot for casting vote.
+#### Screenshot for delegating vote.  
+
+![CLI delegate call screenshot](./docs/delegation.png 'CLI for delegate vote')
+
+#### Screenshot for casting vote.  
+
 ![CLI casting vote call screenshot](./docs/castVote.png 'CLI for voting')
 
-Screenshot for querying votingPower.
+#### Screenshot for querying votingPower.
+
 ![CLI votePower call screenshot](./docs/votingPower.png 'CLI for voting power query')
