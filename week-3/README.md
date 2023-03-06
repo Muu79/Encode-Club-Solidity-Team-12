@@ -41,3 +41,8 @@ Before you start voting, you need to self-delegate your tokens.
 ```bash
 npm run delegate <contract-address> <address>
 ```
+### Delegating vote by Signature
+
+```bash
+npm run delegateBySig <token-address> <delegatee-address> <expiry-date-as-seconds-since-unix-epoch>
+```
