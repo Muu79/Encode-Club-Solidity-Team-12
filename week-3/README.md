@@ -1,22 +1,15 @@
 # Team 12 Week 3 Tokenized Ballot Project
 
 ## Setup
+1. Clone the parent directory `week-3` onto your computer.
+1. Open a terminal and navigate to where you cloned week-3. run `npm install`  
+1. Run `npx hardhat compile` from within your terminal
+1. Rename `.env.example` to `.env` and edit it with your own relevant details  
+**Note**: we require at minium your private key as well as either your Infura or Alchemy API keys (but both would be prefrable)
 
-This project uses npm to install dependencies. `npm install`
+If you're getting a `failed to meet quorum` error. Try using both Alchemy and Infura.
 
-Wait for it to install, then use `npx hardhat compile`
-
-It also requires you to have a local .env file placed into the source directory with the following format (this can also be found in the .env.example file)
-
-```.env
-PRIVATE_KEY="<your private key here if you don't have a mnemonic seed>"
-INFURA_API_KEY="********************************"
-INFURA_API_SECRET="********************************"
-ALCHEMY_API_KEY="********************************"
-ETHERSCAN_API_KEY="********************************"
-```
-
-You must at minium add your private key and either your infura or alchemy API tokens
+You're all setup to run scripts.
 
 ## Running scripts
 
