@@ -37,6 +37,7 @@ npm run deployToken <name> <symbol>
 ```bash
 npm run deployBallot <token-contract-address> [proposals]
 ```
+**Note**: you must self before creating the ballot for voting power to register
 
 replace `[propsals]` with a list of proposals with a space between them
 
@@ -127,7 +128,8 @@ Katya Ryazantseva - [0x4C2A233B9fA760ffDC12703242Fb3D0855334DFE](https://goerli.
 
 ### Delegated Votes
 
-[TODO]
+#### All users have to perform self-deligation.  
+An example can be found [here](https://goerli.etherscan.io/tx/0x8c6d14b65646c15eca552819a1a9c950158047a1060c8160311e23f7452ec9d5) where Muaaz delegates to himself.
 
 ### Voting Power
 
