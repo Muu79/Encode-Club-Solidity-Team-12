@@ -1,11 +1,12 @@
 # Team 12 Week 3 Tokenized Ballot Project
 
 ## Setup
+
 1. Clone the parent directory `week-3` onto your computer.
-1. Open a terminal and navigate to where you cloned week-3. run `npm install`  
+1. Open a terminal and navigate to where you cloned week-3. run `npm install`
 1. Run `npx hardhat compile` from within your terminal
 1. Rename `.env.example` to `.env` and edit it with your own relevant details  
-**Note**: we require at minium your private key as well as either your Infura or Alchemy API keys (but both would be prefrable)
+   **Note**: we require at minium your private key as well as either your Infura or Alchemy API keys (but both would be prefrable)
 
 If you're getting a `failed to meet quorum` error. Try using both Alchemy and Infura.
 
@@ -46,7 +47,7 @@ npm run giveVotingToken <token-contract-address> <delegatee-address> <amount>
 ### Delegating vote
 
 ```bash
-npm run delegate <token-contract-address> <delegatee-address>
+npm run delegateVote <token-contract-address> <delegatee-address>
 ```
 
 ### Delegating vote by Signature
