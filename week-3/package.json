@@ -7,7 +7,7 @@
     "test": "npx hardhat test",
     "deployBallot": "npx ts-node --files ./scripts/deployBallot.ts",
     "deployToken": "npx ts-node --files ./scripts/deployToken.ts",
-	"delegate" : "npx ts-node --files ./scripts/delegateVotes.ts",
+	"delegate" : "npx ts-node --files ./scripts/delegateVote.ts",
     "castVote": "npx ts-node --files ./scripts/castVote.ts",
     "queryResults": "npx ts-node --files ./scripts/queryResults.ts"
   },
