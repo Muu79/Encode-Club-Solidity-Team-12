@@ -47,8 +47,9 @@ replace `[propsals]` with a list of proposals with a space between them
 ### Giving Voting tokens for right to vote
 
 ```bash
-npm run giveVotingToken <token-contract-address> <delegatee-address> <amount>
+npm run giveVotingToken <token-contract-address> <amount> [delegatee-addresses]
 ```
+replace `[delegatee-addresses]` with a list of addresses to mint for.
 
 ### Delegating vote
 
