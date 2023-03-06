@@ -112,11 +112,17 @@ Katya Ryazantseva - 0x4C2A233B9fA760ffDC12703242Fb3D0855334DFE
 ### Gave Voting tokens for members
 
 [Katya received voting tokens](https://goerli.etherscan.io/tx/0x4040e9615bab67b474ad55e2ed87dfdc42a675c48eb54f8fac7de1eecbf1f7bb)
+
 [Eyassu received voting tokens](https://goerli.etherscan.io/tx/0x18da07a8013e8145c83398d1ca3e49cfc7b45c3e5da2b18e43a81d532fea610e)
+
 [Kaleb received voting tokens](https://goerli.etherscan.io/tx/0xe44321190ff74ebfb5d5d2efcd2cb745ba5ea5e00fa5e9122d80b23ffe3d663d)
+
 [Nauman received voting tokens](https://goerli.etherscan.io/tx/0x160bfcb6d34f525ff54680620208668f7bcaceac2cfd493968b62f5eaa94a2e0)
+
 [Stefan received voting tokens](https://goerli.etherscan.io/tx/0x7f73ca0667fee11f14d94def60560296b5983ae15a7d8f30e57e90603d7d4d5a)
+
 [Muaaz received voting tokens](https://goerli.etherscan.io/tx/0x0ee990f03c184709325b18f2d280ad899f80b7d3f50093468cb32d047fd6aa91)
+
 [Ahtisham received voting tokens](https://goerli.etherscan.io/tx/0xdfd366865db6f3bb34800ab24f3cfdf5921505b0535aecda6c4012cd4da29cfa)
 ### Delegated Votes
 
