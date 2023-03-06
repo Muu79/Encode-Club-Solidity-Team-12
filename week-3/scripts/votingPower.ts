@@ -1,19 +1,19 @@
 import { ethers } from 'hardhat';
 import * as dotenv from 'dotenv';
-import { MyToken__factory } from '../typechain-types';
+import { MyToken__factory, Ballot__factory } from '../typechain-types';
 import { fallbackProvider, isPrivateKey } from './utils';
 dotenv.config();
 
 async function main() {
-	// getting 2 arguments: token contract address and voters address
+	// getting 2 arguments: ballot contract address and voters address
 	const args = process.argv.slice(2);
-	const tokenAddress = args[0];
+	const ballotAddress = args[0];
 	let voters = args[1];
 
 	// check if the arguments are valid addresses
-	if (!ethers.utils.isAddress(tokenAddress))
+	if (!ethers.utils.isAddress(ballotAddress))
 		throw new Error(
-			`Parameter Error: Token contract address ${tokenAddress} is not a valid address`
+			`Parameter Error: Token contract address ${ballotAddress} is not a valid address`
 		);
 
 	// check if private key is valid
@@ -35,19 +35,23 @@ async function main() {
 	console.log(`Connected to wallet address ${wallet.address}`);
 	if (!ethers.utils.isAddress(voters)) voters = wallet.address;
 
-	// connecting to token contract
-	const MyTokenContractFactory = new MyToken__factory(signer);
-	const tokenContract = MyTokenContractFactory.attach(tokenAddress);
-	console.log(`Connected to token contract ${tokenContract.address}`);
+	// connecting to Ballot contract
+	const ballotContractFactory = new Ballot__factory(signer);
+	const ballotContract = ballotContractFactory.attach(ballotAddress);
+	console.log(`Connected to ballot contract ${ballotContract.address}`);
 
-	// Check the voting power of voter's
-	let tokenBalanceVoter = await tokenContract.balanceOf(voters);
+	// Check the voting power
+	const votersVotingPower = await ballotContract.votingPower(voters);
+	const votingPowerSpent = await ballotContract.votingPowerSpent(voters);
+
 	console.log(
-		`Voter has a balance of ${ethers.utils.formatEther(tokenBalanceVoter)}`
-	);
-	let votersVotingPower = await tokenContract.getVotes(voters);
-	console.log(
-		`Voter's voting power is ${ethers.utils.formatEther(votersVotingPower)}`
+		`Voter's voting power is ${ethers.utils.formatEther(
+			votersVotingPower
+		)},\n Spent voting power is ${ethers.utils.formatEther(
+			votingPowerSpent
+		)},\n With ${ethers.utils.formatEther(
+			votersVotingPower.sub(votingPowerSpent)
+		)} voting power remaining.`
 	);
 }
 
