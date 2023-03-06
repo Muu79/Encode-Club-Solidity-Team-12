@@ -107,9 +107,9 @@ Katya Ryazantseva - [0x4C2A233B9fA760ffDC12703242Fb3D0855334DFE](https://goerli.
 
 [Voting Token aka Ice-Cream (ICT)](https://goerli.etherscan.io/address/0x5eaf4eA4664331BfEAf7a20617F359aB7d5D52A9) was deployed at address 0x5eaf4eA4664331BfEAf7a20617F359aB7d5D52A9 in this [transaction](https://goerli.etherscan.io/tx/0x8ca891ce9f758e41f57fe60dd262a6dab7b814b02a7374882a1e6430e6f3c18b)
 
-[Tokenised Ballot Contract](https://goerli.etherscan.io/address/0xA74291904eEAe2BEBed48a6A636BA1786a1bc1E2) was deployed at address 0xA74291904eEAe2BEBed48a6A636BA1786a1bc1E2 in this [transaction](https://goerli.etherscan.io/tx/0x3ff7d216d588543ecb515b7219ddb192704919bd37b576aea7f42bfde2fe53f5) with four proposals, by Kaleb
+[Tokenised Ballot Contract](https://goerli.etherscan.io/address/0xc3B172c55e328E979cf2668C2eeE1c1b399e37D6) was deployed at address 0xc3B172c55e328E979cf2668C2eeE1c1b399e37D6 in this [transaction](https://goerli.etherscan.io/tx/0x90ab4e76e980c11760234eeac4ceed7c9c7a2183918f6ebea435bada8370f570) with four proposals, by Kaleb
 
-### Gave Voting tokens for memeberes
+### Gave Voting tokens to memeberes
 
 #### All members were given 5 tokens
 
