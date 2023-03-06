@@ -143,14 +143,14 @@ Katya Ryazantseva - [0x4C2A233B9fA760ffDC12703242Fb3D0855334DFE](https://goerli.
 
 ### Gallery
 
-Screenshot for delegating vote.
+#### Screenshot for delegating vote.  
 ![CLI delegate call screenshot](./docs/delegation.png 'CLI for delegate vote')
 
-Screenshot for giving voting token.
+#### Screenshot for giving voting token.  
 ![CLI give voting token call screenshot](./docs/giveVotingTokens.png 'CLI for minting voting tokens')
 
-Screenshot for casting vote.
+#### Screenshot for casting vote.  
 ![CLI casting vote call screenshot](./docs/castVote.png 'CLI for voting')
 
-Screenshot for querying votingPower.
+#### Screenshot for querying votingPower.  
 ![CLI votePower call screenshot](./docs/votingPower.png 'CLI for voting power query')
