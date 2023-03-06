@@ -40,7 +40,7 @@ replace `[propsals]` with a list of proposals with a space between them
 ### Giving Voting tokens for right to vote
 
 ```bash
-npm run giveVotingToken <token-contract-address> [delegatee-addresses] <amount>
+npm run giveVotingToken <token-contract-address> <amount> [delegatee-addresses] 
 ```
 
 replace `[addresses]` with one or more addresses you would like to give the right to vote.
@@ -89,27 +89,27 @@ X test conditions tested in `HRE`, before deploying contract to `goerli` net.
 
 ### Our Names and Addresses
 
-Muaaz Bhyat - 0xA7951A334F5BfAd8A614a6948454149C9Ce9B162
+Muaaz Bhyat - [0xA7951A334F5BfAd8A614a6948454149C9Ce9B162](https://goerli.etherscan.io/address/0xa7951a334f5bfad8a614a6948454149c9ce9b162)
 
-Stefan Budai - 0xd7a1E69dBAfeba459d15D9a040Af8938c47A3662
+Stefan Budai - [0xd7a1E69dBAfeba459d15D9a040Af8938c47A3662](https://goerli.etherscan.io/address/0xd7a1E69dBAfeba459d15D9a040Af8938c47A3662)
 
-Nauman Jabbar - 0xdc32853108f74eA7bFbCF7140605A3353b6532eA
+Nauman Jabbar - [0xdc32853108f74eA7bFbCF7140605A3353b6532eA](https://goerli.etherscan.io/address/0xdc32853108f74eA7bFbCF7140605A3353b6532eA)
 
-Ahtisham Mehmood - 0xb3E1803709Ec66257a871070161a95850f10DEC7
+Ahtisham Mehmood - [0xb3E1803709Ec66257a871070161a95850f10DEC7](https://goerli.etherscan.io/address/0xb3E1803709Ec66257a871070161a95850f10DEC7)
 
-Kaleb Dori - 0x109Bf5E11140772a1427162bb51e23c244d13b88
+Kaleb Dori - [0x109Bf5E11140772a1427162bb51e23c244d13b88](https://goerli.etherscan.io/address/0x109Bf5E11140772a1427162bb51e23c244d13b88)
 
-Eyassu Birru - 0x60BC23A55918bc761127bC2A7733455d273bac7C
+Eyassu Birru - [0x60BC23A55918bc761127bC2A7733455d273bac7C](https://goerli.etherscan.io/address/0x60BC23A55918bc761127bC2A7733455d273bac7C)
 
-Katya Ryazantseva - 0x4C2A233B9fA760ffDC12703242Fb3D0855334DFE
+Katya Ryazantseva - [0x4C2A233B9fA760ffDC12703242Fb3D0855334DFE](https://goerli.etherscan.io/address/0x4C2A233B9fA760ffDC12703242Fb3D0855334DFE)
 
 ### Deployment
 
 [Voting Token aka Ice-Cream (ICT)](https://goerli.etherscan.io/address/0x5eaf4eA4664331BfEAf7a20617F359aB7d5D52A9) was deployed at address 0x5eaf4eA4664331BfEAf7a20617F359aB7d5D52A9 in this [transaction](https://goerli.etherscan.io/tx/0x8ca891ce9f758e41f57fe60dd262a6dab7b814b02a7374882a1e6430e6f3c18b)
 
-[Tokenised Ballot Contract](https://goerli.etherscan.io/address/0xA74291904eEAe2BEBed48a6A636BA1786a1bc1E2) was deployed at address 0xA74291904eEAe2BEBed48a6A636BA1786a1bc1E2 in this [transaction](https://goerli.etherscan.io/tx/0x3ff7d216d588543ecb515b7219ddb192704919bd37b576aea7f42bfde2fe53f5) with four proposals, by Kaleb
+[Tokenised Ballot Contract](https://goerli.etherscan.io/address/0xc3B172c55e328E979cf2668C2eeE1c1b399e37D6) was deployed at address 0xc3B172c55e328E979cf2668C2eeE1c1b399e37D6 in this [transaction](https://goerli.etherscan.io/tx/0x90ab4e76e980c11760234eeac4ceed7c9c7a2183918f6ebea435bada8370f570) with four proposals, by Kaleb
 
-### Gave Voting tokens for memeberes
+### Gave Voting tokens to memeberes
 
 #### All members were given 5 tokens
 
@@ -119,10 +119,7 @@ Katya Ryazantseva - 0x4C2A233B9fA760ffDC12703242Fb3D0855334DFE
 [Ahtisham](https://goerli.etherscan.io/tx/0xdfd366865db6f3bb34800ab24f3cfdf5921505b0535aecda6c4012cd4da29cfa)  
 [Nauman](https://goerli.etherscan.io/tx/0x160bfcb6d34f525ff54680620208668f7bcaceac2cfd493968b62f5eaa94a2e0)  
 [Stefan](https://goerli.etherscan.io/tx/0x7f73ca0667fee11f14d94def60560296b5983ae15a7d8f30e57e90603d7d4d5a)  
-[Muaaz](https://goerli.etherscan.io/tx/0x0ee990f03c184709325b18f2d280ad899f80b7d3f50093468cb32d047fd6aa91)
-
-
-
+[Muaaz](https://goerli.etherscan.io/tx/0x0ee990f03c184709325b18f2d280ad899f80b7d3f50093468cb32d047fd6aa91)  
 
 ### Delegated Votes
 
