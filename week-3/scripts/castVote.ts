@@ -5,7 +5,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 async function main() {
-  // getting arguments: tokenised ballot contract address and proposal index (from 0 to 2)
+  // getting arguments: tokenised ballot contract address and proposal index (from 0 to 3)
   const args = process.argv.slice(2);
   const contractAddress = args[0];
   const proposal = args[1];
