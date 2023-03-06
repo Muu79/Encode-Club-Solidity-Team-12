@@ -1,6 +1,8 @@
 import { ethers } from "hardhat";
 import * as dotenv from "dotenv";
 import { MyToken__factory } from "../typechain-types";
+import { fallbackProvider } from "./utils";
+import { BigNumber } from "ethers";
 
 dotenv.config();
 
@@ -16,10 +18,10 @@ async function main() {
 
   if (!ethers.utils.isAddress(voter)) throw new Error(`${voter} is not a valid address!`);
 
-  if (!ethers.BigNumber.isBigNumber(amount)) throw new Error(`${amount} is not a valid number!`);
+  if (!ethers.BigNumber.isBigNumber(amount) || amount.toNumber() <= 0) throw new Error(`${amount} is not a valid number!`);
 
   // connecting to wallet and provider
-  const provider = ethers.getDefaultProvider("goerli");
+  const provider = await fallbackProvider();
 
   const privateKey = process.env.PRIVATE_KEY;
   if (!privateKey || privateKey.length <= 0) throw new Error("Missing environment: Private key");
