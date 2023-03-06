@@ -30,9 +30,13 @@ npm run test
 
 ### Deploying a contract with arguments
 
+#### Deploying Token Contract
+
 ```bash
-npm run deployToken
+npm run deployToken <name> <symbol>
 ```
+
+#### Depoloying Ballot contract
 
 ```bash
 npm run deployBallot <token-contract-address> [proposals]
@@ -106,6 +110,10 @@ Katya Ryazantseva - 0x4C2A233B9fA760ffDC12703242Fb3D0855334DFE
 
 [TODO]
 
+### Voting Power
+
+[TODO]
+
 ### Voting
 
 [TODO]
@@ -120,8 +128,14 @@ Katya Ryazantseva - 0x4C2A233B9fA760ffDC12703242Fb3D0855334DFE
 
 ### Gallery
 
-Screenshot for giving right to vote.
-![CLI give right to vote call screenshot](./docs/giveRightToVote.png 'CLI for give voting right')
+Screenshot for delegating vote.
+![CLI delegate call screenshot](./docs/delegation.png 'CLI for delegate vote')
+
+Screenshot for quering voting power.
+![CLI voting power call screenshot](./docs/votingPower.png 'CLI for voting power call')
+
+Screenshot for giving voting token.
+![CLI give voting token call screenshot](./docs/giveRightToVote.png 'CLI for give voting right')
 
 Screenshot for casting vote.
 ![CLI casting vote call screenshot](./docs/castVote.png 'CLI for voting')
