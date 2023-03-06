@@ -1,6 +1,6 @@
 import { ethers } from 'hardhat';
 import * as dotenv from 'dotenv';
-import { MyToken__factory, Ballot__factory } from '../typechain-types';
+import { Ballot__factory } from '../typechain-types';
 import { fallbackProvider, isPrivateKey } from './utils';
 dotenv.config();
 
@@ -32,27 +32,27 @@ async function main() {
 	const provider = await fallbackProvider();
 	const wallet = new ethers.Wallet(privateKey, provider);
 	const signer = wallet.connect(provider);
-	console.log(`Connected to wallet address ${wallet.address}`);
+	console.log(`Connected to wallet address\x1B[34m ${wallet.address} \x1B[0m`);
 	if (!ethers.utils.isAddress(voters)) voters = wallet.address;
 
 	// connecting to Ballot contract
 	const ballotContractFactory = new Ballot__factory(signer);
 	const ballotContract = ballotContractFactory.attach(ballotAddress);
-	console.log(`Connected to ballot contract ${ballotContract.address}`);
+	console.log(
+		`Connected to ballot contract\x1B[34m ${ballotContract.address} \x1B[0m`
+	);
 
 	// Check the voting power
 	const votersVotingPower = await ballotContract.votingPower(voters);
 	const votingPowerSpent = await ballotContract.votingPowerSpent(voters);
-
-	console.log(
-		`Voter's voting power is ${ethers.utils.formatEther(
-			votersVotingPower
-		)},\n Spent voting power is ${ethers.utils.formatEther(
-			votingPowerSpent
-		)},\n With ${ethers.utils.formatEther(
-			votersVotingPower.sub(votingPowerSpent)
-		)} voting power remaining.`
-	);
+	console.log(`\nVoting power of\x1B[31m ${voters} \x1B[0mis:`);
+	console.table({
+		'Delegated VP': Number(ethers.utils.formatEther(votersVotingPower)),
+		'Spent VP': Number(ethers.utils.formatEther(votingPowerSpent)),
+		'Remaining VP': Number(
+			ethers.utils.formatEther(votersVotingPower.sub(votingPowerSpent))
+		),
+	});
 }
 
 main().catch((error) => {
