@@ -168,7 +168,7 @@ An example can be found [here](https://goerli.etherscan.io/tx/0x8c6d14b65646c15e
 2. When votes are tie the result is: `it's tie between # members. proposal x, proposal y with vote count of # `
 3. When one proposal wins the result returns: `proposal x is winner with # votes`
 
-![Chocolate is winner with 30 votes](./docs/queryResults.png 'CLI winner proposal')
+![Coconut is winner with 16.92 votes](./docs/queryResults.png 'CLI winner proposal')
 
 ### Gallery
 
