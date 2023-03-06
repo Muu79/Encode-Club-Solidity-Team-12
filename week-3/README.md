@@ -51,6 +51,12 @@ replace `[addresses]` with one or more addresses you would like to give the righ
 npm run delegate <token-contract-address> <delegatee-address>
 ```
 
+### Delegating vote by Signature
+
+```bash
+npm run delegateBySig <token-address> <delegatee-address> <expiry-date-as-seconds-since-unix-epoch>
+```
+
 ### Casting vote
 
 ```bash

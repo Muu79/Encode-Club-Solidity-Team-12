@@ -19,7 +19,7 @@ async function main() {
 
   if (!ethers.utils.isAddress(voter)) throw new Error(`${voter} is not a valid address!`);
 
-  if (!ethers.BigNumber.isBigNumber(amount) || amount.toNumber() <= 0) throw new Error(`${amount} is not a valid number!`);
+  if (!ethers.BigNumber.isBigNumber(amount) || amount.isZero()) throw new Error(`${amount} is not a valid number!`);
 
   // connecting to wallet and provider
   const provider = await fallbackProvider();

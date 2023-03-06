@@ -5,12 +5,14 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "npx hardhat test",
-		"deploy": "npx ts-node --files ./scripts/deploy.ts",
-		"castVote": "npx ts-node --files ./scripts/castVote.ts",
-		"queryResults": "npx ts-node --files ./scripts/queryResults.ts",
+		"deployToken": "npx ts-node --files ./scripts/deployToken.ts",
+		"deployBallot": "npx ts-node --files ./scripts/deployBallot.ts",
+		"giveVotingTokens": "npx ts-node --files ./scripts/giveVotingTokens.ts",
 		"delegateVote": "npx ts-node --files ./scripts/delegateVote.ts",
-		"mintToken": "npx ts-node --files ./scripts/mintToken.ts",
-		"votingPower": "npx ts-node --files ./scripts/votingPower.ts"
+		"castVote": "npx ts-node --files ./scripts/castVote.ts",
+		"votingPower": "npx ts-node --files ./scripts/votingPower.ts",
+		"queryResults": "npx ts-node --files ./scripts/queryResults.ts",
+		"delegateBySig": "npx ts-node --files ./scripts/delegateBySig.ts"
 	},
 	"keywords": [],
 	"author": "Team 12",

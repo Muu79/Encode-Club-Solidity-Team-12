@@ -46,13 +46,18 @@ async function main() {
 	const votersVotingPower = await ballotContract.votingPower(voters);
 	const votingPowerSpent = await ballotContract.votingPowerSpent(voters);
 	console.log(`\nVoting power of\x1B[31m ${voters} \x1B[0mis:`);
-	console.table({
-		'Delegated VP': Number(ethers.utils.formatEther(votersVotingPower)),
-		'Spent VP': Number(ethers.utils.formatEther(votingPowerSpent)),
-		'Remaining VP': Number(
-			ethers.utils.formatEther(votersVotingPower.sub(votingPowerSpent))
-		),
-	});
+	const ConsoleVote = (Delegated: any, Spent: any, Remaining: any) => {
+		return { Delegated, Spent, Remaining };
+	};
+	const consoleTable: any = {};
+
+	consoleTable.Voting_Power = ConsoleVote(
+		Number(ethers.utils.formatEther(votersVotingPower)),
+		Number(ethers.utils.formatEther(votingPowerSpent)),
+		Number(ethers.utils.formatEther(votersVotingPower.sub(votingPowerSpent)))
+	);
+
+	console.table(consoleTable);
 }
 
 main().catch((error) => {

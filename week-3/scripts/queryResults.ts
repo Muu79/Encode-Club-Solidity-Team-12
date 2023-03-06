@@ -31,7 +31,7 @@ async function main() {
   // connecting to ballot contract
   const ballotContractFactory = new Ballot__factory(signer);
   const contract = ballotContractFactory.attach(contractAddress);
-  console.log(`Connected to the contract address ${contractAddress}`);
+  console.log(`Connected to ballot contract \x1B[34m${contractAddress}\x1B[0m`);
 
   // querying result
   console.log('\nQuering results ...');
@@ -55,8 +55,8 @@ async function main() {
   while (shouldIterate) {
     try {
       const proposal = await contract.proposals(index);
-      proposals[bytesToString(proposal.name)] = ethers.utils.formatEther(
-        proposal.voteCount
+      proposals[bytesToString(proposal.name)] = Number(
+        ethers.utils.formatEther(proposal.voteCount)
       );
       if (ethers.utils.formatEther(proposal.voteCount) == maxVoteCount) {
         results[bytesToString(proposal.name)] = ethers.utils.formatEther(
@@ -81,7 +81,9 @@ async function main() {
       )} with vote count of ${maxVoteCount} `
     );
   } else {
-    console.log(`${winnerName} is winner with ${maxVoteCount} votes`);
+    console.log(
+      `\x1B[32m${winnerName}\x1B[0m is winner with \x1B[32m${maxVoteCount}\x1B[0m votes`
+    );
   }
 }
 
