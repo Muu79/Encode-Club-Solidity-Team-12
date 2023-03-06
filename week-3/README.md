@@ -23,6 +23,7 @@ npm run test
 ## Running scripts with arguments
 
 ### Deploying contracts with arguments
+
 **Note**: `<param>` refers to a single value while `[params]` refers to a list of values.  
 parameters must be seperated by a space, if your parameter contains a space  
 surround it with double-quotes `npm run script param1 "param 2"`
@@ -160,6 +161,7 @@ An example can be found [here](https://goerli.etherscan.io/tx/0x8c6d14b65646c15e
 
 #### Stefan Voted Once.  
 [Transaction](https://goerli.etherscan.io/tx/0x0e2230e5cedd85886034b6711bbba60675af7187c2a7a2113657219b0a0dcc62) with a value of 5 for proposal 0  
+
 ### Results
 
 1. Before a vote is casted the result returns: `No vote has been casted yet`
@@ -182,6 +184,6 @@ An example can be found [here](https://goerli.etherscan.io/tx/0x8c6d14b65646c15e
 
 ![CLI casting vote call screenshot](./docs/castVote.png 'CLI for voting')
 
-#### Screenshot for querying votingPower.  
+#### Screenshot for querying votingPower.
 
 ![CLI votePower call screenshot](./docs/votingPower.png 'CLI for voting power query')

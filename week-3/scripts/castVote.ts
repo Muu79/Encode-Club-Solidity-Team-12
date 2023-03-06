@@ -5,7 +5,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 async function main() {
-  // getting arguments: tokenised ballot contract address and proposal index (from 0 to 2)
+  // getting arguments: tokenised ballot contract address and proposal index (from 0 to 3)
   const args = process.argv.slice(2);
   const contractAddress = args[0];
   const proposal = args[1];
@@ -22,21 +22,27 @@ async function main() {
   const provider = await fallbackProvider();
   const wallet = new ethers.Wallet(privateKey);
   const signer = wallet.connect(provider);
-  console.log(`Connected to wallet address ${wallet.address}`);
+  console.log(`Connected to wallet address \x1B[34m${wallet.address}\x1B[0m`);
 
   // connecting to ballot contract
   const ballotContractFactory = new Ballot__factory(signer);
   const contract = ballotContractFactory.attach(contractAddress);
-  console.log(`Connected to contract address ${contractAddress}`);
+  console.log(
+    `Connected to contract address \x1B[34m${contractAddress}\x1B[0m`
+  );
 
   // voting
   console.log('Voting in progress ...');
-  const vote = await contract
-    .connect(signer)
-    .vote(proposal, ethers.utils.parseEther(amount));
-  const voteTx = await vote.wait();
-  console.log(voteTx);
-  console.log(`${wallet.address} has voted`);
+  const vote = await contract.vote(proposal, ethers.utils.parseEther(amount));
+  await vote.wait();
+  const proposalName = (await contract.proposals(proposal)).name;
+  console.log(
+    `Address \x1B[34m${
+      wallet.address
+    }\x1B[0m has voted for \x1B[32m${ethers.utils.parseBytes32String(
+      proposalName
+    )}\x1B[0m`
+  );
 }
 
 main().catch((error) => {
