@@ -1,4 +1,4 @@
-# Team 12 Week 3 Project - Tokenized Ballot
+# Team 12 Week 3 Tokenized Ballot Project
 
 ## Setup
 
