@@ -1,27 +1,27 @@
 {
-  "name": "week-3",
-  "version": "1.0.0",
-  "description": "Tokenised Ballot contract scripts in hardhat.",
-  "main": "index.js",
-  "scripts": {
-    "test": "npx hardhat test",
-    "deployBallot": "npx ts-node --files ./scripts/deployBallot.ts",
-    "deployToken": "npx ts-node --files ./scripts/deployToken.ts",
-	"delegate" : "npx ts-node --files ./scripts/delegateVote.ts",
-    "castVote": "npx ts-node --files ./scripts/castVote.ts",
-    "queryResults": "npx ts-node --files ./scripts/queryResults.ts"
-  },
-  "keywords": [],
-  "author": "Team 12",
-  "license": "ISC",
-  "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^2.0.1",
-    "@openzeppelin/contracts": "^4.8.1",
-    "dotenv": "^16.0.3",
-    "hardhat": "^2.12.7",
-    "mocha": "^10.2.0"
-  },
-  "dependencies": {
-    "@typechain/hardhat": "^6.1.5"
-  }
+	"name": "week-3",
+	"version": "1.0.0",
+	"description": "Tokenised Ballot contract scripts in hardhat.",
+	"main": "index.js",
+	"scripts": {
+		"test": "npx hardhat test",
+		"deploy": "npx ts-node --files ./scripts/deploy.ts",
+		"castVote": "npx ts-node --files ./scripts/castVote.ts",
+		"queryResults": "npx ts-node --files ./scripts/queryResults.ts",
+		"delegateVote": "npx ts-node --files ./scripts/delegateVote.ts",
+		"mintToken": "npx ts-node --files ./scripts/mintToken.ts"
+	},
+	"keywords": [],
+	"author": "Team 12",
+	"license": "ISC",
+	"devDependencies": {
+		"@nomicfoundation/hardhat-toolbox": "^2.0.1",
+		"@openzeppelin/contracts": "^4.8.1",
+		"dotenv": "^16.0.3",
+		"hardhat": "^2.12.7",
+		"mocha": "^10.2.0"
+	},
+	"dependencies": {
+		"@typechain/hardhat": "^6.1.5"
+	}
 }
