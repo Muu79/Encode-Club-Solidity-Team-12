@@ -9,9 +9,15 @@ dotenv.config();
 @Injectable()
 export class AppService {
   provider: ethers.providers.Provider;
+  tokenContract: ethers.Contract;
 
   constructor() {
-    this.provider = ethers.getDefaultProvider('goerli');    
+    this.provider = ethers.getDefaultProvider('goerli');  
+    this.tokenContract = new ethers.Contract(
+      process.env.TOKEN_CONTRACT_ADDRESS,
+      tokenJson.abi,
+      this.provider,
+    );  
   }
   
   // Ballot
@@ -43,4 +49,16 @@ export class AppService {
 
     return { votingPower, votingPowerSpent };
   }
+   
+  // Token
+
+  async mint(to: string, amount: string) {
+    const privateKey = process.env.PRIVATE_KEY;
+    const wallet = new ethers.Wallet(privateKey, this.provider);
+    const signer = wallet.connect(this.provider);
+    const tx = await this.tokenContract.connect(signer).mint(to, ethers.utils.parseEther(amount));
+    const txReceipt = await tx.wait();
+    return txReceipt.status == 1 ? 'Completed' : 'Reverted';
+  }
+
 }
