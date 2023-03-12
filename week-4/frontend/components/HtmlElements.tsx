@@ -1,18 +1,25 @@
-export const Card = ({ children }) => (
+
+'use client'
+import { CardProps, InputFieldProps, PrimaryBtnProps } from "./componentPropsTypes/componentTypes";
+import {useState} from "react";
+import {ethers} from "ethers";
+
+
+export const Card = ({ children } : CardProps) => (
   <div className="flex flex-col items-center mt-8 mx-5 max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
     {children}
   </div>
 );
 
-export const PrimaryBtn = ({ name }) => (
-  <button className="relative inline-flex items-center justify-center p-0.5 mt-5 mb-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+export const PrimaryBtn = ({ onClick, name } : PrimaryBtnProps) => (
+  <button onClick={onClick} className="relative inline-flex items-center justify-center p-0.5 mt-5 mb-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
     <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
       {name}
     </span>
   </button>
 );
 
-export const InputField = ({ inputType, placeholder }) => (
+export const InputField = ({ inputType, placeholder }: InputFieldProps) => (
   <div>
     <input
       type={inputType}
@@ -22,3 +29,4 @@ export const InputField = ({ inputType, placeholder }) => (
     />
   </div>
 );
+
