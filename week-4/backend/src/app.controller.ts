@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Param, Post, Query } from "@nestjs/common";
+import { Hash } from "crypto";
 import { AppService } from "./app.service";
 import { CastVoteDTO } from "./dtos/castVote.dto";
 import { MintDTO } from "./dtos/mint.dto";
@@ -30,8 +31,12 @@ export class AppController {
   }
 
   @Post("cast-vote")
+  /*castVote with private key from .env
   async castVote(@Body() body: CastVoteDTO): Promise<string> {
     return await this.appService.castVote(body.ballotAddress, body.proposal, body.amount);
+  }*/
+  castVote(@Body() body: CastVoteDTO): string {
+    return this.appService.castVote(body.ballotAddress, body.proposal, body.amount);
   }
 
   // Token functions

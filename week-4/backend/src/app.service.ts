@@ -3,6 +3,7 @@ import { Injectable } from "@nestjs/common";
 import { BigNumber, ethers } from "ethers";
 import * as tokenJson from "./assets/MyToken.json";
 import * as ballotJson from "./assets/Ballot.json";
+import { Hash } from "crypto";
 
 dotenv.config();
 const api = process.env.ALCHEMY_API_KEY;
@@ -95,14 +96,15 @@ export class AppService {
     return this.recentVotes;
   }
 
-  async castVote(ballotAddress: string, proposal: number, amount: string): Promise<string> {
+  castVote(ballotAddress: string, proposal: number, amount: string): string {
     // check if parameter is a valid address
     if (!ethers.utils.isAddress(ballotAddress)) throw new Error(`Parameter Error: Token contract address ${ballotAddress} is not a valid address`);
 
+    /* castVote with private key from .env
     // connecting to Ballot contract
     const ballotContract = new ethers.Contract(ballotAddress, ballotJson.abi, this.provider);
 
-    // connecting to wallet nad getting signer
+    // connecting to wallet and getting signer
     const privateKey = process.env.PRIVATE_KEY;
     const wallet = new ethers.Wallet(privateKey);
     const signer = wallet.connect(this.provider);
@@ -115,8 +117,12 @@ export class AppService {
       const proposalName = ethers.utils.parseBytes32String((await ballotContract.proposals(proposal)).name);
       this.recentVotes.push({ proposalIndex: proposal, proposalName: proposalName, amount: amount, txHash: txReceipt.transactionHash });
     }
-
-    return txReceipt.transactionHash;
+    */
+    // construct unsigned transaction hash
+    const ballotInterface = new ethers.utils.Interface(ballotJson.abi);
+    const amountBN = ethers.utils.parseEther(amount);
+    const unsignedHash = ballotInterface.encodeFunctionData("vote", [proposal, amountBN]);
+    return unsignedHash;
   }
 
   // Token
