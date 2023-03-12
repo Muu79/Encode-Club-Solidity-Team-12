@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import { FaGithub } from 'react-icons/fa';
 import CastVote from './CastVote';
-import Connect from './Connect';
 import Delegate from './Delegate';
 import Mint from './Mint';
 import styles from './page.module.css';
@@ -48,7 +47,6 @@ export default function Home() {
 						<code className={styles.code}>Typescript</code>
 					</a>
 				</p>
-				<Connect />
 			</div>
 
 			<div className={styles.center}>
