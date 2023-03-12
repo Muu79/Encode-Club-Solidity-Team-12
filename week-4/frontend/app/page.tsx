@@ -1,95 +1,42 @@
-import Image from 'next/image'
-import styles from './page.module.css'
-
+import { Card, PrimaryBtn, InputField } from "@/components/HtmlElements";
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div className="flex flex-col items-center mt-20">
+      <h1 className="text-5xl font-bold">Week 4 Project</h1>
+      <p className="text-xl mt-5">
+        Please connect your wallet by clicking the connect button
+      </p>
+      <PrimaryBtn name="Connect Wallet" />
+
+      <div className="flex">
+        <Card>
+          <h1 className="text-xl text-left mb-3">Request Tokens</h1>
+          <InputField inputType="number" placeholder="Amount of tokens" />
+          <PrimaryBtn name="Request Tokens" />
+        </Card>
+
+        <Card>
+          <h1 className="text-xl text-left mb-3">Cast Vote</h1>
+          <InputField inputType="number" placeholder="Index of proposal" />
+          <PrimaryBtn name="Cast Vote" />
+        </Card>
+
+        <Card>
+          <h1 className="text-xl text-left mb-3">Delegate Vote</h1>
+          <InputField inputType="text" placeholder="Address of delegate" />
+          <PrimaryBtn name="Delegate Vote" />
+        </Card>
+      </div>
+
+      <div className="flex mt-12">
+        <div className="mx-5">
+          <PrimaryBtn name="Query Result" />
+        </div>
+        <div className="mx-5">
+          <PrimaryBtn name="Voting History" />
         </div>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-        <div className={styles.thirteen}>
-          <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
-        </div>
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-          
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-      <div>
-      <h1 className="text-3xl font-bold underline">
-      Tailwind Css!
-    </h1>
-      </div>
-    </main>
-  )
+    </div>
+  );
 }
