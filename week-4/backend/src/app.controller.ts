@@ -13,9 +13,20 @@ export class AppController {
   async votingPower(@Query("ballotAddress") ballotAddress: string, @Query("address") address: string): Promise<object> {
     return await this.appService.votingPower(ballotAddress, address);
   }
+
+  @Get("get-proposals")
+  async getProposals(@Query("ballotAddress") ballotAddress: string): Promise<object> {
+    return await this.appService.getProposals(ballotAddress);
+  }
+
   @Get("winning-proposal")
   async winningProposal(@Query("ballotAddress") ballotAddress: string): Promise<object> {
     return await this.appService.winningProposal(ballotAddress);
+  }
+
+  @Get("recent-votes")
+  recentVotes(): object[] {
+    return this.appService.getRecentVotes();
   }
 
   @Post("cast-vote")
