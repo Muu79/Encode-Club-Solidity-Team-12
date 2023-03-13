@@ -25,7 +25,7 @@ async function sendTransaction(wallets: any) {
 	}
 }
 
-export default function metamask() {
+export default function Metamask() {
 	const [{ wallet, connecting }, connect, disconnect] = useConnectWallet();
 
 	// create an ethers provider
