@@ -2,7 +2,7 @@
 import { ethers } from 'ethers';
 import { useConnectWallet } from '@web3-onboard/react';
 
-export default function metamask() {
+export default function Metamask() {
 	const [{ wallet, connecting }, connect, disconnect] = useConnectWallet();
 
 	// create an ethers provider
