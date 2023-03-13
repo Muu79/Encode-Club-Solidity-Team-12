@@ -11,6 +11,8 @@ const injected = injectedModule({
 	},
 });
 
+const INFURA_KEY = '2996ff3d1a1142689324a8341cb75c68';
+
 export default init({
 	// An array of wallet modules that you would like to be presented to the user to select from when connecting a wallet.
 	wallets: [injected],
@@ -24,7 +26,7 @@ export default init({
 			publicRpcUrl: 'https://goerli.infura.io/v3/',
 			blockExplorerUrl: 'https://goerli.etherscan.io/',
 			// used for network requests
-			rpcUrl: `https://eth-goerli.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`,
+			rpcUrl: `https://goerli.infura.io/v3/${INFURA_KEY}`,
 		},
 	],
 	appMetadata: {

@@ -38,20 +38,28 @@ const CastVote = () => {
 	}
 
 	const handleChange = {
-		voteAmount: (event: { target: { value: SetStateAction<number>; }; }) => {
+		voteAmount: (event: { target: { value: SetStateAction<number> } }) => {
 			setVoteAmount(event.target.value);
 		},
-		voteIndex: (event: { target: { value: SetStateAction<number>; }; }) => {
+		voteIndex: (event: { target: { value: SetStateAction<number> } }) => {
 			setVoteIndex(event.target.value);
-		}
-	}
+		},
+	};
 
 	return (
 		<>
 			<h2 className='text-xl text-left mb-3'>Vote</h2>
 			<p>Cast your vote.</p>
-			<InputField inputType='number' placeholder='Index of proposal' onChange={handleChange.voteIndex} />
-			<InputField inputType='number' placeholder='Amount of voting Power to use' onChange={handleChange.voteAmount}/>
+			<InputField
+				inputType='number'
+				placeholder='Index of proposal'
+				onChange={handleChange.voteIndex}
+			/>
+			<InputField
+				inputType='number'
+				placeholder='Amount of voting Power to use'
+				onChange={handleChange.voteAmount}
+			/>
 			<PrimaryBtn
 				name='Cast Vote'
 				onClick={() => castVote(voteAmount, voteIndex, 'BallotAddress')}
