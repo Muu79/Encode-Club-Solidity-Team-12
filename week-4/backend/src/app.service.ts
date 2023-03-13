@@ -9,156 +9,112 @@ const api = process.env.ALCHEMY_API_KEY;
 
 @Injectable()
 export class AppService {
-	provider: ethers.providers.Provider;
-	tokenContract: ethers.Contract;
-	ballotContract: ethers.Contract;
-	recentVotes = new Array<object>();
+  provider: ethers.providers.Provider;
+  tokenContract: ethers.Contract;
+  ballotContract: ethers.Contract;
+  recentVotes = new Array<object>();
 
-	constructor() {
-		// this.provider = ethers.getDefaultProvider("goerli");
-		this.provider = new ethers.providers.AlchemyProvider("goerli", api);
-		this.tokenContract = new ethers.Contract(
-			process.env.TOKEN_CONTRACT_ADDRESS,
-			tokenJson.abi,
-			this.provider
-		);
-		this.ballotContract = new ethers.Contract(
-			process.env.BALLOT_CONTRACT_ADDRESS,
-			ballotJson.abi,
-			this.provider
-		);
+  constructor() {
+    // this.provider = ethers.getDefaultProvider("goerli");
+    this.provider = new ethers.providers.AlchemyProvider("goerli", api);
+    this.tokenContract = new ethers.Contract(process.env.TOKEN_CONTRACT_ADDRESS, tokenJson.abi, this.provider);
+    this.ballotContract = new ethers.Contract(process.env.BALLOT_CONTRACT_ADDRESS, ballotJson.abi, this.provider);
 
-		this.ballotContract.on(
-			"voted",
-			(_proposalName: string, _amount: BigNumber, _voteCount: BigNumber) => {
-				const proposalName = ethers.utils.parseBytes32String(_proposalName);
-				const amount = ethers.utils.formatEther(_amount);
-				const voteCount = ethers.utils.formatEther(_voteCount);
-				this.recentVotes.push({
-					proposalName: proposalName,
-					amountVoted: amount,
-					totalVotes: voteCount,
-				});
-			}
-		);
-	}
+    this.ballotContract.on("voted", (_proposalName: string, _amount: BigNumber, _voteCount: BigNumber) => {
+      const proposalName = ethers.utils.parseBytes32String(_proposalName);
+      const amount = ethers.utils.formatEther(_amount);
+      const voteCount = ethers.utils.formatEther(_voteCount);
+      this.recentVotes.push({
+        proposalName: proposalName,
+        amountVoted: amount,
+        totalVotes: voteCount,
+      });
+    });
+  }
 
-	// Ballot
+  // Ballot
 
-	async votingPower(ballotAddress: string, address: string): Promise<object> {
-		// check if parameters are valid addresses
-		if (!ethers.utils.isAddress(ballotAddress))
-			throw new Error(
-				`Parameter Error: Token contract address ${ballotAddress} is not a valid address`
-			);
-		if (!ethers.utils.isAddress(address))
-			throw new Error(
-				`Parameter Error: Token contract address ${address} is not a valid address`
-			);
+  async votingPower(ballotAddress: string, address: string): Promise<object> {
+    // check if parameters are valid addresses
+    if (!ethers.utils.isAddress(ballotAddress)) throw new Error(`Parameter Error: Token contract address ${ballotAddress} is not a valid address`);
+    if (!ethers.utils.isAddress(address)) throw new Error(`Parameter Error: Token contract address ${address} is not a valid address`);
 
-		// connecting to Ballot contract
-		const ballotContract = new ethers.Contract(
-			ballotAddress,
-			ballotJson.abi,
-			this.provider
-		);
+    // connecting to Ballot contract
+    const ballotContract = new ethers.Contract(ballotAddress, ballotJson.abi, this.provider);
 
-		// check the voting power
-		const votingPowerBN = await ballotContract.votingPower(address);
-		const votingPowerSpentBN = await ballotContract.votingPowerSpent(address);
-		const votingPower = ethers.utils.formatEther(votingPowerBN);
-		const votingPowerSpent = ethers.utils.formatEther(votingPowerSpentBN);
+    // check the voting power
+    const votingPowerBN = await ballotContract.votingPower(address);
+    const votingPowerSpentBN = await ballotContract.votingPowerSpent(address);
+    const votingPower = ethers.utils.formatEther(votingPowerBN);
+    const votingPowerSpent = ethers.utils.formatEther(votingPowerSpentBN);
 
-		return { votingPower, votingPowerSpent };
-	}
+    return { votingPower, votingPowerSpent };
+  }
 
-	async getProposals(ballotAddress: string): Promise<object> {
-		// check if parameter is valid address
-		if (!ethers.utils.isAddress(ballotAddress))
-			throw new Error(
-				`Parameter Error: Token contract address ${ballotAddress} is not a valid address`
-			);
+  async getProposals(ballotAddress: string): Promise<object> {
+    // check if parameter is valid address
+    if (!ethers.utils.isAddress(ballotAddress)) throw new Error(`Parameter Error: Token contract address ${ballotAddress} is not a valid address`);
 
-		// connecting to Ballot contract
-		const ballotContract = new ethers.Contract(
-			ballotAddress,
-			ballotJson.abi,
-			this.provider
-		);
+    // connecting to Ballot contract
+    const ballotContract = new ethers.Contract(ballotAddress, ballotJson.abi, this.provider);
 
-		let index = 0;
-		let iterate = true;
-		let proposals = [];
+    let index = 0;
+    let iterate = true;
+    let proposals = [];
 
-		while (iterate) {
-			try {
-				const proposal = await ballotContract.proposals(index);
-				proposals.push({
-					name: ethers.utils.parseBytes32String(proposal.name),
-					votes: ethers.utils.formatEther(proposal.voteCount),
-				});
-			} catch (error) {
-				iterate = false;
-			}
-			index += 1;
-		}
+    while (iterate) {
+      try {
+        const proposal = await ballotContract.proposals(index);
+        proposals.push({
+          name: ethers.utils.parseBytes32String(proposal.name),
+          votes: ethers.utils.formatEther(proposal.voteCount),
+        });
+      } catch (error) {
+        iterate = false;
+      }
+      index += 1;
+    }
 
-		const targetBlockNumber = parseFloat(
-			await ballotContract.targetBlockNumber()
-		);
+    const targetBlockNumber = parseFloat(await ballotContract.targetBlockNumber());
 
-		return { targetBlockNumber, proposals };
-	}
+    return { targetBlockNumber, proposals };
+  }
 
-	async winningProposal(ballotAddress: string): Promise<object> {
-		// check if parameter is a valid address
-		if (!ethers.utils.isAddress(ballotAddress))
-			throw new Error(
-				`Parameter Error: Token contract address ${ballotAddress} is not a valid address`
-			);
+  async winningProposal(ballotAddress: string): Promise<object> {
+    // check if parameter is a valid address
+    if (!ethers.utils.isAddress(ballotAddress)) throw new Error(`Parameter Error: Token contract address ${ballotAddress} is not a valid address`);
 
-		// connecting to Ballot contract
-		const ballotContract = new ethers.Contract(
-			ballotAddress,
-			ballotJson.abi,
-			this.provider
-		);
+    // connecting to Ballot contract
+    const ballotContract = new ethers.Contract(ballotAddress, ballotJson.abi, this.provider);
 
-		// querying result
-		const winnerProposalIndexBN = await ballotContract.winningProposal();
-		const winnerProposalName = ethers.utils.parseBytes32String(
-			(await ballotContract.proposals(winnerProposalIndexBN)).name
-		);
-		const winnerVotecount = ethers.utils.formatEther(
-			(await ballotContract.proposals(winnerProposalIndexBN))?.voteCount
-		);
+    // querying result
+    const winnerProposalIndexBN = await ballotContract.winningProposal();
+    const winnerProposalName = ethers.utils.parseBytes32String((await ballotContract.proposals(winnerProposalIndexBN)).name);
+    const winnerVotecount = ethers.utils.formatEther((await ballotContract.proposals(winnerProposalIndexBN))?.voteCount);
 
-		if (winnerVotecount === ethers.utils.formatEther(0)) {
-			throw new Error("No vote has been casted yet");
-		}
+    if (winnerVotecount === ethers.utils.formatEther(0)) {
+      throw new Error("No vote has been casted yet");
+    }
 
-		const winnerProposalIndex = parseFloat(winnerProposalIndexBN);
+    const winnerProposalIndex = parseFloat(winnerProposalIndexBN);
 
-		console.log(winnerProposalName);
-		return {
-			winnerProposalIndex: winnerProposalIndex,
-			winnerProposalName: winnerProposalName,
-			winnerVotecount: winnerVotecount,
-		};
-	}
+    console.log(winnerProposalName);
+    return {
+      winnerProposalIndex: winnerProposalIndex,
+      winnerProposalName: winnerProposalName,
+      winnerVotecount: winnerVotecount,
+    };
+  }
 
-	getRecentVotes(): object[] {
-		return this.recentVotes;
-	}
+  getRecentVotes(): object[] {
+    return this.recentVotes;
+  }
 
-	castVote(ballotAddress: string, proposal: number, amount: string): string {
-		// check if parameter is a valid address
-		if (!ethers.utils.isAddress(ballotAddress))
-			throw new Error(
-				`Parameter Error: Token contract address ${ballotAddress} is not a valid address`
-			);
+  castVote(ballotAddress: string, proposal: number, amount: string): string {
+    // check if parameter is a valid address
+    if (!ethers.utils.isAddress(ballotAddress)) throw new Error(`Parameter Error: Token contract address ${ballotAddress} is not a valid address`);
 
-		/* castVote with private key from .env
+    /* castVote with private key from .env
     // connecting to Ballot contract
     const ballotContract = new ethers.Contract(ballotAddress, ballotJson.abi, this.provider);
 
@@ -177,27 +133,29 @@ export class AppService {
     }
     */
 
-		// construct unsigned transaction hash
-		const ballotInterface = new ethers.utils.Interface(ballotJson.abi);
-		const amountBN = ethers.utils.parseEther(amount);
-		const unsignedHash = ballotInterface.encodeFunctionData("vote", [
-			proposal,
-			amountBN,
-		]);
+    // construct unsigned transaction hash
+    const ballotInterface = new ethers.utils.Interface(ballotJson.abi);
+    const amountBN = ethers.utils.parseEther(amount);
+    const unsignedHash = ballotInterface.encodeFunctionData("vote", [proposal, amountBN]);
 
-		return unsignedHash;
-	}
+    return unsignedHash;
+  }
 
-	// Token
+  // Token
 
-	async mint(to: string, amount: string) {
-		const privateKey = process.env.PRIVATE_KEY;
-		const wallet = new ethers.Wallet(privateKey, this.provider);
-		const signer = wallet.connect(this.provider);
-		const tx = await this.tokenContract
-			.connect(signer)
-			.mint(to, ethers.utils.parseEther(amount));
-		const txReceipt = await tx.wait();
-		return txReceipt.status == 1 ? "Completed" : "Reverted";
-	}
+  async mint(to: string, amount: string) {
+    const privateKey = process.env.PRIVATE_KEY;
+    const wallet = new ethers.Wallet(privateKey, this.provider);
+    const signer = wallet.connect(this.provider);
+    const tx = await this.tokenContract.connect(signer).mint(to, ethers.utils.parseEther(amount));
+    const txReceipt = await tx.wait();
+    return txReceipt.status == 1 ? "Completed" : "Reverted";
+  }
+
+  delegate(to: string) {
+    const tokenInterface = new ethers.utils.Interface(tokenJson.abi);
+    const unsignedHash = tokenInterface.encodeFunctionData("delegate", [to]);
+    console.log(unsignedHash);
+    return unsignedHash;
+  }
 }
