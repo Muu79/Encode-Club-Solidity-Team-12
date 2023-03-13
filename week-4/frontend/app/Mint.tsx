@@ -3,6 +3,7 @@
 import { InputField, PrimaryBtn } from '@/components/HtmlElements';
 import { useConnectWallet } from '@web3-onboard/react';
 import { createRef, SetStateAction, useRef, useState } from 'react';
+import toast from 'react-hot-toast';
 
 const Mint = () => {
 	const [{ wallet }] = useConnectWallet();
@@ -10,8 +11,24 @@ const Mint = () => {
 
 	async function mint(amount: number) {
 		if (wallet && mintAmount > 0) {
-			console.log('address: ', wallet.accounts[0].address);
+			const address = wallet.accounts[0].address;
+			console.log('address: ', address);
 			console.log('amount: ', amount);
+			const notification = toast.loading(
+				`Minting ${amount} for ${address.substring(0, 6)}`
+			);
+			try {
+				const res = await fetch(`api/mint-token/${address}/${amount}`, {
+					method: 'GET',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				});
+				await res.json();
+				toast.success('Successfully minted', { id: notification });
+			} catch (error) {
+				toast.error('Whoops... Failed to mint!', { id: notification });
+			}
 		}
 	}
 
