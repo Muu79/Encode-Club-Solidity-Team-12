@@ -1,6 +1,4 @@
 'use client';
-import { WalletState } from '@web3-onboard/core';
-import { useState, createContext, useContext, useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import Metamask from './Metamask';
 
