@@ -3,9 +3,12 @@
 import { InputField, PrimaryBtn } from '@/components/HtmlElements';
 import { ethers } from 'ethers';
 import { useConnectWallet } from '@web3-onboard/react';
+import { SetStateAction, useState } from 'react';
 
 const CastVote = () => {
 	const [{ wallet }] = useConnectWallet();
+	const [voteAmount, setVoteAmount] = useState<number>(-1);
+	const [voteIndex, setVoteIndex] = useState<number>(-1);
 	// create an ethers provider
 	let ethersProvider;
 	async function castVote(
@@ -13,7 +16,7 @@ const CastVote = () => {
 		proposal: number,
 		ballotAddress: string
 	) {
-		if (wallet) {
+		if (wallet && voteAmount > 0 && voteIndex > 0) {
 			// API call to backend
 			// request(castVote, amount, proposal, ballotAddress)
 
@@ -33,14 +36,25 @@ const CastVote = () => {
 			console.log(receipt);
 		}
 	}
+
+	const handleChange = {
+		voteAmount: (event: { target: { value: SetStateAction<number>; }; }) => {
+			setVoteAmount(event.target.value);
+		},
+		voteIndex: (event: { target: { value: SetStateAction<number>; }; }) => {
+			setVoteIndex(event.target.value);
+		}
+	}
+
 	return (
 		<>
 			<h2 className='text-xl text-left mb-3'>Vote</h2>
 			<p>Cast your vote.</p>
-			<InputField inputType='number' placeholder='Index of proposal' />
+			<InputField inputType='number' placeholder='Index of proposal' onChange={handleChange.voteIndex} />
+			<InputField inputType='number' placeholder='Amount of voting Power to use' onChange={handleChange.voteAmount}/>
 			<PrimaryBtn
 				name='Cast Vote'
-				onClick={() => castVote(1, 0, 'BallotAddress')}
+				onClick={() => castVote(voteAmount, voteIndex, 'BallotAddress')}
 			/>
 		</>
 	);
