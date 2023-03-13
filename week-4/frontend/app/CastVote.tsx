@@ -33,7 +33,8 @@ const CastVote = () => {
 						},
 					}
 				);
-				const data = await res.json();
+				const response = await res.json();
+				const data = response.response.unsignedHash;
 				console.log(data);
 				ethersProvider = new ethers.providers.Web3Provider(
 					wallet.provider,

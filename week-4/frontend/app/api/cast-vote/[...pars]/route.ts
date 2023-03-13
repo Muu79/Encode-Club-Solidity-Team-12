@@ -18,8 +18,9 @@ export async function GET(request: Request, { params }: any) {
 			},
 			body: body,
 		});
-
-		return new Response(res.body, { status: 201 });
+		const data = await res.json();
+		console.log(data);
+		return NextResponse.json({ response: data });
 	} catch (error) {
 		return NextResponse.json({ response: error });
 	}
