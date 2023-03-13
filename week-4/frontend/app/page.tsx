@@ -1,42 +1,91 @@
-import { Card, PrimaryBtn, InputField } from "@/components/HtmlElements";
+import Image from 'next/image';
+import { FaGithub } from 'react-icons/fa';
+import CastVote from './CastVote';
+import Delegate from './Delegate';
+import Mint from './Mint';
+import styles from './page.module.css';
 
 export default function Home() {
-  return (
-    <div className="flex flex-col items-center mt-20">
-      <h1 className="text-5xl font-bold">Week 4 Project</h1>
-      <p className="text-xl mt-5">
-        Please connect your wallet by clicking the connect button
-      </p>
-      <PrimaryBtn name="Connect Wallet" />
+	return (
+		<main className={styles.main}>
+			<div className={styles.description}>
+				<p className='mb-2 flex flex-row justify-center space-x-4 md:mb-0 '>
+					<span>Built with </span>
+					<a
+						className='underline hover:text-neutral-600'
+						href='https://beta.nextjs.org/'
+						target='_blank'
+						rel='noreferrer'
+					>
+						<code className={styles.code}>Next.js</code>
+					</a>
+					,
+					<a
+						className='underline hover:text-neutral-600'
+						href='https://docs.nestjs.com/'
+						target='_blank'
+						rel='noopener noreferrer'
+					>
+						<code className={styles.code}>NestJs</code>
+					</a>
+					,
+					<a
+						className='underline hover:text-neutral-600'
+						href='https://tailwindcss.com'
+						target='_blank'
+						rel='noopener noreferrer'
+					>
+						<code className={styles.code}>Tailwind Css</code>
+					</a>
+					,
+					<a
+						className='underline hover:text-neutral-600'
+						href='https://www.typescriptlang.org/'
+						target='_blank'
+						rel='noopener noreferrer'
+					>
+						<code className={styles.code}>Typescript</code>
+					</a>
+				</p>
+			</div>
 
-      <div className="flex">
-        <Card>
-          <h1 className="text-xl text-left mb-3">Request Tokens</h1>
-          <InputField inputType="number" placeholder="Amount of tokens" />
-          <PrimaryBtn name="Request Tokens" />
-        </Card>
+			<div className={styles.center}>
+				<Image
+					className={styles.logo}
+					src='/Team.svg'
+					alt='Team Logo'
+					width={180}
+					height={37}
+					priority
+				/>
+				<div className={styles.thirteen}>
+					<Image src='/twelve.svg' alt='12' width={40} height={31} priority />
+				</div>
+			</div>
+			<p className='text-2xl mb-1'>Week-4 Project</p>
 
-        <Card>
-          <h1 className="text-xl text-left mb-3">Cast Vote</h1>
-          <InputField inputType="number" placeholder="Index of proposal" />
-          <PrimaryBtn name="Cast Vote" />
-        </Card>
+			<div className={styles.grid}>
+				<div className={styles.card}>
+					<Mint />
+				</div>
 
-        <Card>
-          <h1 className="text-xl text-left mb-3">Delegate Vote</h1>
-          <InputField inputType="text" placeholder="Address of delegate" />
-          <PrimaryBtn name="Delegate Vote" />
-        </Card>
-      </div>
+				<div className={styles.card}>
+					<CastVote />
+				</div>
 
-      <div className="flex mt-12">
-        <div className="mx-5">
-          <PrimaryBtn name="Query Result" />
-        </div>
-        <div className="mx-5">
-          <PrimaryBtn name="Voting History" />
-        </div>
-      </div>
-    </div>
-  );
+				<div className={styles.card}>
+					<Delegate />
+				</div>
+			</div>
+			<div className='absolute bottom-0 right-0 mr-8 mb-8'>
+				<a
+					href='https://github.com/Muu79/Encode-Club-Solidity-Team-12/tree/main/week-4'
+					target='_blank'
+					rel='noopener noreferrer'
+				>
+					<FaGithub size={25} className='' />
+				</a>
+			</div>
+		</main>
+	);
 }
