@@ -2,6 +2,7 @@ import { Body, Controller, Get, Param, Post, Query } from "@nestjs/common";
 import { Hash } from "crypto";
 import { AppService } from "./app.service";
 import { CastVoteDTO } from "./dtos/castVote.dto";
+import { DelegateDTO } from "./dtos/delegate.dto";
 import { MintDTO } from "./dtos/mint.dto";
 
 @Controller()
@@ -44,5 +45,10 @@ export class AppController {
   @Post("mint")
   mint(@Body() body: MintDTO) {
     return this.appService.mint(body.to, body.amount.toString());
+  }
+
+  @Post("delegate")
+  delegate(@Body() body: DelegateDTO): string {
+    return this.appService.delegate(body.to);
   }
 }
