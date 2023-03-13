@@ -1,42 +1,6 @@
 'use client';
-import Onboard from '@web3-onboard/core';
-import injectedModule from '@web3-onboard/injected-wallets';
 import { ethers } from 'ethers';
-import { useEffect } from 'react';
-import { useWeb3Context } from './ClientProvider';
-
-const RPC_URL = 'https://goerli.infura.io/v3/';
-
-const injected = injectedModule(); // { displayUnavailable: true }
-
-const appMetadata = {
-	name: 'Voting Dapp',
-	icon: '/twelve.svg',
-	logo: '/Team.svg',
-	description: 'Early Team-12 week-4 Voting project',
-	gettingStartedGuide:
-		'https://github.com/Muu79/Encode-Club-Solidity-Team-12/tree/main/week-4',
-	recommendedInjectedWallets: [
-		{ name: 'MetaMask', url: 'https://metamask.io' },
-	],
-};
-
-const onboard = Onboard({
-	wallets: [injected],
-	chains: [
-		{
-			id: '0x5',
-			token: 'GoerliETH',
-			label: 'Goerli test network',
-			rpcUrl: RPC_URL,
-			publicRpcUrl: RPC_URL,
-			blockExplorerUrl: 'https://goerli.etherscan.io/',
-			// color: 'black',
-		},
-	],
-	appMetadata,
-	// theme: 'dark',
-});
+import { useConnectWallet } from '@web3-onboard/react';
 
 async function sendTransaction(wallets: any) {
 	if (wallets[0]) {
@@ -62,37 +26,36 @@ async function sendTransaction(wallets: any) {
 }
 
 export default function metamask() {
-	const { connected, setConnected, wallets, setWallets } = useWeb3Context();
-	async function handleConnect() {
-		setConnected(false);
-		const wallet = await onboard.connectWallet();
-		console.log(wallet?.length > 0);
-		if (wallet?.length > 0) {
-			setWallets(wallet);
-			setConnected(true);
-		}
-		console.log('wallet: ', wallet);
-		console.log(wallets);
+	const [{ wallet, connecting }, connect, disconnect] = useConnectWallet();
+
+	// create an ethers provider
+	let ethersProvider;
+
+	if (wallet) {
+		ethersProvider = new ethers.providers.Web3Provider(wallet.provider, 'any');
 	}
-	useEffect(() => {
-		console.log('useEffect');
-		console.log('wallets: ', wallets);
-	}, []);
+
 	return (
 		<div className='group absolute top-0 right-0 mr-8 mt-8'>
-			{!connected ? (
+			{!wallet?.accounts ? (
 				<button
-					type='button'
 					className=' px-4  py-2  text-sm  font-medium  text-white  bg-black dark:text-black dark:bg-white  rounded-md  bg-opacity-100 group-hover:bg-gray-100 group-hover:dark:bg-gray-600 focus:outline-none  focus-visible:ring-2  focus-visible:ring-white  focus-visible:ring-opacity-75'
-					onClick={handleConnect}
+					disabled={connecting}
+					onClick={() => (wallet ? disconnect(wallet) : connect())}
 				>
-					<span className='pr-2 text-gray-100 dark:text-black group-hover:text-black group-hover:dark:text-gray-100'>
-						Connect wallet
-					</span>
+					{connecting ? (
+						<span className='pr-2 text-gray-100 dark:text-black group-hover:text-black group-hover:dark:text-gray-100'>
+							Connecting
+						</span>
+					) : wallet ? (
+						<></>
+					) : (
+						<span className='pr-2 text-gray-100 dark:text-black group-hover:text-black group-hover:dark:text-gray-100'>
+							Connect wallet
+						</span>
+					)}
 				</button>
-			) : (
-				<></>
-			)}
+			) : null}
 		</div>
 	);
 }
