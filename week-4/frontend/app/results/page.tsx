@@ -25,7 +25,7 @@ const page = () => {
 		getResults();
 	}, [])
 	return (
-		<div className="flex flex-col w-1/1">
+		<div className="flex flex-col w-full mt-2">
 			<h1 className="text-3xl text-center">Results Page</h1>
 			<Results results={resultArray} />
 		</div>
