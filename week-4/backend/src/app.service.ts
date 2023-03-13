@@ -110,7 +110,7 @@ export class AppService {
     return this.recentVotes;
   }
 
-  castVote(ballotAddress: string, proposal: number, amount: string): string {
+  castVote(ballotAddress: string, proposal: number, amount: string): object {
     // check if parameter is a valid address
     if (!ethers.utils.isAddress(ballotAddress)) throw new Error(`Parameter Error: Token contract address ${ballotAddress} is not a valid address`);
 
@@ -138,7 +138,7 @@ export class AppService {
     const amountBN = ethers.utils.parseEther(amount);
     const unsignedHash = ballotInterface.encodeFunctionData("vote", [proposal, amountBN]);
 
-    return unsignedHash;
+    return { unsignedHash: unsignedHash };
   }
 
   // Token

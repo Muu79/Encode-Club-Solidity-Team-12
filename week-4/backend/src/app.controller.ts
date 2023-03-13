@@ -36,7 +36,7 @@ export class AppController {
   async castVote(@Body() body: CastVoteDTO): Promise<string> {
     return await this.appService.castVote(body.ballotAddress, body.proposal, body.amount);
   }*/
-  castVote(@Body() body: CastVoteDTO): string {
+  castVote(@Body() body: CastVoteDTO): object {
     return this.appService.castVote(body.ballotAddress, body.proposal, body.amount);
   }
 
