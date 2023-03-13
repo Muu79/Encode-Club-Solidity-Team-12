@@ -2,29 +2,6 @@
 import { ethers } from 'ethers';
 import { useConnectWallet } from '@web3-onboard/react';
 
-async function sendTransaction(wallets: any) {
-	if (wallets[0]) {
-		// create an ethers provider with the last connected wallet provider
-		// if using ethers v6 this is:
-		// ethersProvider = new ethers.BrowserProvider(wallet.provider, 'any')
-		const ethersProvider = new ethers.providers.Web3Provider(
-			wallets[0].provider,
-			'any'
-		);
-
-		const signer = ethersProvider.getSigner();
-
-		// send a transaction with the ethers provider
-		const txn = await signer.sendTransaction({
-			to: '0x',
-			value: 1,
-		});
-
-		const receipt = await txn.wait();
-		console.log(receipt);
-	}
-}
-
 export default function metamask() {
 	const [{ wallet, connecting }, connect, disconnect] = useConnectWallet();
 
