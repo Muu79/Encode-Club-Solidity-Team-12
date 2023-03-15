@@ -15,8 +15,9 @@ export async function GET(request: Request, { params }: any) {
 			},
 			body: body,
 		});
-		await res.json();
-		return new Response('Completed', { status: 201 });
+		const data = await res.json();
+		console.log(data);
+		return NextResponse.json({ response: data });
 	} catch (error) {
 		return NextResponse.json({ response: error });
 	}
