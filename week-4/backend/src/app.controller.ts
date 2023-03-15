@@ -43,12 +43,12 @@ export class AppController {
   // Token functions
 
   @Post("mint")
-  mint(@Body() body: MintDTO) {
+  mint(@Body() body: MintDTO): object {
     return this.appService.mint(body.to, body.amount.toString());
   }
 
   @Post("delegate")
-  delegate(@Body() body: DelegateDTO): string {
+  delegate(@Body() body: DelegateDTO): object {
     return this.appService.delegate(body.to);
   }
 }

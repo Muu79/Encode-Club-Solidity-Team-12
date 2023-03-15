@@ -143,19 +143,25 @@ export class AppService {
 
   // Token
 
-  async mint(to: string, amount: string) {
+  async mint(to: string, amount: string): Promise<object> {
     const privateKey = process.env.PRIVATE_KEY;
     const wallet = new ethers.Wallet(privateKey, this.provider);
     const signer = wallet.connect(this.provider);
     const tx = await this.tokenContract.connect(signer).mint(to, ethers.utils.parseEther(amount));
     const txReceipt = await tx.wait();
-    return txReceipt.status == 1 ? "Completed" : "Reverted";
+	let res: string;
+    if(txReceipt.status == 1) {
+      res = "Completed"
+      return {res: res}
+    } 
+    res= "Reverted";
+    return {res: res}
   }
 
-  delegate(to: string) {
+  delegate(to: string): object {
     const tokenInterface = new ethers.utils.Interface(tokenJson.abi);
     const unsignedHash = tokenInterface.encodeFunctionData("delegate", [to]);
     console.log(unsignedHash);
-    return unsignedHash;
+    return {unsignedHash: unsignedHash}
   }
 }
