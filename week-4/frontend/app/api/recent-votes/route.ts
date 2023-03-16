@@ -5,10 +5,12 @@ export async function GET(request: Request) {
 		const res = await fetch(`http://localhost:3000/recent-votes`, {
 			method: 'GET',
 			headers: {
-				'Content-Type': 'application/json',
+				'Content-Type': 'text/html',
 			},
+			cache: 'no-store',
 		});
 		const data = await res.json();
+		console.log(data);
 		return NextResponse.json({ response: data });
 	} catch (error) {
 		return new Response('Error', { status: 500 });

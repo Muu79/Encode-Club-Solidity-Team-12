@@ -36,19 +36,19 @@ export class AppController {
   async castVote(@Body() body: CastVoteDTO): Promise<string> {
     return await this.appService.castVote(body.ballotAddress, body.proposal, body.amount);
   }*/
-  castVote(@Body() body: CastVoteDTO): string {
+  castVote(@Body() body: CastVoteDTO): object {
     return this.appService.castVote(body.ballotAddress, body.proposal, body.amount);
   }
 
   // Token functions
 
   @Post("mint")
-  mint(@Body() body: MintDTO) {
+  mint(@Body() body: MintDTO): object {
     return this.appService.mint(body.to, body.amount.toString());
   }
 
   @Post("delegate")
-  delegate(@Body() body: DelegateDTO): string {
+  delegate(@Body() body: DelegateDTO): object {
     return this.appService.delegate(body.to);
   }
 }

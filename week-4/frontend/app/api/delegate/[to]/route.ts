@@ -1,14 +1,14 @@
 import { NextResponse } from 'next/server';
 
-export async function POST(request: Request) {}
-
 export async function GET(request: Request, { params }: any) {
 	try {
-		const address = params.pars[0];
-		const amount = params.pars[1];
-		const body = JSON.stringify({ to: address, amount: Number(amount) });
+		const to = params.to;
+
+		const body = JSON.stringify({
+			to: to,
+		});
 		console.log(body);
-		const res = await fetch('http://localhost:3000/mint', {
+		const res = await fetch('http://localhost:3000/delegate', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',

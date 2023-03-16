@@ -24,8 +24,12 @@ const Mint = () => {
 						'Content-Type': 'application/json',
 					},
 				});
-				await res.json();
-				toast.success('Successfully minted', { id: notification });
+				const data = await res.json();
+				if (data.response.res === 'Completed') {
+					toast.success('Successfully minted', { id: notification });
+				} else {
+					toast.error('Something went wrong!', { id: notification });
+				}
 			} catch (error) {
 				toast.error('Whoops... Failed to mint!', { id: notification });
 			}
