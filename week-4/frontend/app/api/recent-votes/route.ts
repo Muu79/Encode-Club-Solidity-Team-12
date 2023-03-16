@@ -7,6 +7,7 @@ export async function GET(request: Request) {
 			headers: {
 				'Content-Type': 'text/html',
 			},
+			cache: 'no-store',
 		});
 		const data = await res.json();
 		console.log(data);

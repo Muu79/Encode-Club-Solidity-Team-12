@@ -24,6 +24,7 @@ const page = () => {
 				headers: {
 					'Content-Type': 'application/json',
 				},
+				cache: 'no-store',
 			});
 			const resp = await res.json();
 			const data = resp.response;
