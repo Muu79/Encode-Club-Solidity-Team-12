@@ -138,7 +138,10 @@ export class AppService {
     const amountBN = ethers.utils.parseEther(amount);
     const unsignedHash = ballotInterface.encodeFunctionData("vote", [proposal, amountBN]);
 
-    return { unsignedHash: unsignedHash };
+    return {
+		address: ballotAddress,
+		unsignedHash: unsignedHash
+	};
   }
 
   // Token
@@ -162,6 +165,9 @@ export class AppService {
     const tokenInterface = new ethers.utils.Interface(tokenJson.abi);
     const unsignedHash = tokenInterface.encodeFunctionData("delegate", [to]);
     console.log(unsignedHash);
-    return {unsignedHash: unsignedHash}
+    return {
+		address: this.tokenContract.address,
+		unsignedHash: unsignedHash
+	};
   }
 }

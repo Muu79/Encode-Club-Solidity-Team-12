@@ -8,8 +8,9 @@ import toast from 'react-hot-toast';
 
 const CastVote = () => {
 	const [{ wallet }] = useConnectWallet();
-	const [voteAmount, setVoteAmount] = useState<number>(-1);
-	const [voteIndex, setVoteIndex] = useState<number>(-1);
+	const [voteAmount, setVoteAmount] = useState<number>(0.1);
+	const [voteIndex, setVoteIndex] = useState<number>(0);
+	const [ballotContract, setBallotContract] = useState<string>('0x9B93774789584f3c665202Ee0609dDEfF5Cfee30');
 	// create an ethers provider
 	let ethersProvider;
 	async function castVote(
@@ -21,7 +22,7 @@ const CastVote = () => {
 			// API call to backend
 			// request(castVote, amount, proposal, ballotAddress)
 			const notification = toast.loading(
-				`Casting ${amount} votes for ${ballotAddress.substring(0, 6)}`
+				`Casting ${amount} votes for ${proposal} on ${ballotAddress.substring(0, 6)}`
 			);
 			try {
 				const res = await fetch(
@@ -33,9 +34,14 @@ const CastVote = () => {
 						},
 					}
 				);
-				const response = await res.json();
-				const data = response.response.unsignedHash;
+				const data = await res.json();
+				if (!data.response.unsignedHash) {
+					toast.error('Backend server not responding!', { id: notification });
+					return;
+				}
 				console.log(data);
+				const address = data.response.address;
+				const unsignedHash = data.response.unsignedHash;
 				ethersProvider = new ethers.providers.Web3Provider(
 					wallet.provider,
 					'any'
@@ -44,8 +50,8 @@ const CastVote = () => {
 				const signer = ethersProvider.getSigner();
 
 				const txn = await signer.sendTransaction({
-					to: ballotAddress,
-					data: data,
+					to: address,
+					data: unsignedHash,
 				});
 
 				const receipt = await txn.wait();
@@ -58,6 +64,9 @@ const CastVote = () => {
 	}
 
 	const handleChange = {
+		ballotContract: (event: { target: { value: SetStateAction<string> } }) => {
+			setBallotContract(event.target.value);
+		},
 		voteAmount: (event: { target: { value: SetStateAction<number> } }) => {
 			setVoteAmount(event.target.value);
 		},
@@ -70,6 +79,11 @@ const CastVote = () => {
 		<>
 			<h2 className='text-xl text-left mb-3'>Vote</h2>
 			<p>Cast your vote.</p>
+			<InputField
+				inputType='string'
+				placeholder='Ballot contract address'
+				onChange={handleChange.ballotContract}
+			/>
 			<InputField
 				inputType='number'
 				placeholder='Index of proposal'
@@ -86,8 +100,7 @@ const CastVote = () => {
 					castVote(
 						voteAmount,
 						voteIndex,
-						process.env.NEXT_PUBLIC_CONTRACT ||
-							'0x9B93774789584f3c665202Ee0609dDEfF5Cfee30'
+						ballotContract
 					)
 				}
 			/>
