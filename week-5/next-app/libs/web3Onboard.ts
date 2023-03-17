@@ -30,14 +30,14 @@ export default init({
 		},
 	],
 	appMetadata: {
-		name: 'Voting Dapp',
+		name: 'Lottery',
 		icon: '/twelve.svg',
 		logo: '/Team.svg',
-		description: 'Early Team-12 week-4 Voting project',
+		description: 'Early Team-12 week-5 Voting project',
 		explore:
-			'https://goerli.etherscan.io/address/0x4bD47dAa4f1fee21C97549e4C396A16e58fA6635#code',
+			'https://goerli.etherscan.io/address/0xac26890f3f57596df13c3087ff3d40b21e57d9d0#code',
 		gettingStartedGuide:
-			'https://github.com/Muu79/Encode-Club-Solidity-Team-12/tree/main/week-4',
+			'https://github.com/Muu79/Encode-Club-Solidity-Team-12/tree/main/week-5',
 		recommendedInjectedWallets: [
 			{ name: 'MetaMask', url: 'https://metamask.io' },
 		],

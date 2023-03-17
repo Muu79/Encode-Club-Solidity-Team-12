@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { FaGithub } from 'react-icons/fa';
 import styles from './page.module.css';
+import PurchaseTokens from './PurchaseTokens';
 
 export default function Home() {
 	return (
@@ -21,7 +22,11 @@ export default function Home() {
 				</div>
 			</div>
 			<p className='text-2xl mb-1'>Week-5 Project</p>
-			<div className={styles.grid}></div>
+			<div className={styles.grid}>
+				<div className={styles.card}>
+					<PurchaseTokens />
+				</div>
+			</div>
 			<div className='absolute bottom-0 right-0 mr-8 mb-8'>
 				<a
 					href='https://github.com/Muu79/Encode-Club-Solidity-Team-12/tree/main/week-5'
