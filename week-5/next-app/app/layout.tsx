@@ -16,10 +16,8 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang='en'>
-			<body className='flex'>
-				<ClientProvider>
-					{children}
-				</ClientProvider>
+			<body className='flex flex-col'>
+				<ClientProvider children={children}/>
 			</body>
 		</html>
 	);
