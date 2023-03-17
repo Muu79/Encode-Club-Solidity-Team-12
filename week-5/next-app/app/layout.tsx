@@ -1,3 +1,4 @@
+import ClientProvider from './ClientProvider';
 import './globals.css';
 
 export const metadata = {
@@ -15,7 +16,11 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang='en'>
-			<body>{children}</body>
+			<body className='flex'>
+				<ClientProvider>
+					{children}
+				</ClientProvider>
+			</body>
 		</html>
 	);
 }
