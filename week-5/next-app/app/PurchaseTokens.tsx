@@ -5,7 +5,7 @@ import { useConnectWallet } from '@web3-onboard/react';
 import { createRef, SetStateAction, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { ethers, BigNumber } from 'ethers';
-import * as lotteryJson from '../utils/abi/Lottery.json';
+import * as lotteryTokenJson from '../utils/abi/LotteryToken.json';
 
 const PurchaseTokens = () => {
 	const [{ wallet }] = useConnectWallet();
@@ -24,10 +24,11 @@ const PurchaseTokens = () => {
 					'any'
 				);
 				const signer = ethersProvider.getSigner();
-                const contractAddress: string = process.env.LOTTERY_CONTRACT as string;
-                const lotteryContract = new ethers.Contract(contractAddress, lotteryJson.abi, signer);
+                console.log('signer ', signer);
+                const contractAddress: string = process.env.TOKEN_CONTRACT as string;
+                const tokenContract = new ethers.Contract(contractAddress, lotteryTokenJson.abi, signer);
                 const ethValue = ethers.utils.parseEther(amount.toString()).div(BigNumber.from(process.env.TOKEN_RATIO));
-				const tx = await lotteryContract.connect(signer).purchaseTokens({
+				const tx = await tokenContract.connect(signer).purchaseTokens({
                     value: ethValue,
 				});
                 const receipt = await tx.wait();
