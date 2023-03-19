@@ -6,7 +6,7 @@ import PurchaseTokens from './PurchaseTokens';
 
 export default function Home() {
 	return (
-		<main className={styles.main}>
+		<main className={styles.main + ' w-full'}>
 			<div className={styles.description}></div>
 
 			<div className={styles.center}>
