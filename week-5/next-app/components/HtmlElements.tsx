@@ -6,7 +6,7 @@ import React from "react";
 
 
 export const Card = ({ children }: CardProps) => (
-  <div className="flex flex-col items-center mt-8 mx-5 max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+  <div className={"flex flex-col items-center mt-8 mx-5 max-w-m p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"}>
     {children}
   </div>
 );
@@ -19,11 +19,11 @@ export const PrimaryBtn = ({ onClick, name }: PrimaryBtnProps) => (
   </button>
 );
 
-export const InputField = ({ inputType, placeholder, onChange }: InputFieldProps) => (
+export const InputField = ({ inputType, placeholder, onChange, className }: InputFieldProps) => (
   <div>
     <input
       type={inputType}
-      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mt-3 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      className={`${className} `+"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mt-3 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"}
       placeholder={placeholder}
       onChange={onChange}
       required
