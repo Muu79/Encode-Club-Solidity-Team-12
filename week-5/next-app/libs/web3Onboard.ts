@@ -1,5 +1,4 @@
 import injectedModule from '@web3-onboard/injected-wallets';
-
 import { init } from '@web3-onboard/react';
 
 const injected = injectedModule({
@@ -11,7 +10,7 @@ const injected = injectedModule({
 	},
 });
 
-const INFURA_KEY = '2996ff3d1a1142689324a8341cb75c68';
+const INFURA_KEY = "b1dc31e112b047bdb5cc423a35504b99";
 
 export default init({
 	// An array of wallet modules that you would like to be presented to the user to select from when connecting a wallet.
