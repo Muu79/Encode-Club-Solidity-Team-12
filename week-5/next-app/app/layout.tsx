@@ -1,3 +1,4 @@
+import Sidebar from '@/components/Sidebar';
 import ClientProvider from './ClientProvider';
 import './globals.css';
 
@@ -16,7 +17,8 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang='en'>
-			<body className='flex flex-col'>
+			<body className='flex flex-row'>
+				<Sidebar/>
 				<ClientProvider children={children}/>
 			</body>
 		</html>
