@@ -55,11 +55,13 @@ const PlaceBet = () => {
     }, [wallet])
 
     const getFee = async () => {
+        if(!lotteryContract) return;
         const total = (await lotteryContract.betFee()).add(await lotteryContract.betPrice());
         return Promise.resolve(total);
     }
 
     async function betTokens(amount: number) {
+        if(!lotteryContract || !tokenContract || !signer) return;
         amount = Math.abs(amount);
         if (wallet && amount > 0) {
             const address = wallet.accounts[0].address;
