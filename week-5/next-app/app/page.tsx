@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { FaGithub } from 'react-icons/fa';
+import PlaceBet from './PlaceBet';
 import styles from './page.module.css';
 import PurchaseTokens from './PurchaseTokens';
 
@@ -25,6 +26,9 @@ export default function Home() {
 			<div className={styles.grid}>
 				<div className={styles.card}>
 					<PurchaseTokens />
+				</div>
+				<div className={styles.card}>
+					<PlaceBet />
 				</div>
 			</div>
 			<div className='absolute bottom-0 right-0 mr-8 mb-8'>
