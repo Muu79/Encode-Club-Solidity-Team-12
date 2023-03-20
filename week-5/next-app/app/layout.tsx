@@ -19,7 +19,9 @@ export default function RootLayout({
 		<html lang='en'>
 			<body className='flex flex-row'>
 				<Sidebar/>
-				<ClientProvider children={children}/>
+				<ClientProvider>
+					{children}
+				</ClientProvider>
 			</body>
 		</html>
 	);
