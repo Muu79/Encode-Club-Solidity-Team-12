@@ -86,23 +86,25 @@ describe("Clone Factory", async () => {
 	});
 
 	describe("When the owner open bets", async () => {
+		let betsCloseTime: number;
+
 		beforeEach(async () => {
 			const currentBlock = await ethers.provider.getBlock("latest");
-			console.log(
-				`${signers[0].address}  ${await lotteryInstanceContract.owner()}`
-			);
-			const tx = await lotteryContract.openBets(
-				currentBlock.timestamp + Number(DURATION)
+			betsCloseTime = currentBlock.timestamp;
+			const tx = await lotteryInstanceContract.openBets(
+				betsCloseTime + Number(DURATION)
 			);
 			await tx.wait();
-			console.log(tx);
 		});
 
-		// TODO reverts with reason 'Caller is not the owner'
 		it("Bets are open", async () => {
-			expect(
-				await lotteryInstanceContract.connect(signers[0]).betsOpen()
-			).to.eq(true);
+			expect(await lotteryInstanceContract.betsOpen()).to.eq(true);
+		});
+
+		it("Has the correct bets closing time", async () => {
+			expect(await lotteryInstanceContract.betsClosingTime()).to.eq(
+				betsCloseTime + Number(DURATION)
+			);
 		});
 	});
 });
