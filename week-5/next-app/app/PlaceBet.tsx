@@ -8,7 +8,7 @@ import { ethers, BigNumber, BigNumberish, Contract } from 'ethers';
 import * as lotteryJson from '../utils/abi/Lottery.json';
 import * as lotteryTokenJson from '../utils/abi/LotteryToken.json';
 import { connected } from 'process';
-import { formatEther } from 'ethers/lib/utils';
+import { formatEther, parseEther } from 'ethers/lib/utils';
 
 const PlaceBet = () => {
     const [{ wallet }] = useConnectWallet();
@@ -18,22 +18,18 @@ const PlaceBet = () => {
     const [lotteryContract, setLotteryContract] = useState<ethers.Contract>();
     const [signer, setSigner] = useState<ethers.providers.JsonRpcSigner>();
     let ethersProvider,
-        tokenAddress = process.env.NEXT_PUBLIC_TOKEN_CONTRACT_ADDRESS as string,
-        lotteryAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string;
+        tokenAddress = process.env.NEXT_PUBLIC_TOKEN_CONTRACT as string,
+        lotteryAddress = process.env.NEXT_PUBLIC_LOTTERY_CONTRACT as string;
 
     useEffect(() => {
         if(!signer) return;
-        setTokenContract(tokenContract?.connect(signer));
-        setLotteryContract(lotteryContract?.connect(signer));
+        setTokenContract(new ethers.Contract(tokenAddress, lotteryTokenJson.abi, signer));
+        setLotteryContract(new ethers.Contract(lotteryAddress, lotteryJson.abi, signer));
     }, [signer])
     
     useEffect(() => {
-        console.log('use Effect contracts');
         
-        if (!tokenContract || !lotteryContract) {
-            setTokenContract(new ethers.Contract(tokenAddress, lotteryTokenJson.abi));
-            setLotteryContract(new ethers.Contract(lotteryAddress, lotteryJson.abi));
-        }else if(!wallet) return;
+        if(!wallet || !lotteryContract) return;
         else{
             getFee().then(value => {
                 setBetFee(value);
@@ -42,7 +38,6 @@ const PlaceBet = () => {
     }, [lotteryContract])
 
     useEffect(() => {
-        console.log("use Effect Wallet");
         if (!wallet) {
             return
         };
@@ -60,28 +55,31 @@ const PlaceBet = () => {
         return Promise.resolve(total);
     }
 
+    const createAllowance = async () => {
+        if(!tokenContract || !lotteryAddress || !signer || !betFee) return;
+        const allowance = await tokenContract.connect(signer).approve(lotteryAddress, parseEther('1000'));
+        await allowance.wait();
+    }
+
     async function betTokens(amount: number) {
-        if(!lotteryContract || !tokenContract || !signer) return;
+        if(!lotteryContract || !tokenContract || !signer || !betFee) return;
         amount = Math.abs(amount);
-        if (wallet && amount > 0) {
+        const allowance = await tokenContract.allowance(wallet?.accounts[0].address, lotteryAddress);
+        if(allowance <= betFee.mul(amount)) await createAllowance();
+        if (wallet && amount > 0) { 
             const address = wallet.accounts[0].address;
             const notification = toast.loading(
                 `Betting ${amount} time${amount > 1 ? 's' : ''} for ${address.substring(0, 6)}`
             );
             try {
-                console.log('started');
-
                 const userTokenBal : BigNumber = await tokenContract.balanceOf(wallet.accounts[0].address);
-                console.log(userTokenBal.toString(), betFee);
-
-                if (betFee && userTokenBal >=  betFee) {
-
-                    const tx = await lotteryContract.connect(signer).betMany(amount);
+                if (betFee && userTokenBal >=  betFee.mul(amount)) {
+                    const tx = await lotteryContract.betMany(amount);
                     const receipt = await tx.wait();
                     if (receipt.blockNumber !== undefined) {
-                        toast.success(`Successfully bet time${amount > 1 ? 's' : ''}`, { id: notification });
+                        toast.success(`Successfully bet ${amount} time${amount > 1 ? 's' : ''}`, { id: notification });
                     } else {
-                        toast.error('Something went wrong!', { id: notification });
+                        toast.error('Something went wrong!\n' + `${receipt.reason}`, { id: notification });
                     }
                 }
             } catch (error) {
