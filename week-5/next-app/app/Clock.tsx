@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 
+import Image from 'next/image';
 import FlipClockCountdown from '@leenguyen/react-flip-clock-countdown';
 import '@leenguyen/react-flip-clock-countdown/dist/index.css';
 import { ethers } from 'ethers';
@@ -25,7 +26,9 @@ const Clock = () => {
 			);
 			const end = (await lotteryContract.betsClosingTime()).toNumber();
 			console.log('end: ', end);
-			if (end > Date.now()) {
+			if (end <= Date.now()) {
+				setCount(0);
+			} else {
 				setCount(end - Date.now());
 			}
 		}
@@ -44,11 +47,20 @@ const Clock = () => {
 				<FlipClockCountdown
 					className='flip-clock'
 					to={count}
-					separatorStyle={{ color: 'black', size: '6px' }}
+					separatorStyle={{ color: 'white', size: '6px' }}
 					labels={['DAYS', 'HOURS', 'MINUTES', 'SECONDS']}
 					labelStyle={{ color: 'white' }}
 					renderMap={[false, true, true, true]}
 				>
+					<p className='animate-pulse'>This Draw has ended</p>
+					<Image
+						className='w-full h-full'
+						src='/zero.png'
+						alt='Finished Countdown'
+						width={180}
+						height={37}
+						priority
+					/>
 					{/* Some action after countdown Ends. */}
 				</FlipClockCountdown>
 			</div>
