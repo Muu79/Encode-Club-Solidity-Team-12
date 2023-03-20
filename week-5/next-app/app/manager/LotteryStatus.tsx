@@ -3,8 +3,8 @@ import { useConnectWallet } from "@web3-onboard/react"
 import { ethers } from "ethers";
 import { SetStateAction, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import * as LotteryJson from '../utils/abi/Lottery.json'
-import { InputField, PrimaryBtn } from "./HtmlElements";
+import * as LotteryJson from '../../utils/abi/Lottery.json'
+import { InputField, PrimaryBtn } from "../../components/HtmlElements";
 
 
 const LotteryStatus = () => {

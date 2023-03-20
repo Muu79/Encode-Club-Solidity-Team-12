@@ -1,5 +1,5 @@
 import { Card } from '@/components/HtmlElements'
-import LotteryStatus from '../../components/LotteryStatus'
+import LotteryStatus from './LotteryStatus'
 export default function Home() {
 
     return (
