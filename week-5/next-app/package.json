@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@leenguyen/react-flip-clock-countdown": "^1.4.0",
     "@types/node": "18.15.3",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
@@ -22,7 +23,8 @@
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.0",
     "react-icons": "^4.8.0",
-    "typescript": "5.0.2"
+    "typescript": "5.0.2",
+    "use-sound": "^4.0.1"
   },
   "devDependencies": {
     "@openzeppelin/contracts": "^4.8.2",
