@@ -1,4 +1,4 @@
-import { GiRollingDices} from 'react-icons/gi';
+import { GiRollingDices } from 'react-icons/gi';
 import SidebarRow from './SidebarRow';
 
 const Sidebar = () => {
@@ -10,7 +10,7 @@ const Sidebar = () => {
 				<h2 className='hidden md:inline text-center text-xs italic'>Dapp</h2>
 			</div>
 
-			<SidebarRow />
+			{/* <SidebarRow /> */}
 		</div>
 	);
 };

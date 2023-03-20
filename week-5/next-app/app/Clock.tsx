@@ -46,7 +46,7 @@ const Clock = () => {
 					to={count}
 					separatorStyle={{ color: 'black', size: '6px' }}
 					labels={['DAYS', 'HOURS', 'MINUTES', 'SECONDS']}
-					labelStyle={{ color: 'black' }}
+					labelStyle={{ color: 'white' }}
 					renderMap={[false, true, true, true]}
 				>
 					{/* Some action after countdown Ends. */}
