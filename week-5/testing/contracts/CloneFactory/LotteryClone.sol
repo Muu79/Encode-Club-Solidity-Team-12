@@ -9,7 +9,7 @@ import {LotteryToken} from "./LotteryToken.sol";
 /// @dev This contract implements a relatively weak randomness source, since there is no cliff period between the randao reveal and the actual usage in this contract
 /// @custom:teaching This is a contract meant for teaching only
 
-contract Lottery {
+contract LotteryClone {
     /// @notice Address of the owner
     address public owner;
     /// @notice Address of the token used as payment for the bets
