@@ -9,8 +9,8 @@ const SidebarRow = () => {
 
 	useEffect(() => {
 		if (!pathname) return;
-		if (pathname.includes('manager')) setActive(2);
-		else if (pathname.includes('votes')) setActive(3);
+		if (pathname.includes('creator')) setActive(2);
+		else if (pathname.includes('manager')) setActive(3);
 		else setActive(1);
 
 		return () => {};
@@ -31,6 +31,16 @@ const SidebarRow = () => {
 			<li
 				className={`flex justify-between p-4 cursor-pointer hover:bg-gray-100 hover:dark:bg-gray-200 hover:dark:text-gray-500 hover:shadow-md ${
 					active == 2 && 'bg-gray-100 dark:text-gray-700 shadow-md'
+				}`}
+				onClick={() => router.push(`/creator`)}
+			>
+				<div>
+					<p className='text-xs md:text-base font-bold'>Lottery Creator</p>
+				</div>
+			</li>
+			<li
+				className={`flex justify-between p-4 cursor-pointer hover:bg-gray-100 hover:dark:bg-gray-200 hover:dark:text-gray-500 hover:shadow-md ${
+					active == 3 && 'bg-gray-100 dark:text-gray-700 shadow-md'
 				}`}
 				onClick={() => router.push(`/manager`)}
 			>

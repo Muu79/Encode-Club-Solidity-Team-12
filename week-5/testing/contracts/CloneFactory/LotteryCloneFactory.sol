@@ -2,6 +2,7 @@
 pragma solidity ^0.8.4;
 
 import './CloneFactory.sol';
+import './Lottery.sol';
 import {LotteryToken} from "./LotteryToken.sol";
 
 contract LotteryCloneFactory is CloneFactory{
