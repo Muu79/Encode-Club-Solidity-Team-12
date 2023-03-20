@@ -4,9 +4,10 @@ pragma solidity ^0.8.4;
 import './CloneFactory.sol';
 import './Lottery.sol';
 import {LotteryToken} from "./LotteryToken.sol";
+import {LotteryClone} from "./LotteryClone.sol";
 
 contract LotteryCloneFactory is CloneFactory{
-    Lottery[] public lotterys;
+    LotteryClone[] public lotterys;
     address masterContract;
 
     constructor (address _masterContract){
@@ -18,12 +19,12 @@ contract LotteryCloneFactory is CloneFactory{
         uint256 _purchaseRatio,
         uint256 _betPrice,
         uint256 _betFee) external {
-            Lottery lottery = Lottery(createClone(masterContract));
+            LotteryClone lottery = LotteryClone(createClone(masterContract));
             lottery.init(tokenName,tokenSymbol,_purchaseRatio,_betPrice,_betFee,msg.sender);            
             lotterys.push(lottery);
         }
     
-    function getLottery() external view returns(Lottery[] memory){
+    function getLottery() external view returns(LotteryClone[] memory){
         return lotterys;
     }
 
