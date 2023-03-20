@@ -6,6 +6,7 @@ import PurchaseTokens from './PurchaseTokens';
 import BurnTokens from './BurnTokens';
 import Clock from './Clock';
 import Header from './Header';
+import PrizePool from './PrizePool';
 
 export default function Home() {
 	return (
@@ -20,7 +21,7 @@ export default function Home() {
 						<div className='stats bg-[#091F1C] text-white p-4 flex-1 rounded-md border-2 border-[#004337]'>
 							<h2 className='text-sm'>Total Pool</h2>
 							{/* Price pool from onchain data */}
-							<p>0.1 ETH</p>
+							<PrizePool />
 						</div>
 						<div className='bg-[#091F1C] text-white p-4 flex-1 rounded-md border-2 border-[#004337]'>
 							<h2 className='text-sm'>Your tickets</h2>
