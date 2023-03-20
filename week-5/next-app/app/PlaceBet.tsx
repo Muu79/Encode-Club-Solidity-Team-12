@@ -22,15 +22,15 @@ const PlaceBet = () => {
         lotteryAddress = process.env.LOTTERY_CONTRACT as string;
 
     useEffect(() => {
-        if(!signer) return;
+        if (!signer) return;
         setTokenContract(new ethers.Contract(tokenAddress, lotteryTokenJson.abi, signer));
         setLotteryContract(new ethers.Contract(lotteryAddress, lotteryJson.abi, signer));
     }, [signer])
-    
+
     useEffect(() => {
-        
-        if(!wallet || !lotteryContract) return;
-        else{
+
+        if (!wallet || !lotteryContract) return;
+        else {
             getFee().then(value => {
                 setBetFee(value);
             });
@@ -50,41 +50,45 @@ const PlaceBet = () => {
     }, [wallet])
 
     const getFee = async () => {
-        if(!lotteryContract) return;
+        if (!lotteryContract) return;
         const total = (await lotteryContract.betFee()).add(await lotteryContract.betPrice());
         return Promise.resolve(total);
     }
 
     const createAllowance = async () => {
-        if(!tokenContract || !lotteryAddress || !signer || !betFee) return;
+        if (!tokenContract || !lotteryAddress || !signer || !betFee) return;
         const allowance = await tokenContract.connect(signer).approve(lotteryAddress, parseEther('1000'));
         await allowance.wait();
     }
 
     async function betTokens(amount: number) {
-        if(!lotteryContract || !tokenContract || !signer || !betFee) return;
+        if (!lotteryContract || !tokenContract || !signer || !betFee) return;
         amount = Math.abs(amount);
-        const allowance = await tokenContract.allowance(wallet?.accounts[0].address, lotteryAddress);
-        if(allowance <= betFee.mul(amount)) await createAllowance();
-        if (wallet && amount > 0) { 
+        const allowance = await tokenContract.connect(signer).allowance(wallet?.accounts[0].address, lotteryAddress);
+        console.log(allowance.toString(), betFee.mul(amount).toString());
+
+        if (betFee.mul(amount).gte(allowance)) await createAllowance();
+        if (wallet && amount > 0) {
             const address = wallet.accounts[0].address;
             const notification = toast.loading(
                 `Betting ${amount} time${amount > 1 ? 's' : ''} for ${address.substring(0, 6)}`
             );
             try {
-                const userTokenBal : BigNumber = await tokenContract.balanceOf(wallet.accounts[0].address);
-                if (betFee && userTokenBal >=  betFee.mul(amount)) {
+                const userTokenBal: BigNumber = await tokenContract.balanceOf(wallet.accounts[0].address);
+                if (betFee && userTokenBal >= betFee.mul(amount)) {
                     const tx = await lotteryContract.betMany(amount);
                     const receipt = await tx.wait();
                     if (receipt.blockNumber !== undefined) {
                         toast.success(`Successfully bet ${amount} time${amount > 1 ? 's' : ''}`, { id: notification });
                     } else {
+                        console.log(receipt);
+                        
                         toast.error('Something went wrong!\n' + `${receipt.reason}`, { id: notification });
                     }
                 }
             } catch (error) {
                 console.error(error);
-                toast.error('Whoops... Failed to purchase!', { id: notification });
+                toast.error(`Whoops... Failed to purchase!\n`, { id: notification });
             }
         }
     }
