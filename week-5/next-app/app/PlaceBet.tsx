@@ -18,8 +18,8 @@ const PlaceBet = () => {
     const [lotteryContract, setLotteryContract] = useState<ethers.Contract>();
     const [signer, setSigner] = useState<ethers.providers.JsonRpcSigner>();
     let ethersProvider,
-        tokenAddress = process.env.NEXT_PUBLIC_TOKEN_CONTRACT as string,
-        lotteryAddress = process.env.NEXT_PUBLIC_LOTTERY_CONTRACT as string;
+        tokenAddress = process.env.TOKEN_CONTRACT as string,
+        lotteryAddress = process.env.LOTTERY_CONTRACT as string;
 
     useEffect(() => {
         if(!signer) return;

@@ -25,7 +25,7 @@ const PurchaseTokens = () => {
 				);
 				const signer = ethersProvider.getSigner();
 				console.log('signer ', signer);
-				const contractAddress: string = process.env.NEXT_PUBLIC_LOTTERY_CONTRACT as string;
+				const contractAddress: string = process.env.LOTTERY_CONTRACT as string;
 
 				const tokenContract = new ethers.Contract(
 					contractAddress,

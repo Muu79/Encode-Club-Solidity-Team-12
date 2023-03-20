@@ -17,7 +17,7 @@ const WithdrawPrize = () => {
     const [withdrawOwner, setWithOwner] = useState();
     const [ownerPool, setOwnerPool] = useState(0);
     const [owner, setOwner] = useState<boolean>(false);
-    const lotteryAddress = process.env.NEXT_PUBLIC_LOTTERY_CONTRACT as string;
+    const lotteryAddress = process.env.LOTTERY_CONTRACT as string;
 
     useEffect(() => {
         if (!wallet) return;
