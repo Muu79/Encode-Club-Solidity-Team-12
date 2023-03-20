@@ -86,8 +86,11 @@ export default function RootLayout({
 				</div>
 				{/* <ThreePage> */}
 				{/* <Sidebar /> */}
-				{/* <ClientProvider children={children} /> */}
+				{/* <ClientProvider>
+					{children}
+				</ClientProvider> */}
 				{/* </ThreePage> */}
+
 			</body>
 		</html>
 	);

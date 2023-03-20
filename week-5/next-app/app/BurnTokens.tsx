@@ -13,7 +13,7 @@ const BurnTokens = () => {
     const [burnAmount, setBurnAmount] = useState<number>(-1);
     const [signer, setSigner] = useState<ethers.providers.JsonRpcSigner>();
     const [lotteryContract, setLotteryContract] = useState<ethers.Contract>();
-    const lotteryAddress = process.env.NEXT_PUBLIC_LOTTERY_CONTRACT as string;
+    const lotteryAddress = process.env.LOTTERY_CONTRACT as string;
 
     useEffect(() => {
         if (!wallet || !wallet.provider) return;

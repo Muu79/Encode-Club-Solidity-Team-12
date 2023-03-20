@@ -14,7 +14,7 @@ const LotteryStatus = () => {
     const [status, setStatus] = useState<boolean>();
     const [owner, setOwner] = useState<boolean>();
     const [close, setClose] = useState<Date>(new Date(Date.now()));
-    const lotteryAddress = process.env.NEXT_PUBLIC_LOTTERY_CONTRACT as string;
+    const lotteryAddress = process.env.LOTTERY_CONTRACT as string;
 
     useEffect(() => {
         if (!wallet) return;

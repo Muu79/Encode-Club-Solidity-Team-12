@@ -1,11 +1,13 @@
 import { LegacyRef, MutableRefObject, ReactNode } from "react"
 
 export type CardProps = {
-    children: ReactNode
+    children: ReactNode,
+    className?: string;
 }
 
 export type PrimaryBtnProps = {
     name: string,
+    className?: string
     onClick?: () => void;
 }
 

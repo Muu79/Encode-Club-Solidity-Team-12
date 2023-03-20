@@ -1,15 +1,17 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.7.0 <0.9.0;
 
-import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {LotteryToken} from "./LotteryToken.sol";
 
 /// @title A very simple lottery contract
-/// @author Matheus Pagani
+/// @author Team 12
 /// @notice You can use this contract for running a very simple lottery
 /// @dev This contract implements a relatively weak randomness source, since there is no cliff period between the randao reveal and the actual usage in this contract
 /// @custom:teaching This is a contract meant for teaching only
-contract Lottery is Ownable {
+
+contract LotteryClone {
+    /// @notice Address of the owner
+    address public owner;
     /// @notice Address of the token used as payment for the bets
     LotteryToken public paymentToken;
     /// @notice Amount of tokens given per ETH paid
@@ -32,23 +34,28 @@ contract Lottery is Ownable {
     /// @dev List of bet slots
     address[] _slots;
 
-    /// @notice Constructor function
+    modifier onlyOwner() {
+        require (msg.sender == owner,"Caller is not the owner");
+        _;
+    }
+
+    /// @notice init function is called by the LotteryCloneFactory to create a new lottery
     /// @param tokenName Name of the token used for payment
     /// @param tokenSymbol Symbol of the token used for payment
     /// @param _purchaseRatio Amount of tokens given per ETH paid
     /// @param _betPrice Amount of tokens required for placing a bet that goes for the prize pool
     /// @param _betFee Amount of tokens required for placing a bet that goes for the owner pool
-    constructor(
+    function init(
         string memory tokenName,
         string memory tokenSymbol,
         uint256 _purchaseRatio,
         uint256 _betPrice,
-        uint256 _betFee
-    ) {
+        uint256 _betFee,address _owner) external {
         paymentToken = new LotteryToken(tokenName, tokenSymbol);
         purchaseRatio = _purchaseRatio;
         betPrice = _betPrice;
         betFee = _betFee;
+        owner = _owner;
     }
 
     /// @notice Passes when the lottery is at closed state
@@ -117,7 +124,7 @@ contract Lottery is Ownable {
     /// @notice Returns a random number calculated from the previous block randao
     /// @dev This only works after The Merge
     function getRandomNumber() public view returns (uint256 randomNumber) {
-        randomNumber = block.difficulty;
+        randomNumber = block.prevrandao;
     }
 
     /// @notice Withdraws `amount` from that accounts's prize pool
