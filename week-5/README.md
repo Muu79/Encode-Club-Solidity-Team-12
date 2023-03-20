@@ -2,6 +2,8 @@
 
 ## Architecture
 
+![Team 12 Lottery Dapp](./docs/display.png 'Lottery Dapp')
+
 Overall, this design concept seeks to create a sense of excitement around the lottery system, using dynamic animations and sound to capture the attention and imagination of users.
 
 The Dapp interacts with two smart contracts: a token contract and a lottery contract. You can use the token contract as a standard ERC20 token or you can place bets with your tokens.
@@ -21,8 +23,6 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000)
-
-**Note**: we require minter's private key and your Alchemy API key. Put them in `backend/.env` file.
 
 ## Smart contracts
 
