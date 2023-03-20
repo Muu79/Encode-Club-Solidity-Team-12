@@ -1,0 +1,11 @@
+Model Information:
+* title:	YEEZY HURACAN
+* source:	https://sketchfab.com/3d-models/yeezy-huracan-2071701c66d044f988ea610838fd690a
+* author:	Hammad (https://sketchfab.com/xix)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "YEEZY HURACAN" (https://sketchfab.com/3d-models/yeezy-huracan-2071701c66d044f988ea610838fd690a) by Hammad (https://sketchfab.com/xix) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
