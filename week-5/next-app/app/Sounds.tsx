@@ -4,7 +4,7 @@ import { GiSoundOff, GiSoundOn } from 'react-icons/gi';
 import style from './goldButton.module.css';
 import useSound from 'use-sound';
 
-const Sounds = async () => {
+const Sounds = () => {
 	const soundUrl = '/effect.wav';
 	const musicUrl = '/button.mp3';
 	const [play] = useSound(soundUrl, { volume: 0.1 });
