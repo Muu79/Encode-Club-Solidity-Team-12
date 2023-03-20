@@ -3,6 +3,7 @@ import { FaGithub } from 'react-icons/fa';
 import PlaceBet from './PlaceBet';
 import styles from './page.module.css';
 import PurchaseTokens from './PurchaseTokens';
+import BurnTokens from './BurnTokens';
 
 export default function Home() {
 	return (
@@ -29,6 +30,9 @@ export default function Home() {
 				</div>
 				<div className={styles.card}>
 					<PlaceBet />
+				</div>
+				<div className={styles.card}>
+					<BurnTokens />
 				</div>
 			</div>
 			<div className='absolute bottom-0 right-0 mr-8 mb-8'>
