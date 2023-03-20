@@ -25,7 +25,7 @@ const PurchaseTokens = () => {
 				);
 				const signer = ethersProvider.getSigner();
 				console.log('signer ', signer);
-				const contractAddress: string = process.env.LOTTERY_CONTRACT as string;
+				const contractAddress: string = process.env.NEXT_PUBLIC_LOTTERY_CONTRACT as string;
 
 				const tokenContract = new ethers.Contract(
 					contractAddress,
@@ -38,11 +38,7 @@ const PurchaseTokens = () => {
 				//const tx = await tokenContract.connect(signer).purchaseTokens({
 				//	value: ethValue,
 				//});
-				const unsignedHash = tokenContract.purchaseTokens({ value: ethValue });
-
-				const tx = await signer.sendTransaction({
-					data: unsignedHash,
-				});
+				const tx = await tokenContract.connect(signer).purchaseTokens({ value: ethValue });
 				const receipt = await tx.wait();
 				if (receipt.blockNumber !== undefined) {
 					toast.success('Successfully purchased', {
@@ -52,6 +48,7 @@ const PurchaseTokens = () => {
 					toast.error('Something went wrong!', { id: notification });
 				}
 			} catch (error) {
+				console.error(error);
 				toast.error('Whoops... Failed to purchase!', { id: notification });
 			}
 		}
