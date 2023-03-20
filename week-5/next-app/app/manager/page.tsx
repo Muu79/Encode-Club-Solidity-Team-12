@@ -10,9 +10,6 @@ export default function Home() {
                 <Card>
                     <LotteryStatus />
                 </Card>
-                <Card>
-                    <WithdrawPrize />
-                </Card>
             </div>
         </div>
     )

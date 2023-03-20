@@ -8,32 +8,23 @@ import { SetStateAction, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import * as lotteryJson from '../../utils/abi/Lottery.json';
 
-const WithdrawPrize = () => {
+const WithdrawPrize = (props: 
+    {signer: ethers.providers.JsonRpcSigner,
+    lotteryContract: ethers.Contract,
+    owner: boolean,
+    }
+    ) => {
     const [{ wallet }] = useConnectWallet();
-    const [signer, setSigner] = useState<ethers.providers.JsonRpcSigner>();
-    const [lotteryContract, setLotteryContract] = useState<ethers.Contract>();
+    const {signer, lotteryContract, owner} = props;
     const [prizePool, setPrizePool] = useState(0);
     const [withdrawPrize, setWithPrize] = useState();
     const [withdrawOwner, setWithOwner] = useState();
     const [ownerPool, setOwnerPool] = useState(0);
-    const [owner, setOwner] = useState<boolean>(false);
-    const lotteryAddress = process.env.LOTTERY_CONTRACT as string;
-
-    useEffect(() => {
-        if (!wallet) return;
-        const provider = new ethers.providers.Web3Provider(wallet.provider, 'any');
-        setSigner(provider.getSigner());
-    }, [wallet])
-
-    useEffect(() => {
-        if (!signer) return;
-        setLotteryContract(new ethers.Contract(lotteryAddress, lotteryJson.abi, signer));
-    }, [signer])
+    const lotteryAddress = lotteryContract.address;
 
     useEffect(() => {
         if (!lotteryContract) return;
         lotteryContract.prize(wallet?.accounts[0].address).then((value: SetStateAction<number>) => setPrizePool(value));
-        lotteryContract.owner().then((value: string) => { setOwner(value.toLowerCase() == wallet?.accounts[0].address.toLowerCase()) });
     }, [lotteryContract])
 
     useEffect(() => {
@@ -79,7 +70,7 @@ const WithdrawPrize = () => {
     }
 
     return (
-        <div>
+        <div className="text-center">
             <h1>Prize pool available to withdraw: {formatEther(prizePool.toString())}</h1>
             <InputField inputType={"number"} placeholder={"amount of tokens to withdraw"} onChange={handleChange.prize} />
             <PrimaryBtn name={"Withdraw Prize"} onClick={handleClick.prize} />

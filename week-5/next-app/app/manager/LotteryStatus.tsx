@@ -5,19 +5,21 @@ import { SetStateAction, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import * as LotteryJson from '../../utils/abi/Lottery.json'
 import { InputField, PrimaryBtn } from "../../components/HtmlElements";
+import WithdrawPrize from "./WithdrawPrize";
 
 
-const LotteryStatus = () => {
+const LotteryStatus = (props : {lotteryAddress?: string}) => {
     const [{ wallet }] = useConnectWallet();
     const [lotteryContract, setLotteryContract] = useState<ethers.Contract>();
     const [signer, setSigner] = useState<ethers.providers.JsonRpcSigner>();
     const [status, setStatus] = useState<boolean>();
     const [owner, setOwner] = useState<boolean>();
     const [close, setClose] = useState<Date>(new Date(Date.now()));
-    const lotteryAddress = process.env.LOTTERY_CONTRACT as string;
+    let {lotteryAddress} = props;
+    if(!lotteryAddress) lotteryAddress = process.env.LOTTERY_CONTRACT as string;
 
     useEffect(() => {
-        if (!wallet) return;
+        if (!wallet || !lotteryAddress) return;
         setLotteryContract(new ethers.Contract(lotteryAddress, LotteryJson.abi));
         const provider = new ethers.providers.Web3Provider(wallet.provider, 'any');
         setSigner(provider.getSigner());
@@ -88,12 +90,13 @@ const LotteryStatus = () => {
         <p className="text-xl">Status: Lottery {status ? "Open" : "Closed"}</p>
         {/* show relevant button based on ownership and status*/}
         {!status ?
-            (owner && (<>
+            (owner && (<div className="w-full text-center">
                 <p className="pt-2 mb-0">Date and time lottery should close:</p>
                 <InputField inputType={"datetime-local"} placeholder={""} onChange={handleChange} />
                 <PrimaryBtn name={"Open Bets"} onClick={openBets} />
-            </>)) :
+            </div>)) :
             (<PrimaryBtn name={'Close Bets'} onClick={closeBets} />)}
+            {signer && lotteryContract && owner !== undefined && (<WithdrawPrize lotteryContract={lotteryContract} signer={signer} owner={owner}/>)}
     </>)
 }
 export default LotteryStatus;
