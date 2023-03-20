@@ -1,28 +1,15 @@
 'use client';
-import React, { useEffect, useState } from 'react';
-
-import FlipClockCountdown from '@leenguyen/react-flip-clock-countdown';
-import '@leenguyen/react-flip-clock-countdown/dist/index.css';
-import useSound from 'use-sound';
-import style from './goldButton.module.css';
+import { useEffect, useState } from 'react';
 import { GiSoundOff, GiSoundOn } from 'react-icons/gi';
+import style from './goldButton.module.css';
+import useSound from 'use-sound';
 
-const Home = () => {
+const Sounds = async () => {
 	const soundUrl = '/effect.wav';
-
 	const musicUrl = '/button.mp3';
-
 	const [play] = useSound(soundUrl, { volume: 0.1 });
-
 	const [music, { stop }] = useSound(musicUrl, { volume: 0.25 });
-
-	const [isHovering, setIsHovering] = React.useState(false);
 	const [isSilent, setIsSilent] = useState(true);
-
-	const [count, setCount] = useState(new Date().getTime() + 3600 * 1000 + 5000);
-	// TODO: fetch timestamp(betsClosingTime) from lottery smartcontract
-	// setCount(betsClosingTime-now)
-
 	useEffect(() => {
 		if (isSilent) {
 			stop();
@@ -30,18 +17,10 @@ const Home = () => {
 			music();
 		}
 	}, [isSilent]);
+	const [isHovering, setIsHovering] = useState(false);
 
 	return (
 		<div>
-			<div>
-				<FlipClockCountdown
-					className='flip-clock'
-					to={count}
-					separatorStyle={{ color: 'black', size: '6px' }}
-					labels={['DAYS', 'HOURS', 'MINUTES', 'SECONDS']}
-					renderMap={[false, true, true, true]}
-				/>
-			</div>
 			<button
 				onClick={() => {
 					setIsSilent(!isSilent);
@@ -49,7 +28,6 @@ const Home = () => {
 			>
 				{isSilent ? <GiSoundOff size={30} /> : <GiSoundOn size={30} />}
 			</button>
-
 			<button
 				onMouseEnter={() => {
 					setIsHovering(true);
@@ -69,4 +47,4 @@ const Home = () => {
 	);
 };
 
-export default Home;
+export default Sounds;

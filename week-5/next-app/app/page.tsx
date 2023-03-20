@@ -4,6 +4,7 @@ import PlaceBet from './PlaceBet';
 import styles from './page.module.css';
 import PurchaseTokens from './PurchaseTokens';
 import BurnTokens from './BurnTokens';
+import Clock from './Clock';
 
 export default function Home() {
 	return (
@@ -24,6 +25,7 @@ export default function Home() {
 				</div>
 			</div>
 			<p className='text-2xl mb-1'>Week-5 Project</p>
+			<Clock />
 			<div className={styles.grid}>
 				<div className={styles.card}>
 					<PurchaseTokens />
