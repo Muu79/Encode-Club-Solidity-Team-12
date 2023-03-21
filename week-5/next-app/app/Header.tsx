@@ -27,7 +27,7 @@ export default function Header() {
 			</div> */}
 
 			<div className='hidden md:flex md:col-span-3 items-center justify-center rounded-md'>
-				<div className='bg-[#0A1F1C]'>
+				<div className='bg-transparent'>
 					{/* <button className={`bg-[#036756] text-white py-2 px-2 rounded`}>
 						Buy Ticket
 					</button> */}

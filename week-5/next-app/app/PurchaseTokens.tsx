@@ -177,7 +177,7 @@ const PurchaseTokens = () => {
 				<InputField
 					className='flex w-full bg-transparent text-white text-right outline-none'
 					inputType='number'
-					placeholder='Amount of tokens'
+					placeholder='Ticket amount'
 					onChange={handleChange}
 				/>
 			</div>

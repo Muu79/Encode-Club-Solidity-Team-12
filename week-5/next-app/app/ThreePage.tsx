@@ -1,4 +1,6 @@
 'use client';
+import Image from 'next/image';
+import styles from './page.module.css';
 import {
 	CubeCamera,
 	Environment,
@@ -17,6 +19,7 @@ import { Suspense } from 'react';
 import { Boxes } from './Boxes';
 import { Car } from './Car';
 import { Ground } from './Ground';
+import PropagateLoader from 'react-spinners/PropagateLoader';
 
 function CarModel() {
 	return (
@@ -89,7 +92,36 @@ function CarModel() {
 export default function ThreePage({ children }: { children: React.ReactNode }) {
 	return (
 		<div>
-			<Suspense fallback={<p>Loading models...</p>}>
+			<Suspense
+				fallback={
+					<div className='bg-[#091B18] min-h-screen flex flex-col items-center text-center justify-center'>
+						<div className='flex flex-col items-center mb-10'>
+							<div className='flex items-center space-x-2'>
+								<Image
+									className={styles.logo}
+									src='/Team.svg'
+									alt='Team Logo'
+									width={180}
+									height={37}
+									priority
+								/>
+								<div className={styles.thirteen}>
+									<Image
+										src='/twelve.svg'
+										alt='12'
+										width={40}
+										height={31}
+										priority
+									/>
+								</div>
+							</div>
+							<h1 className='text-6xl text-white font-bold'>Loading Models</h1>
+							<h2 className='text-white'>Week-5 project</h2>
+							<PropagateLoader color='white' size={30} />
+						</div>
+					</div>
+				}
+			>
 				{children}
 				<Canvas shadows>
 					<CarModel />

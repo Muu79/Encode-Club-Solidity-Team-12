@@ -7,13 +7,19 @@ import BurnTokens from './BurnTokens';
 import Clock from './Clock';
 import Header from './Header';
 import PrizePool from './PrizePool';
+import ScrollMarquee from './ScrollMarquee';
+import Winner from './Winner';
+import Manager from './Manager';
 
 export default function Home() {
 	return (
 		<main>
 			<Header />
+			<ScrollMarquee />
+			<Winner />
+			<Manager />
 			<div className='space-y-5 md:space-y-0 m-5 md:flex md:flex-row items-start justify-center md:space-x-5'>
-				<div className='bg-[#091F1C] p-5 rounded-lg border-[#004337] border'>
+				<div className='bg-[#091F1C]/40 p-5 rounded-lg border-[#004337] border'>
 					<h1 className='text-5xl text-center font-semibold text-white'>
 						Next Draw
 					</h1>
@@ -30,12 +36,12 @@ export default function Home() {
 					</div>
 					<Clock />
 				</div>
-				<div className='bg-[#091F1C] p-5 rounded-lg border-[#004337] border space-y-2'>
+				<div className='bg-[#091F1C]/40 p-5 rounded-lg border-[#004337] border space-y-2'>
 					{/* Purchase tokens */}
 					<PurchaseTokens />
 				</div>
 
-				<div className='bg-[#091F1C] p-5 rounded-lg border-[#004337] border space-y-2'>
+				<div className='bg-[#091F1C]/40 p-5 rounded-lg border-[#004337] border space-y-2'>
 					<BurnTokens />
 				</div>
 			</div>
