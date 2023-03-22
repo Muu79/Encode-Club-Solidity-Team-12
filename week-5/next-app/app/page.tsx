@@ -36,10 +36,12 @@ export default function Home() {
 					</div>
 					<Clock />
 				</div>
+
 				<div className='bg-[#091F1C]/40 p-5 rounded-lg border-[#004337] border space-y-2'>
 					{/* Purchase tokens */}
 					<PurchaseTokens />
 				</div>
+
 
 				<div className='bg-[#091F1C]/40 p-5 rounded-lg border-[#004337] border space-y-2'>
 					<BurnTokens />

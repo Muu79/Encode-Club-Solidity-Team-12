@@ -1,4 +1,5 @@
 'use client';
+
 import Image from 'next/image';
 import styles from './page.module.css';
 import {
@@ -20,6 +21,7 @@ import { Boxes } from './Boxes';
 import { Car } from './Car';
 import { Ground } from './Ground';
 import PropagateLoader from 'react-spinners/PropagateLoader';
+
 
 function CarModel() {
 	return (
