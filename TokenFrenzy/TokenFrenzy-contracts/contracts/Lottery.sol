@@ -37,9 +37,9 @@ contract Lottery is VRFV2WrapperConsumerBase,
     mapping (address => address) pairs;
     /// @dev Amount received from each token
     mapping (address => uint) amountTokens;
-    /// @notice Odds of winning the lottery in %
-    /// @dev Proccents are with 2 "decimals". 10000 = 100%
-    mapping (address => uint256) public odds;
+    /// @dev Amount of tokens deposited by players in WETH
+    mapping (address => uint256) wethWorth;
+    
     /// @dev LINK token is used to pay for random number 
     address constant linkAddress = 0x326C977E6efc84E512bB9C30f76E30c160eD06FB;
     /// @dev Address of Chainlink VRFWAPPER
@@ -95,6 +95,7 @@ contract Lottery is VRFV2WrapperConsumerBase,
         require(_acceptedTokens.length == _pairs.length);
         lotteryWinner = address(0x0);
         totalBets = 0;
+        delete receivedTokens;
         delete enteredLottery;
         acceptedTokens[WETH] = true;
         minBet = _minBet;
@@ -115,15 +116,14 @@ contract Lottery is VRFV2WrapperConsumerBase,
         require(acceptedTokens[token],"Token not accepted!");
         uint256 amountWeth;
         bool entered;
-        token == WETH ? amountWeth = amount : amountWeth = getAmountOut(token, amount);
+        amountWeth = token == WETH ? amount : getAmountOut(token, amount);
         if (amountWeth < minBet) revert("Amount is less than minimum bet!");
 
         IERC20 tokenI = IERC20(token);
         tokenI.transferFrom(msg.sender, address(this), amount);
         totalBets += amountWeth;
 
-        uint256 odd = (amountWeth * 10000) / totalBets;
-        odds[msg.sender] += odd;
+        wethWorth[msg.sender] += amountWeth;
         amountTokens[token] += amount;
         
         address[] memory _enteredLottery = enteredLottery;
@@ -151,6 +151,7 @@ contract Lottery is VRFV2WrapperConsumerBase,
         IUniswapV2Pair pair = IUniswapV2Pair(pairAddress);
         address token1 = pair.token1();
         (uint256 Res0, uint256 Res1,) = pair.getReserves();
+
         if (token1 == WETH) {
             reserveIn = Res0;
             reserveOut = Res1;
@@ -158,6 +159,7 @@ contract Lottery is VRFV2WrapperConsumerBase,
             reserveIn = Res1;
             reserveOut = Res0;
         }
+
         uint256 amountInWithFee = amountIn * 997;
         uint256 numerator = amountInWithFee * reserveOut;
         uint256 denominator = reserveIn * 1000 + amountInWithFee;
@@ -165,25 +167,27 @@ contract Lottery is VRFV2WrapperConsumerBase,
     }
 
     /// @notice Closes the lottery and requests a random number to  pick a winner
-    function closeLottery() external whenLotteryOpen returns (uint256){
+    function closeLottery() external whenLotteryOpen returns (uint256 requestId){
         require(block.timestamp >= lotteryClosingTime);    
         lotteryOpen = false;
-        require(totalBets > 0);
-        uint256 requestId = requestRandomness(callbackGasLimit, requestConfirmations, numWords);
+        if (totalBets > 0) {
+            requestId = requestRandomness(callbackGasLimit, requestConfirmations, numWords);
 
-        statuses[requestId] = RequestStatus({
-            fees: VRF_V2_WRAPPER.calculateRequestPrice(callbackGasLimit),
-            randomWord: 0,
-            fulfilled: false
-        });
+            statuses[requestId] = RequestStatus({
+                fees: VRF_V2_WRAPPER.calculateRequestPrice(callbackGasLimit),
+                randomWord: 0,
+                fulfilled: false
+            });
 
-        for (uint256 i = 0; i < listAcceptedTokens.length; i++){
-            acceptedTokens[listAcceptedTokens[i]] = false;
-        }
-        delete listAcceptedTokens;
+            for (uint256 i = 0; i < listAcceptedTokens.length; i++){
+                acceptedTokens[listAcceptedTokens[i]] = false;
+            }
+            delete listAcceptedTokens;
     
-        emit RandomRequest(requestId);  
-        return requestId;     
+            emit RandomRequest(requestId);  
+            return requestId;   
+        }
+          
     }
 
     /// @dev Callback function required to get the random number from VRF2. It picks a winners and approves the spending
@@ -202,10 +206,12 @@ contract Lottery is VRFV2WrapperConsumerBase,
     function pickWinner(uint256 random) internal returns(address winner) {
         uint256 startRange;
         uint256 endRange;
+        uint256 odds;
         address[] memory _enteredLottery = enteredLottery;
         for (uint256 i = 0 ; i < _enteredLottery.length; i++) {
-            endRange = startRange + odds[_enteredLottery[i]] - 1;
-            odds[_enteredLottery[i]] = 0;
+            odds = (wethWorth[_enteredLottery[i]] * 10000) / totalBets;
+            endRange = startRange + odds - 1;
+            wethWorth[_enteredLottery[i]] = 0;
             if (random >= startRange && random <= endRange) winner = _enteredLottery[i];
             startRange += endRange + 1;
         }        
@@ -215,9 +221,10 @@ contract Lottery is VRFV2WrapperConsumerBase,
     function winningsWithdraw() external {
         require(lotteryWinner == msg.sender,"Not the winner");
         uint256 amount;
-        for (uint256 i = 0; i < receivedTokens.length; i++) {
-            IERC20 token = IERC20(receivedTokens[i]);
-            amount = amountTokens[receivedTokens[i]] * (10000 - ownersFee) / 10000;
+        address[] memory _receivedTokens;
+        for (uint256 i = 0; i < _receivedTokens.length; i++) {
+            IERC20 token = IERC20(_receivedTokens[i]);
+            amount = amountTokens[_receivedTokens[i]] * (10000 - ownersFee) / 10000;
             amountTokens[receivedTokens[i]] -= amount;
             token.transfer(msg.sender, amount);         
         }
@@ -225,11 +232,13 @@ contract Lottery is VRFV2WrapperConsumerBase,
 
     /// @notice Withdraw the fee tokens to the owner
     function ownerWithdraw() external onlyOwner{
-        for (uint256 i = 0; i < receivedTokens.length; i++) {
-            IERC20 token = IERC20(receivedTokens[i]);
-            token.transfer(msg.sender, amountTokens[receivedTokens[i]]);         
-            amountTokens[receivedTokens[i]] = 0;
-        }
-        delete receivedTokens;
+        address[] memory _receivedTokens;
+        uint256 amount;
+        for (uint256 i = 0; i < _receivedTokens.length; i++) {
+            IERC20 token = IERC20(_receivedTokens[i]);
+            amount = amountTokens[_receivedTokens[i]];
+            amountTokens[receivedTokens[i]] -= amount;
+            token.transfer(msg.sender, amountTokens[_receivedTokens[i]]);         
+        }       
     }
 }
