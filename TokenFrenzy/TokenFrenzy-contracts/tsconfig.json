@@ -1,5 +1,10 @@
 {
-	"include": ["./scripts", "./tests", "./typechain-types"],
+	"include": [
+		"./scripts",
+		"./tests",
+		"./typechain-types",
+		"./environment.d.ts"
+	],
 	"files": ["./hardhat.config.ts"],
 	"compilerOptions": {
 		"target": "es2020",
