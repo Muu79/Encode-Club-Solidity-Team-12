@@ -119,6 +119,7 @@ contract TokenFrenzy is VRFV2WrapperConsumerBase, ConfirmedOwner {
         newTokenfrenzy.lotteryClosingTime = _lotteryClosingTime;
 
         newTokenfrenzy.acceptedTokens[WETH] = true;
+        newTokenfrenzy.listAcceptedTokens.push(WETH);
 
         for (uint256 i = 0 ; i < _acceptedTokens.length ; ++i){
             newTokenfrenzy.acceptedTokens[_acceptedTokens[i]] = true;
@@ -213,7 +214,7 @@ contract TokenFrenzy is VRFV2WrapperConsumerBase, ConfirmedOwner {
      *      Each player is assigned a range of numbers based on his odds. 
      *      If the random generated number % 10000 is in the player`s range he is the winner.
      */
-    function findWinner() external whenLotteryClosed returns(bool){
+    function findWinner() external whenLotteryClosed returns (bool) {
         uint256 requestId = latestRequestId;
         require (statuses[requestId].fulfilled,"Random not fulfilled");
         require(tokenFrenzy[index].lotteryWinner == address(0x0),"Winner already found");
@@ -239,9 +240,11 @@ contract TokenFrenzy is VRFV2WrapperConsumerBase, ConfirmedOwner {
                 return true;
             }
 
+            startRange = ++endRange;
             ++stepIndex;
+            ++step;
 
-            if(++step == 100) {
+            if(step == 100) {
                 lastRange = ++endRange;
                 winnerIndex = stepIndex;
                 return false;
@@ -281,7 +284,7 @@ contract TokenFrenzy is VRFV2WrapperConsumerBase, ConfirmedOwner {
             balance = newTokenfrenzy.amountTokens[listAcceptedTokens[i]];
             if (balance > 0) {
                 IERC20 token = IERC20(listAcceptedTokens[i]);
-                amount = balance * (10000 - ownersFee) / 10000;
+                amount = (balance * fee) / 10000;
                 token.transfer(msg.sender, amount);         
             }
         }
