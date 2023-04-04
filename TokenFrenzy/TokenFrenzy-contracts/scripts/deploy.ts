@@ -1,6 +1,6 @@
 import * as dotenv from "dotenv";
 import { ethers } from "hardhat";
-import { Lottery__factory } from "../typechain-types";
+import { TokenFrenzy__factory } from "../typechain-types";
 
 dotenv.config();
 const api = process.env.ALCHEMY_API_KEY;
@@ -10,10 +10,11 @@ async function main() {
 	const provider = new ethers.providers.AlchemyProvider("goerli", api);
 	const signer = new ethers.Wallet(privateKey).connect(provider);
 
-	const lotteryFactory = new Lottery__factory(signer);
+	const lotteryFactory = new TokenFrenzy__factory(signer);
 	const lottery = await lotteryFactory.deploy();
+	const deployTxReceipt = await lottery.deployTransaction.wait();
 
-	console.log(await lottery.deployed());
+	console.log(`Contract deployed at: ${deployTxReceipt.contractAddress}`);
 }
 
 main().catch((error) => {

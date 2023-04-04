@@ -1,0 +1,5 @@
+{
+	"solidity-va.tools.surya.option.negModifiers": false,
+	"solidity-va.preview.markdown": true,
+	"solidity-va.debug.parser.showExceptions": true
+}
