@@ -24,6 +24,9 @@ const config: HardhatUserConfig = {
 		goerli: {
 			url: `https://eth-goerli.g.alchemy.com/v2/${alchemyApi}`,
 		},
+		mumbai: {
+			url: `https://polygon-mumbai.g.alchemy.com/v2/${alchemyApi}`,
+		},
 	},
 };
 
