@@ -1,0 +1,134 @@
+strict digraph {
+subgraph cluster_1505_TokenFrenzy {
+label = "TokenFrenzy"
+"1505_getOdds" [label="getOdds"]
+"1505_startLottery" [label="startLottery"]
+"1505_constructor" [label="constructor"]
+"1505_getAcceptedTokens" [label="getAcceptedTokens"]
+"1505_withdrawTokens" [label="withdrawTokens"]
+"1505_getAmountOut" [label="getAmountOut"]
+"1505_findWinner" [label="findWinner"]
+"1505_enterLottery" [label="enterLottery"]
+"1505_fulfillRandomWords" [label="fulfillRandomWords"]
+"1505_closeLottery" [label="closeLottery"]
+"1505_closeLottery" -> "1505_whenLotteryOpen"
+"1505_findWinner" -> "1505_whenLotteryClosed"
+"1505_constructor" -> "1505_constructor"
+"1505_enterLottery" -> "1505_getAmountOut"
+"1505_enterLottery" -> "1505_whenLotteryOpen"
+"1505_withdrawTokens" -> "1505_owner"
+"1505_startLottery" -> "1505_whenLotteryClosed"
+"1505_startLottery" -> "1505_onlyOwner"
+"1505_closeLottery" -> "1505_requestRandomness"
+}subgraph cluster_422_VRFV2WrapperInterface {
+label = "VRFV2WrapperInterface"
+"422_lastRequestId" [label="lastRequestId"]
+"422_estimateRequestPrice" [label="estimateRequestPrice"]
+"422_calculateRequestPrice" [label="calculateRequestPrice"]
+}subgraph cluster_395_OwnableInterface {
+label = "OwnableInterface"
+"395_owner" [label="owner"]
+"395_acceptOwnership" [label="acceptOwnership"]
+"395_transferOwnership" [label="transferOwnership"]
+}subgraph cluster_1747_IUniswapV2Pair {
+label = "IUniswapV2Pair"
+"1747_transferFrom" [label="transferFrom"]
+"1747_mint" [label="mint"]
+"1747_sync" [label="sync"]
+"1747_PERMIT_TYPEHASH" [label="PERMIT_TYPEHASH"]
+"1747_initialize" [label="initialize"]
+"1747_token1" [label="token1"]
+"1747_symbol" [label="symbol"]
+"1747_nonces" [label="nonces"]
+"1747_transfer" [label="transfer"]
+"1747_price1CumulativeLast" [label="price1CumulativeLast"]
+"1747_DOMAIN_SEPARATOR" [label="DOMAIN_SEPARATOR"]
+"1747_allowance" [label="allowance"]
+"1747_token0" [label="token0"]
+"1747_totalSupply" [label="totalSupply"]
+"1747_permit" [label="permit"]
+"1747_getReserves" [label="getReserves"]
+"1747_factory" [label="factory"]
+"1747_burn" [label="burn"]
+"1747_kLast" [label="kLast"]
+"1747_decimals" [label="decimals"]
+"1747_price0CumulativeLast" [label="price0CumulativeLast"]
+"1747_skim" [label="skim"]
+"1747_balanceOf" [label="balanceOf"]
+"1747_MINIMUM_LIQUIDITY" [label="MINIMUM_LIQUIDITY"]
+"1747_name" [label="name"]
+"1747_swap" [label="swap"]
+"1747_approve" [label="approve"]
+}subgraph cluster_500_IERC20 {
+label = "IERC20"
+"500_transfer" [label="transfer"]
+"500_totalSupply" [label="totalSupply"]
+"500_balanceOf" [label="balanceOf"]
+"500_transferFrom" [label="transferFrom"]
+"500_allowance" [label="allowance"]
+"500_approve" [label="approve"]
+}subgraph cluster_181_ConfirmedOwnerWithProposal {
+label = "ConfirmedOwnerWithProposal"
+"181_constructor" [label="constructor"]
+"181_transferOwnership" [label="transferOwnership"]
+"181_acceptOwnership" [label="acceptOwnership"]
+"181__validateOwnership" [label="_validateOwnership"]
+"181__transferOwnership" [label="_transferOwnership"]
+"181_owner" [label="owner"]
+"181_transferOwnership" -> "181__transferOwnership"
+"181_constructor" -> "181__transferOwnership"
+"181_transferOwnership" -> "181_onlyOwner"
+}subgraph cluster_19_ConfirmedOwner {
+label = "ConfirmedOwner"
+"19_constructor" [label="constructor"]
+"19_constructor" -> "19_constructor"
+}subgraph cluster_379_LinkTokenInterface {
+label = "LinkTokenInterface"
+"379_totalSupply" [label="totalSupply"]
+"379_approve" [label="approve"]
+"379_transferAndCall" [label="transferAndCall"]
+"379_balanceOf" [label="balanceOf"]
+"379_transfer" [label="transfer"]
+"379_decimals" [label="decimals"]
+"379_decreaseApproval" [label="decreaseApproval"]
+"379_transferFrom" [label="transferFrom"]
+"379_name" [label="name"]
+"379_allowance" [label="allowance"]
+"379_increaseApproval" [label="increaseApproval"]
+"379_symbol" [label="symbol"]
+}subgraph cluster_284_VRFV2WrapperConsumerBase {
+label = "VRFV2WrapperConsumerBase"
+"284_requestRandomness" [label="requestRandomness"]
+"284_rawFulfillRandomWords" [label="rawFulfillRandomWords"]
+"284_constructor" [label="constructor"]
+"284_fulfillRandomWords" [label="fulfillRandomWords"]
+"284_rawFulfillRandomWords" -> "284_fulfillRandomWords"
+}subgraph cluster_solidity {
+label = "[Solidity]"
+"revert(string)" 
+"require(bool)" 
+"abi.encode()" 
+"require(bool,string)" 
+"1505_fulfillRandomWords" -> "require(bool,string)"
+"181__validateOwnership" -> "require(bool,string)"
+"284_rawFulfillRandomWords" -> "require(bool,string)"
+"1505_enterLottery" -> "revert(string)"
+"1505_findWinner" -> "require(bool,string)"
+"1505_withdrawTokens" -> "revert(string)"
+"1505_withdrawTokens" -> "require(bool,string)"
+"1505_closeLottery" -> "require(bool)"
+"181_constructor" -> "require(bool,string)"
+"1505_enterLottery" -> "require(bool,string)"
+"181__transferOwnership" -> "require(bool,string)"
+"284_requestRandomness" -> "abi.encode()"
+"1505_startLottery" -> "require(bool,string)"
+"181_acceptOwnership" -> "require(bool,string)"
+}"1505_getAmountOut" -> "1747_token1"
+"1505_closeLottery" -> "422_calculateRequestPrice"
+"284_requestRandomness" -> "379_transferAndCall"
+"1505_withdrawTokens" -> "500_transfer"
+"284_requestRandomness" -> "422_calculateRequestPrice"
+"284_requestRandomness" -> "422_lastRequestId"
+"1505_getAmountOut" -> "1747_getReserves"
+"1505_enterLottery" -> "500_transferFrom"
+}
