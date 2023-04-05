@@ -1,21 +1,26 @@
 {
-  "name": "tokenfrenzy-contracts",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
-    "hardhat": "^2.13.0",
-    "mocha": "^10.2.0"
-  },
-  "dependencies": {
-    "@chainlink/contracts": "^0.6.1",
-    "@openzeppelin/contracts": "^4.8.2",
-    "dotenv": "^16.0.3"
-  }
+	"name": "tokenfrenzy-contracts",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"deploy": "npx ts-node --files ./scripts/deploy.ts",
+		"startLottery": "npx ts-node --files ./scripts/startLottery.ts",
+		"enterLottery": "npx ts-node --files ./scripts/enterLottery.ts",
+		"closeLottery": "npx ts-node --files ./scripts/closeLottery.ts",
+    "findWinner": "npx ts-node --files ./scripts/findWinner.ts",
+    "withdrawTokens": "npx ts-node --files ./scripts/withdrawTokens.ts"
+	},
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@nomicfoundation/hardhat-toolbox": "^2.0.2",
+		"hardhat": "^2.13.0",
+		"mocha": "^10.2.0"
+	},
+	"dependencies": {
+		"@chainlink/contracts": "^0.6.1",
+		"@openzeppelin/contracts": "^4.8.2",
+		"dotenv": "^16.0.3"
+	}
 }

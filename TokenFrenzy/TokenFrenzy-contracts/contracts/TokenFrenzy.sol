@@ -57,7 +57,7 @@ contract TokenFrenzy is VRFV2WrapperConsumerBase, ConfirmedOwner {
     }
 
     /// @dev Helper for `withdrawTokens`
-    enum callerId { Owner , Winner, Random}
+    enum callerId { Owner , Winner, Random }
 
     /// @dev Index of the lottery instance starting at 1
     uint256 public index;
@@ -72,11 +72,11 @@ contract TokenFrenzy is VRFV2WrapperConsumerBase, ConfirmedOwner {
     /// @notice Check the status of the VRF2 request 
     mapping(uint256 => RequestStatus) public statuses;     
     /// @dev LINK token is used to pay for random number 
-    address constant linkAddress = 0x326C977E6efc84E512bB9C30f76E30c160eD06FB;
+    address public linkAddress;
     /// @dev Address of Chainlink VRFWAPPER
-    address constant vrfWrapperAddress = 0x708701a1DfF4f478de54383E49a627eD4852C816;
-    /// @dev WETH ERC20 token is accepted by default for the lottery
-    address constant WETH = 0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6;
+    address public vrfWrapperAddress;
+    /// @dev WETH ERC20 token is accepted by default for the lottery and is used to calculate the worth of other tokens
+    address public WETH;
     /// @dev Gas limit for callback function neccessary for VRF2
     uint32 constant callbackGasLimit = 100000;
     /// @dev Number of randomWord request from VRF2
@@ -96,7 +96,11 @@ contract TokenFrenzy is VRFV2WrapperConsumerBase, ConfirmedOwner {
         _;
     }
 
-    constructor() ConfirmedOwner(msg.sender) VRFV2WrapperConsumerBase(linkAddress,vrfWrapperAddress){}
+    constructor(address _linkAddress, address _vrfWrapperAddress, address _WETH) ConfirmedOwner(msg.sender) VRFV2WrapperConsumerBase(linkAddress,vrfWrapperAddress){
+        linkAddress = _linkAddress;
+        vrfWrapperAddress = _vrfWrapperAddress;
+        WETH = _WETH;
+    }
    
     /**
      * @notice Starts the Lottery for players to join
@@ -295,5 +299,9 @@ contract TokenFrenzy is VRFV2WrapperConsumerBase, ConfirmedOwner {
         uint256 balance = newTokenfrenzy.wethWorth[target];
         uint256 totalBets = newTokenfrenzy.totalBets;
         return odds = (balance * 10000) / totalBets;
+    }
+
+    function getAcceptedTokens() public view returns(address[] memory){
+        return tokenFrenzy[index].listAcceptedTokens;
     }
 }
