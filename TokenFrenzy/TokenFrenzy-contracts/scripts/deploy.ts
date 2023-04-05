@@ -7,7 +7,10 @@ const api = process.env.ALCHEMY_API_KEY;
 const privateKey = process.env.PRIVATE_KEY;
 
 async function main() {
-	const provider = new ethers.providers.AlchemyProvider("goerli", api);
+	// CLI argument: for selecting chain goerli or mumbai
+	const args = process.argv.slice(2);
+	const targetNetwork = args[0];
+	const provider = new ethers.providers.AlchemyProvider(targetNetwork, api);
 	const signer = new ethers.Wallet(privateKey).connect(provider);
 
 	const lotteryFactory = new TokenFrenzy__factory(signer);
